@@ -20,7 +20,7 @@ Lancer un terminal dans jhipster-registry et exécuter
     .\mvnw
 
 
-Lancer deux terminaux dans HeraWebsite
+Lancer dans HeraWebsite sur un terminal
   
     npm install
     
