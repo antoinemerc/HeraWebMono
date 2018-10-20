@@ -1,3 +1,6 @@
+# HeraWeb
+
+Pour commencer cloner ce repo dans le dossier de votre choix
 
 # Setup
 
@@ -19,6 +22,10 @@ Lancer un terminal dans jhipster-registry et exécuter
 
 Lancer deux terminaux dans HeraWebsite
   
+    npm install
+    
+Attendez que l'opération finnise avant d'éxecuter dans deux terminaux
+
     .\mvnw
     npm start
 
