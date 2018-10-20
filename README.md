@@ -12,12 +12,12 @@
 
 Pour lancer le projet sur votre machine:
 
-  - Lancer un terminal dans jhipster-registry et exécuter
+Lancer un terminal dans jhipster-registry et exécuter
 
     .\mvnw
 
 
-  - Lancer deux terminaux dans HeraWebsite
+Lancer deux terminaux dans HeraWebsite
   
     .\mvnw
     npm start
