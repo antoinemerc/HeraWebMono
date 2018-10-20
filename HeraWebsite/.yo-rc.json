@@ -1,0 +1,38 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "com.heraco.hera",
+      "nativeLanguage": "fr"
+    },
+    "jhipsterVersion": "5.4.0",
+    "applicationType": "monolith",
+    "baseName": "HeraShop",
+    "packageName": "com.heraco.hera",
+    "packageFolder": "com/heraco/hera",
+    "serverPort": "8080",
+    "authenticationType": "jwt",
+    "cacheProvider": "hazelcast",
+    "enableHibernateCache": false,
+    "websocket": false,
+    "databaseType": "mongodb",
+    "devDatabaseType": "mongodb",
+    "prodDatabaseType": "mongodb",
+    "searchEngine": "elasticsearch",
+    "messageBroker": false,
+    "serviceDiscoveryType": "eureka",
+    "buildTool": "maven",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "YjExZGQ4OTlhYmZmNDVmOWY1MzlkMjNkMTFkOTBkM2RiZmI4YWZkZTNmOTIxN2YwMWY5OTk0MjYzMjQ1ZmVjODIwYzdiNmFjNDBkNjU1NWM1MzkwY2IyY2YzMzkyODQ5OGIzNDY1MDAwYjA5MjVlYmRjZTU0Y2U1NWQwYzg5OGE=",
+    "clientFramework": "angularX",
+    "useSass": true,
+    "clientPackageManager": "npm",
+    "testFrameworks": [],
+    "jhiPrefix": "jhi",
+    "enableTranslation": true,
+    "nativeLanguage": "fr",
+    "languages": [
+      "fr",
+      "en"
+    ]
+  }
+}
