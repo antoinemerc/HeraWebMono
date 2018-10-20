@@ -13,13 +13,14 @@
 Pour lancer le projet sur votre machine:
 
   - Lancer un terminal dans jhipster-registry et exécuter
-  
-     .\mvnw
+
+    .\mvnw
+
 
   - Lancer deux terminaux dans HeraWebsite
   
-     .\mvnw
-     npm start
+    .\mvnw
+    npm start
 
 Le projet est maintenant lancé sur http://localhost:9000
 
