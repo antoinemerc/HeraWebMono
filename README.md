@@ -34,7 +34,7 @@ Le projet est maintenant lancé sur http://localhost:9000
 ## Base de données
 
 Base de données mongodb distante: 
-  - Url disponible dans \HeraWebsite\src\main\resources\config\application-dev.yaml
+  - String de connection de la bd disponible dans \HeraWebsite\src\main\resources\config\application-dev.yaml
   
 Base de données hébergé par https://mlab.com
 Connection au compte avec:
