@@ -11,6 +11,13 @@ Pour commencer cloner ce repo dans le dossier de votre choix
   - NPM v6.4.1 (npm --version pour vérifier)
   - Git v2.10.2 (latest) (git --version pour vérifier)
   
+Si vous souhaitez utiliser une base de donnée locale instaler la dernière version de MongoDB (4.0) et remplacer les lignes 46 et 47 du fichier /src/main/ressources/config/application-dev.yaml avec vos données 
+  
+  - uri: mongodb://localhost:*votre numéro de port*  
+  - database: *votre base de donnée*
+  
+Cela peut être utile pour faire des test sur les modèles
+
 ## Lancement
 
 Pour lancer le projet sur votre machine:
