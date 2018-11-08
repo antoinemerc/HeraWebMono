@@ -43,8 +43,8 @@ spring:
         serialization.indent_output: true
     data:
         mongodb:
-            uri: mongodb://antoineHome:Ecom2018@ds237363.mlab.com:37363/heradbmono
-            database: heradbmono
+            uri: mongodb://localhost:27017
+            database: hera
         elasticsearch:
             properties:
                 path:

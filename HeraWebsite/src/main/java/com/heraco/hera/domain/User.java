@@ -1,6 +1,7 @@
 package com.heraco.hera.domain;
 
 import com.heraco.hera.config.Constants;
+import com.heraco.hera.domain.Address;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.StringUtils;
@@ -13,6 +14,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Objects;
@@ -23,7 +25,7 @@ import java.time.Instant;
  * A user.
  */
 
-@org.springframework.data.mongodb.core.mapping.Document(collection = "jhi_user")
+@org.springframework.data.mongodb.core.mapping.Document(collection = "user")
 @org.springframework.data.elasticsearch.annotations.Document(indexName = "user")
 public class User extends AbstractAuditingEntity implements Serializable {
 
@@ -54,6 +56,9 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Size(min = 5, max = 254)
     @Indexed
     private String email;
+
+    @Field("allAddress")
+    private ArrayList<Address> allAddress;
 
     private boolean activated = false;
 
@@ -91,6 +96,18 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     public String getLogin() {
         return login;
+    }
+
+    public void setAddress(ArrayList<Address> allAddress) {
+        this.allAddress = allAddress;
+    }
+
+    public void setOneAddress(Address address) {
+        this.allAddress.add(address);
+    }
+
+    public ArrayList<Address> getAddress() {
+        return allAddress;
     }
 
     // Lowercase the login before saving it in database

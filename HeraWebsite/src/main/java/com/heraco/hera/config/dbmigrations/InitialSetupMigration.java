@@ -3,12 +3,14 @@ package com.heraco.hera.config.dbmigrations;
 import com.heraco.hera.domain.Authority;
 import com.heraco.hera.domain.User;
 import com.heraco.hera.security.AuthoritiesConstants;
+import com.heraco.hera.domain.Address;
 
 import com.github.mongobee.changeset.ChangeLog;
 import com.github.mongobee.changeset.ChangeSet;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
 import java.time.Instant;
+import java.util.ArrayList;
 
 /**
  * Creates the initial database setup
@@ -33,6 +35,30 @@ public class InitialSetupMigration {
         Authority userAuthority = new Authority();
         userAuthority.setName(AuthoritiesConstants.USER);
 
+        Address add1 = new Address();
+        add1.setStreet1("27 Avenue Jeanne d'arc");
+        add1.setCountry("France");
+
+        Address add2 = new Address();
+        add2.setStreet1("27 Avenue Jeanne d'arc");
+        add2.setCountry("France");
+
+        Address add3 = new Address();
+        add3.setStreet1("3 rainbow street");
+        add3.setCountry("England");
+
+        ArrayList<Address> allAddress1 = new ArrayList<Address>();
+        ArrayList<Address> allAddress2 = new ArrayList<Address>();
+        ArrayList<Address> allAddress3 = new ArrayList<Address>();
+
+        allAddress1.add(add1);
+        allAddress1.add(add2);
+
+        allAddress2.add(add2);
+        allAddress2.add(add3);
+
+        allAddress3.add(add1);
+
         User systemUser = new User();
         systemUser.setId("user-0");
         systemUser.setLogin("system");
@@ -42,6 +68,7 @@ public class InitialSetupMigration {
         systemUser.setEmail("system@localhost");
         systemUser.setActivated(true);
         systemUser.setLangKey("fr");
+        systemUser.setAddress(allAddress1);
         systemUser.setCreatedBy(systemUser.getLogin());
         systemUser.setCreatedDate(Instant.now());
         systemUser.getAuthorities().add(adminAuthority);
@@ -57,6 +84,8 @@ public class InitialSetupMigration {
         anonymousUser.setEmail("anonymous@localhost");
         anonymousUser.setActivated(true);
         anonymousUser.setLangKey("fr");
+        anonymousUser.setAddress(allAddress2);
+
         anonymousUser.setCreatedBy(systemUser.getLogin());
         anonymousUser.setCreatedDate(Instant.now());
         mongoTemplate.save(anonymousUser);
@@ -70,6 +99,7 @@ public class InitialSetupMigration {
         adminUser.setEmail("admin@localhost");
         adminUser.setActivated(true);
         adminUser.setLangKey("fr");
+        adminUser.setAddress(allAddress3);
         adminUser.setCreatedBy(systemUser.getLogin());
         adminUser.setCreatedDate(Instant.now());
         adminUser.getAuthorities().add(adminAuthority);
@@ -85,6 +115,7 @@ public class InitialSetupMigration {
         userUser.setEmail("user@localhost");
         userUser.setActivated(true);
         userUser.setLangKey("fr");
+        userUser.setAddress(allAddress2);
         userUser.setCreatedBy(systemUser.getLogin());
         userUser.setCreatedDate(Instant.now());
         userUser.getAuthorities().add(userAuthority);
