@@ -1,6 +1,7 @@
 package com.heraco.hera.config.dbmigrations;
 
 import com.heraco.hera.domain.Authority;
+import com.heraco.hera.domain.BasketItem;
 import com.heraco.hera.domain.User;
 import com.heraco.hera.domain.Product;
 import com.heraco.hera.domain.Category;
@@ -125,6 +126,12 @@ public class InitialSetupMigration {
         p.setComments(comments);     
         mongoTemplate.save(p);
 
+        ArrayList<BasketItem> basket = new ArrayList<>();
+        BasketItem item = new BasketItem();
+        item.setQuantity(1);
+        item.setProduct(p);
+        basket.add(item);
+
         User userUser = new User();
         userUser.setId("user-3");
         userUser.setLogin("user");
@@ -138,6 +145,7 @@ public class InitialSetupMigration {
         userUser.setCreatedBy(systemUser.getLogin());
         userUser.setCreatedDate(Instant.now());
         userUser.getAuthorities().add(userAuthority);
+        userUser.setBasket(basket);
         mongoTemplate.save(userUser);
     }
     

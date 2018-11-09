@@ -1,4 +1,4 @@
-package com.heraco.hera.config;
+package com.heraco.hera.config.config;
 
 import org.springframework.data.elasticsearch.core.mapping.ElasticsearchPersistentProperty;
 import org.springframework.data.elasticsearch.core.mapping.SimpleElasticsearchPersistentProperty;

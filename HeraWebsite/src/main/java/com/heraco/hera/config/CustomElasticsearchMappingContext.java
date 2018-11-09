@@ -5,6 +5,8 @@ import org.springframework.data.elasticsearch.core.mapping.SimpleElasticsearchMa
 import org.springframework.data.elasticsearch.core.mapping.SimpleElasticsearchPersistentEntity;
 import org.springframework.data.mapping.model.Property;
 import org.springframework.data.mapping.model.SimpleTypeHolder;
+import com.heraco.hera.config.config.CustomElasticsearchPersistentProperty;
+
 
 public class CustomElasticsearchMappingContext extends SimpleElasticsearchMappingContext {
     @Override
