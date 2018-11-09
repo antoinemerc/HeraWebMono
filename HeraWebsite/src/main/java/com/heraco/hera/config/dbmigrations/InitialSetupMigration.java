@@ -2,6 +2,9 @@ package com.heraco.hera.config.dbmigrations;
 
 import com.heraco.hera.domain.Authority;
 import com.heraco.hera.domain.User;
+import com.heraco.hera.domain.Product;
+import com.heraco.hera.domain.Category;
+import com.heraco.hera.domain.Comment;
 import com.heraco.hera.security.AuthoritiesConstants;
 import com.heraco.hera.domain.Address;
 
@@ -106,6 +109,22 @@ public class InitialSetupMigration {
         adminUser.getAuthorities().add(userAuthority);
         mongoTemplate.save(adminUser);
 
+        ArrayList<Comment> comments = new ArrayList<>();
+        Comment comment = new Comment();
+        comment.setTitle("TITLE");
+        comment.setBody("BODY");
+        comment.setUser(adminUser);
+        comments.add(comment);
+
+        Product p = new Product();
+        p.setName("TESTDTO");
+        p.setDescription("DTOOOOOOOO");
+        p.setQuantity(1);
+        p.setPrice(10.0);
+        p.setUser(adminUser);
+        p.setComments(comments);     
+        mongoTemplate.save(p);
+
         User userUser = new User();
         userUser.setId("user-3");
         userUser.setLogin("user");
@@ -120,5 +139,36 @@ public class InitialSetupMigration {
         userUser.setCreatedDate(Instant.now());
         userUser.getAuthorities().add(userAuthority);
         mongoTemplate.save(userUser);
+    }
+    
+    @ChangeSet(order = "03", author = "initiator", id = "03-addCategory")
+    public void addCategory(MongoTemplate mongoTemplate) {
+       
+        Category c1 = new Category();
+        c1.setName("LEGUMES");
+        mongoTemplate.save(c1);
+
+        Category c2 = new Category();
+        c2.setName("ORDINATEUR");
+        mongoTemplate.save(c2);
+        
+    }
+
+    @ChangeSet(order = "04", author = "initiator", id = "03-addProduct")
+    public void addProduct(MongoTemplate mongoTemplate) {
+       
+        Product p = new Product();
+        p.setName("Patato");
+        p.setDescription("DES BELLES PATATES");
+        p.setQuantity(10);   
+        p.setPrice(1.);  
+        mongoTemplate.save(p);
+
+        Product p2 = new Product();
+        p2.setName("ORDI");
+        p2.setDescription("GROS ORDI MA GUEULE");
+        p2.setQuantity(1);
+        p2.setPrice(1000.); 
+        mongoTemplate.save(p2);
     }
 }

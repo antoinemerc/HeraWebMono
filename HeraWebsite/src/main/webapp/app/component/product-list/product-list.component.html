@@ -1,0 +1,11 @@
+<!--<li "ngFor = let p of products">-->
+<div *ngFor="let product of products ;">
+  <a class="alert-link" [routerLink]="['/displayProduct', product.id]">{{product.id}}</a>
+  <p>{{product.name}}</p>
+  <p>{{product.description}}</p>
+  <p>{{product.quantity}}</p>
+</div>
+<div>
+
+  <a class="alert-link" routerLink="product">Link to products</a>
+</div>

@@ -60,6 +60,9 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Field("allAddress")
     private ArrayList<Address> allAddress;
 
+    @Field("basket")
+    private ArrayList<BasketItem> basket;
+
     private boolean activated = false;
 
     @Size(min = 2, max = 6)
@@ -96,6 +99,14 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     public String getLogin() {
         return login;
+    }
+
+    public void setBasket(ArrayList<BasketItem> b){
+        this.basket = b;
+    }
+
+    public ArrayList<BasketItem> getBasket(){
+        return this.basket;
     }
 
     public void setAddress(ArrayList<Address> allAddress) {

@@ -17,7 +17,10 @@ import { HeraShopAppRoutingModule } from './app-routing.module';
 import { HeraShopHomeModule } from './home/home.module';
 import { HeraShopAccountModule } from './account/account.module';
 import { HeraShopEntityModule } from './entities/entity.module';
+import { HeraShopComponentModule } from './component/component.module';
+import { ProductPageModule } from './component/product-page/product-page.module';
 import * as moment from 'moment';
+
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ActiveMenuDirective, ErrorComponent } from './layouts';
 
@@ -30,7 +33,10 @@ import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent
         HeraShopCoreModule,
         HeraShopHomeModule,
         HeraShopAccountModule,
-        HeraShopEntityModule
+        HeraShopEntityModule,
+        HeraShopComponentModule,
+        ProductPageModule
+
         // jhipster-needle-angular-add-module JHipster will add new module here
     ],
     declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],

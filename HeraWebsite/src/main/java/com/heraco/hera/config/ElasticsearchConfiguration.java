@@ -15,6 +15,7 @@ import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.EntityMapper;
 import org.springframework.data.elasticsearch.core.convert.ElasticsearchConverter;
 import org.springframework.data.elasticsearch.core.mapping.SimpleElasticsearchMappingContext;
+import org.springframework.data.elasticsearch.core.convert.MappingElasticsearchConverter;
 
 import java.io.IOException;
 
@@ -41,7 +42,7 @@ public class ElasticsearchConfiguration {
                                                          EntityMapper mapper) {
         return new JestElasticsearchTemplate(
             jestClient,
-            elasticsearchConverter,
+            new MappingElasticsearchConverter(new CustomElasticsearchMappingContext()),
             new DefaultJestResultsMapper(simpleElasticsearchMappingContext, mapper));
     }
 

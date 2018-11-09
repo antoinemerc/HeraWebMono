@@ -1,6 +1,7 @@
 package com.heraco.hera.domain;
+import java.io.Serializable;
 
-public class Address{
+public class Address implements Serializable{
     private String street1;
     private String country;
 
