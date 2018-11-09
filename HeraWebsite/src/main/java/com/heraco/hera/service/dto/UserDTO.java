@@ -4,6 +4,10 @@ import com.heraco.hera.config.Constants;
 
 import com.heraco.hera.domain.Authority;
 import com.heraco.hera.domain.User;
+import com.heraco.hera.domain.Address;
+import com.heraco.hera.domain.BasketItem;
+import com.heraco.hera.domain.Address;
+import java.util.ArrayList;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -38,6 +42,10 @@ public class UserDTO {
     @Size(max = 256)
     private String imageUrl;
 
+    private ArrayList<Address> allAddress;
+
+    private ArrayList<BasketItem> basket;
+
     private boolean activated = false;
 
     @Size(min = 2, max = 6)
@@ -66,6 +74,8 @@ public class UserDTO {
         this.activated = user.getActivated();
         this.imageUrl = user.getImageUrl();
         this.langKey = user.getLangKey();
+        this.allAddress = user.getAddress();
+        this.basket = user.getBasket();
         this.createdBy = user.getCreatedBy();
         this.createdDate = user.getCreatedDate();
         this.lastModifiedBy = user.getLastModifiedBy();
@@ -73,6 +83,26 @@ public class UserDTO {
         this.authorities = user.getAuthorities().stream()
             .map(Authority::getName)
             .collect(Collectors.toSet());
+    }
+
+    public void setBasket(ArrayList<BasketItem> b){
+        this.basket = b;
+    }
+
+    public ArrayList<BasketItem> getBasket(){
+        return this.basket;
+    }
+
+    public void setAddress(ArrayList<Address> allAddress) {
+        this.allAddress = allAddress;
+    }
+
+    public void setOneAddress(Address address) {
+        this.allAddress.add(address);
+    }
+
+    public ArrayList<Address> getAddress() {
+        return allAddress;
     }
 
     public String getId() {
