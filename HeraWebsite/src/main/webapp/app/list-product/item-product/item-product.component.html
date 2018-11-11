@@ -1,0 +1,15 @@
+
+<div class="card" style="width: 100%; max-height: 100%">
+    <img class="card-img-top" src="{{product.allImageUrl[0].url}}" alt="Card image cap">
+    <div class="card-body" style="display: block">
+            <a class="alert-link" [routerLink]="['/displayProduct', product.id]">{{product.name}}</a>
+        <div>
+            {{product.price}} Eur
+            <button type="button" class="btn btn-default btn-sm" style="float: right;">
+                Add to cart
+            </button>
+        </div>
+        
+  
+    </div>
+</div>

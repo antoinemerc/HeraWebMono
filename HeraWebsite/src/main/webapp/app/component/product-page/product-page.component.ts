@@ -37,6 +37,7 @@ export class ProductPageComponent implements OnInit {
         this.route.params.subscribe((params: Params) => (this.id = params['id']));
         this.productService.find(this.id).subscribe((res: HttpResponse<IProduct>) => this.bindBody(res.body));
         if (this.principal.isAuthenticated) {
+            console.log('tst');
             this.principal.identity().then(account => {
                 this.accountConnected = account;
                 this.userService.find(this.accountConnected.login).subscribe((res: HttpResponse<IUser>) => (this.currentUser = res.body));

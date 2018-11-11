@@ -15,6 +15,7 @@ import java.util.Objects;
 import java.util.ArrayList;
 import com.heraco.hera.domain.User;
 import com.heraco.hera.domain.Category;
+import com.heraco.hera.domain.ImageUrl;
 import com.heraco.hera.domain.Comment;
 
 /**
@@ -43,6 +44,9 @@ public class Product implements Serializable {
     @NotNull
     @Field("price")
     private Double price;
+
+    @Field("allImageUrl")
+    private ArrayList<ImageUrl> allImageUrl;
 
     @DBRef(lazy = true)
     @Field("user")
@@ -79,14 +83,24 @@ public class Product implements Serializable {
         this.categories = c;
     }
 
+    public void setAllImageUrl(ArrayList<ImageUrl> allImageUrl) {
+        this.allImageUrl = allImageUrl;
+    }
+
+    public ArrayList<ImageUrl> getAllImageUrl() {
+        return allImageUrl;
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public String getId() {
         return id;
     }
 
+
     public void setId(String id) {
         this.id = id;
     }
+
 
     public String getName() {
         return name;

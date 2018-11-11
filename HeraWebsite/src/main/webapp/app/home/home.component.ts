@@ -15,24 +15,11 @@ export class HomeComponent implements OnInit {
 
     constructor(private principal: Principal, private loginModalService: LoginModalService, private eventManager: JhiEventManager) {}
 
-    ngOnInit() {
-        this.principal.identity().then(account => {
-            this.account = account;
-        });
-        this.registerAuthenticationSuccess();
-    }
+    ngOnInit() {}
 
-    registerAuthenticationSuccess() {
-        this.eventManager.subscribe('authenticationSuccess', message => {
-            this.principal.identity().then(account => {
-                this.account = account;
-            });
-        });
-    }
+    registerAuthenticationSuccess() {}
 
-    isAuthenticated() {
-        return this.principal.isAuthenticated();
-    }
+    isAuthenticated() {}
 
     login() {
         this.modalRef = this.loginModalService.open();

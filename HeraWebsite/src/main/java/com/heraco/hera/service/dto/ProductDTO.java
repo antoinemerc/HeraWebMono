@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import com.heraco.hera.domain.User;
 import com.heraco.hera.domain.Category;
 import com.heraco.hera.domain.Comment;
-
+import com.heraco.hera.domain.ImageUrl;
 
 /**
  * A DTO for the Product entity.
@@ -28,6 +28,8 @@ public class ProductDTO implements Serializable {
     private Double price;
 
     private User user;
+
+    private ArrayList<ImageUrl> allImageUrl;
 
     private ArrayList<Category> categories;
 
@@ -55,6 +57,14 @@ public class ProductDTO implements Serializable {
 
     public void setCategories(ArrayList<Category> c) {
         this.categories = c;
+    }
+
+    public void setAllImageUrl(ArrayList<ImageUrl> allImageUrl) {
+        this.allImageUrl = allImageUrl;
+    }
+
+    public ArrayList<ImageUrl> getAllImageUrl() {
+        return allImageUrl;
     }
 
     public String getId() {

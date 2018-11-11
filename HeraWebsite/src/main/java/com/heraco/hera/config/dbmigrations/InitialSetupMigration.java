@@ -6,6 +6,7 @@ import com.heraco.hera.domain.User;
 import com.heraco.hera.domain.Product;
 import com.heraco.hera.domain.Category;
 import com.heraco.hera.domain.Comment;
+import com.heraco.hera.domain.ImageUrl;
 import com.heraco.hera.security.AuthoritiesConstants;
 import com.heraco.hera.domain.Address;
 
@@ -159,21 +160,29 @@ public class InitialSetupMigration {
 
     @ChangeSet(order = "04", author = "initiator", id = "03-addProduct")
     public void addProduct(MongoTemplate mongoTemplate) {
-       
+        
+        ImageUrl url = new ImageUrl();
+        url.setUrl("test");
+        url.setAlternativeText("test alternative");
+        ArrayList<ImageUrl> allImageUrl = new ArrayList<ImageUrl>();
+        allImageUrl.add(url);
+
         Product p = new Product();
         p.setName("Patato");
         p.setDescription("DES BELLES PATATES");
         p.setQuantity(10);   
-        p.setPrice(1.);  
+        p.setPrice(1.);
         p.setComments(new ArrayList<Comment>());
+        p.setAllImageUrl(allImageUrl);
         mongoTemplate.save(p);
 
         Product p2 = new Product();
         p2.setName("ORDI");
         p2.setDescription("GROS ORDI MA GUEULE");
         p2.setQuantity(1);
-        p2.setPrice(1000.); 
+        p2.setPrice(1000.);
         p2.setComments(new ArrayList<Comment>());
+        p2.setAllImageUrl(allImageUrl);
         mongoTemplate.save(p2);
     }
 }

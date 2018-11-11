@@ -116,10 +116,6 @@ public class User extends AbstractAuditingEntity implements Serializable {
         this.allAddress = allAddress;
     }
 
-    public void setOneAddress(Address address) {
-        this.allAddress.add(address);
-    }
-
     public ArrayList<Address> getAddress() {
         return allAddress;
     }

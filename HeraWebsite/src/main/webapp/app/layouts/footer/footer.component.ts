@@ -1,7 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { JhiLanguageService } from 'ng-jhipster';
+import { JhiLanguageHelper } from 'app/core';
 
 @Component({
     selector: 'jhi-footer',
-    templateUrl: './footer.component.html'
+    templateUrl: './footer.component.html',
+    styleUrls: ['footer.scss']
 })
-export class FooterComponent {}
+export class FooterComponent implements OnInit {
+    languages: any[];
+
+    constructor(private languageService: JhiLanguageService, private languageHelper: JhiLanguageHelper) {}
+
+    ngOnInit() {
+        this.languageHelper.getAll().then(languages => {
+            this.languages = languages;
+        });
+    }
+
+    changeLanguage(languageKey: string) {
+        this.languageService.changeLanguage(languageKey);
+    }
+}

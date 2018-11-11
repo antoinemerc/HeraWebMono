@@ -6,6 +6,7 @@ export interface IProduct {
     id?: string;
     name?: string;
     description?: string;
+    allImageUrl?: string[];
     quantity?: number;
     price?: number;
     user?: User;
@@ -18,6 +19,7 @@ export class Product implements IProduct {
         public id?: string,
         public name?: string,
         public description?: string,
+        public allImageUrl?: string[],
         public quantity?: number,
         public price?: number,
         public user?: User,

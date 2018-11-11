@@ -1,0 +1,104 @@
+db.product.insert( [ 
+{
+    name:"GTX 1080",
+    description:"La meilleur carte graphique de son temps",
+    quantity:200,
+    price:560.00,
+    allImageUrl:[{"url":"content//images//placeHolder.png", alternativeText:"Alternative Text"}]
+},{
+    name:"GTX 1070",
+    description:"Le meilleur rapport qualit� prix",
+    quantity:15,
+    price:350.00,
+    allImageUrl:[{url:"content/images/placeHolder.png", alternativeText:"Alternative Text"}]
+},{
+    name:"GTX 1060",
+    description:"Same as 1050 but better",
+    quantity: 44,
+    price: 280.00,
+    allImageUrl:[{url:"content/images/placeHolder.png", alternativeText:"Alternative Text"}]
+},{
+    name:"GTX 1050",
+    description:"La moins ch�re",
+    quantity:5,
+    price: 150.00,
+    allImageUrl:[{url:"content/images/placeHolder.png", alternativeText:"Alternative Text"}]
+},{
+    name:"GTX 980",
+    description:"An older model for a good price to performance ration",
+    quantity: 1,
+    price: 500.00,
+    allImageUrl:[{url:"content/images/placeHolder.png", alternativeText:"Alternative Text"}]
+},{
+    name:"Radeon RX 460",
+    description:"The powerhouse of old",
+    quantity: 4,
+    price: 150.00,
+    allImageUrl:[{url:"content/images/placeHolder.png", alternativeText:"Alternative Text"}]
+},{
+    name:"RADEON RX Vega 56",
+    description:"La carte AMD de milieu de march�",
+    quantity:50,
+    price: 250.00,
+    allImageUrl:[{url:"content/images/placeHolder.png", alternativeText:"Alternative Text"}]
+},{
+    name:"RADEON RX Vega 64",
+    description:"Carte High end de AMD",
+    quantity:150,
+    price: 450.00,
+    allImageUrl:[{url:"content/images/placeHolder.png", alternativeText:"Alternative Text"}]
+},{
+    name:"LG Gram",
+    description:"Thinnest and lightest laptop ever conceived",
+    quantity: 50,
+    price: 950.00,
+    allImageUrl:[{url:"content/images/placeHolder.png", alternativeText:"Alternative Text"}]
+},{
+    name:"Surface 2 Laptop",
+    description:"The most versatile workstation of the industry",
+    quantity: 50,
+    price: 1250.00,
+    allImageUrl:[{url:"content/images/placeHolder.png", alternativeText:"Alternative Text"}]
+},{
+    name:"Macbook Air 2018",
+    description:"The iconic ultrabook return",
+    quantity: 10,
+    price: 10000.00,
+    allImageUrl:[{url:"content/images/placeHolder.png", alternativeText:"Alternative Text"}]
+},{
+    name:"Lenovo Legion Y520",
+    description:"Only the best for a gamer",
+    quantity: 10,
+    price: 1000.00,
+    allImageUrl:[{url:"content/images/placeHolder.png", alternativeText:"Alternative Text"}]
+},{
+    name:"Alienware 15 R4",
+    description:"The heavyweigth for a no compromise product",
+    quantity: 15,
+    price: 2000.00,
+    allImageUrl:[{url:"content/images/placeHolder.png", alternativeText:"Alternative Text"}]
+},{
+    name:"Razer Blade 15 ",
+    description:"The stealtiest laptop for gamers",
+    quantity: 15,
+    price: 2500.00,
+    allImageUrl:[{url:"content/images/placeHolder.png", alternativeText:"Alternative Text"}]
+},{
+    name:"GIGABYTE Aero 15X",
+    description:"High end gaming performance in a cool form factor",
+    quantity: 26,
+    price: 2700.00,
+    allImageUrl:[{url:"content/images/placeHolder.png", alternativeText:"Alternative Text"}]
+},{
+    name:"OMEN 15",
+    description:"Affordable yet powerfull gaming",
+    quantity: 56,
+    price: 800.00,
+    allImageUrl:[{url:"content/images/placeHolder.png", alternativeText:"Alternative Text"}]
+},{
+    name:"Asus ROG FX553VD",
+    description:"The refernce for a quality experience",
+    quantity: 44,
+    price: 850.00,
+    allImageUrl:[{url:"content/images/placeHolder.png", alternativeText:"Alternative Text"}]
+, alternativeText:"Alternative Text"}]);

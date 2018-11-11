@@ -32,11 +32,8 @@ public class ProductServiceImpl implements ProductService {
     private final ProductSearchRepository productSearchRepository;
 
     public ProductServiceImpl(ProductRepository productRepository, ProductMapper productMapper, ProductSearchRepository productSearchRepository) {
-        System.out.println("1");
         this.productRepository = productRepository;
-        System.out.println("2");
         this.productMapper = productMapper;
-        System.out.println("3");
         this.productSearchRepository = productSearchRepository;
     }
 
@@ -65,8 +62,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Page<ProductDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Products");
-        return productRepository.findAll(pageable)
-            .map(productMapper::toDto);
+        Page<ProductDTO> test = productRepository.findAll(pageable)
+        .map(productMapper::toDto);
+
+        return test;
     }
 
 
