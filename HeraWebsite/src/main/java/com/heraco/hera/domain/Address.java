@@ -1,6 +1,8 @@
 package com.heraco.hera.domain;
 import java.io.Serializable;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document
 public class Address implements Serializable{
     private String street1;
     private String country;

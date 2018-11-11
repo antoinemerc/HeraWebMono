@@ -3,23 +3,24 @@ import java.io.Serializable;
 import com.heraco.hera.domain.Product;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.DBRef;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.springframework.data.mongodb.core.mapping.Document;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+@Document
 public class BasketItem implements Serializable{
     
-    @DBRef(lazy = true)
-    @Field("productID")
-    private Product product;
-
-    @Field("quantity")
+    private String prod;
     private Integer quantity;
 
-
-    public Product getProduct() {
-        return product;
+    public String getProd() {
+        return prod;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setProduct(String prod) {
+        this.prod = prod;
     }
 
     public Integer getQuantity() {

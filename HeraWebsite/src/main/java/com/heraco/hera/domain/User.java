@@ -9,6 +9,8 @@ import javax.validation.constraints.Email;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Field;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -26,6 +28,7 @@ import java.time.Instant;
  */
 
 @org.springframework.data.mongodb.core.mapping.Document(collection = "user")
+//@JsonIdentityInfo(scope=Product.class, generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 @org.springframework.data.elasticsearch.annotations.Document(indexName = "user")
 public class User extends AbstractAuditingEntity implements Serializable {
 

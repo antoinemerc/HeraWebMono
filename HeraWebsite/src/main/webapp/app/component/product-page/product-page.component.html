@@ -1,10 +1,11 @@
-<div>
+<div *ngIf="finished">
   <h1>{{product.name}}</h1>
   <p>Description : {{product.description}}</p>
   <p>Quantity : {{product.quantity}}</p>
   <p>Price : {{product.price}}</p>
   <div [ngSwitch]="isAuthenticated()">
     <div *ngSwitchCase="true">
+      <input type="number" name="quantity" value="0" min="1" max={{product.quantity}} [(ngModel)]="newItem.quantity">
       <a (click)="click()" class="myButton">Add to basket</a>
     </div>
     <div *ngSwitchCase="false">
@@ -14,6 +15,7 @@
 
   </div>
   <h2>Comments</h2>
+
   <div *ngFor="let comment of product.comments ;">
     <p>Posted by {{comment.user.login}}</p>
     <p>{{comment.title}}</p>

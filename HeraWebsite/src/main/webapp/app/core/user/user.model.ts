@@ -1,9 +1,14 @@
+import { BasketItem } from '../../shared/model/basket_item.model';
+import { Address } from '../../shared/model/address.model';
+
 export interface IUser {
     id?: any;
     login?: string;
     firstName?: string;
     lastName?: string;
     email?: string;
+    allAddress?: Address[];
+    basket?: BasketItem[];
     activated?: boolean;
     langKey?: string;
     authorities?: any[];
@@ -21,6 +26,8 @@ export class User implements IUser {
         public firstName?: string,
         public lastName?: string,
         public email?: string,
+        public allAddress?: Address[],
+        public basket?: BasketItem[],
         public activated?: boolean,
         public langKey?: string,
         public authorities?: any[],
@@ -35,6 +42,8 @@ export class User implements IUser {
         this.firstName = firstName ? firstName : null;
         this.lastName = lastName ? lastName : null;
         this.email = email ? email : null;
+        this.allAddress = allAddress ? allAddress : null;
+        this.basket = basket ? basket : null;
         this.activated = activated ? activated : false;
         this.langKey = langKey ? langKey : null;
         this.authorities = authorities ? authorities : null;

@@ -77,6 +77,7 @@ public class InitialSetupMigration {
         systemUser.setCreatedDate(Instant.now());
         systemUser.getAuthorities().add(adminAuthority);
         systemUser.getAuthorities().add(userAuthority);
+        systemUser.setBasket(new ArrayList<BasketItem>());
         mongoTemplate.save(systemUser);
 
         User anonymousUser = new User();
@@ -89,9 +90,9 @@ public class InitialSetupMigration {
         anonymousUser.setActivated(true);
         anonymousUser.setLangKey("fr");
         anonymousUser.setAddress(allAddress2);
-
         anonymousUser.setCreatedBy(systemUser.getLogin());
         anonymousUser.setCreatedDate(Instant.now());
+        anonymousUser.setBasket(new ArrayList<BasketItem>());
         mongoTemplate.save(anonymousUser);
 
         User adminUser = new User();
@@ -108,6 +109,7 @@ public class InitialSetupMigration {
         adminUser.setCreatedDate(Instant.now());
         adminUser.getAuthorities().add(adminAuthority);
         adminUser.getAuthorities().add(userAuthority);
+        adminUser.setBasket(new ArrayList<BasketItem>());
         mongoTemplate.save(adminUser);
 
         ArrayList<Comment> comments = new ArrayList<>();
@@ -126,12 +128,6 @@ public class InitialSetupMigration {
         p.setComments(comments);     
         mongoTemplate.save(p);
 
-        ArrayList<BasketItem> basket = new ArrayList<>();
-        BasketItem item = new BasketItem();
-        item.setQuantity(1);
-        item.setProduct(p);
-        basket.add(item);
-
         User userUser = new User();
         userUser.setId("user-3");
         userUser.setLogin("user");
@@ -145,7 +141,6 @@ public class InitialSetupMigration {
         userUser.setCreatedBy(systemUser.getLogin());
         userUser.setCreatedDate(Instant.now());
         userUser.getAuthorities().add(userAuthority);
-        userUser.setBasket(basket);
         mongoTemplate.save(userUser);
     }
     
@@ -170,6 +165,7 @@ public class InitialSetupMigration {
         p.setDescription("DES BELLES PATATES");
         p.setQuantity(10);   
         p.setPrice(1.);  
+        p.setComments(new ArrayList<Comment>());
         mongoTemplate.save(p);
 
         Product p2 = new Product();
@@ -177,6 +173,7 @@ public class InitialSetupMigration {
         p2.setDescription("GROS ORDI MA GUEULE");
         p2.setQuantity(1);
         p2.setPrice(1000.); 
+        p2.setComments(new ArrayList<Comment>());
         mongoTemplate.save(p2);
     }
 }

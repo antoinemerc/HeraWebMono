@@ -11,23 +11,42 @@ describe('Component Tests', () => {
         let comp: UserMgmtDetailComponent;
         let fixture: ComponentFixture<UserMgmtDetailComponent>;
         const route = ({
-            data: of({ user: new User(1, 'user', 'first', 'last', 'first@last.com', true, 'en', ['ROLE_USER'], 'admin', null, null, null) })
+            data: of({
+                user: new User(
+                    1,
+                    'user',
+                    'first',
+                    'last',
+                    'first@last.com',
+                    null,
+                    null,
+                    true,
+                    'en',
+                    ['ROLE_USER'],
+                    'admin',
+                    null,
+                    null,
+                    null
+                )
+            })
         } as any) as ActivatedRoute;
 
-        beforeEach(async(() => {
-            TestBed.configureTestingModule({
-                imports: [HeraShopTestModule],
-                declarations: [UserMgmtDetailComponent],
-                providers: [
-                    {
-                        provide: ActivatedRoute,
-                        useValue: route
-                    }
-                ]
+        beforeEach(
+            async(() => {
+                TestBed.configureTestingModule({
+                    imports: [HeraShopTestModule],
+                    declarations: [UserMgmtDetailComponent],
+                    providers: [
+                        {
+                            provide: ActivatedRoute,
+                            useValue: route
+                        }
+                    ]
+                })
+                    .overrideTemplate(UserMgmtDetailComponent, '')
+                    .compileComponents();
             })
-                .overrideTemplate(UserMgmtDetailComponent, '')
-                .compileComponents();
-        }));
+        );
 
         beforeEach(() => {
             fixture = TestBed.createComponent(UserMgmtDetailComponent);
