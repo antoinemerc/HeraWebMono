@@ -17,6 +17,7 @@ export class ProductPageComponent implements OnInit {
     id: string;
     modalRef: NgbModalRef;
     finished: boolean;
+    basketConfirmed: boolean;
     newItem: IBasketItem;
     currentUser: IUser;
     accountConnected: Account;
@@ -32,6 +33,7 @@ export class ProductPageComponent implements OnInit {
 
     ngOnInit() {
         this.finished = false;
+        this.basketConfirmed = false;
         this.route.params.subscribe((params: Params) => (this.id = params['id']));
         this.productService.find(this.id).subscribe((res: HttpResponse<IProduct>) => this.bindBody(res.body));
         if (this.principal.isAuthenticated) {
@@ -47,9 +49,7 @@ export class ProductPageComponent implements OnInit {
     }
 
     click() {
-        console.log(this.currentUser.basket);
         this.currentUser.basket.push(this.newItem);
-        console.log(this.currentUser.basket);
         this.userService.update(this.currentUser).subscribe(response => {
             if (response.status === 200) {
                 console.log('p');
@@ -57,6 +57,7 @@ export class ProductPageComponent implements OnInit {
                 console.log('k');
             }
         });
+        this.basketConfirmed = true;
     }
 
     login() {

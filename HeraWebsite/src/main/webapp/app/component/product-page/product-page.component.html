@@ -1,12 +1,20 @@
 <div *ngIf="finished">
   <h1>{{product.name}}</h1>
+  <img class="fit-picture" src="http://www3.pictures.zimbio.com/gi/Hans+Kristian+Solberg+Vittinghus+Daihatsu+h2hs9Fdhlivl.jpg"
+    alt="Grapefruit slice atop a pile of other slices" />
   <p>Description : {{product.description}}</p>
   <p>Quantity : {{product.quantity}}</p>
   <p>Price : {{product.price}}</p>
   <div [ngSwitch]="isAuthenticated()">
     <div *ngSwitchCase="true">
       <input type="number" name="quantity" value="0" min="1" max={{product.quantity}} [(ngModel)]="newItem.quantity">
-      <a (click)="click()" class="myButton">Add to basket</a>
+      <div *ngIf="!basketConfirmed">
+        <a (click)="click()" class="myButton">Add to basket</a>
+      </div>
+      <div *ngIf="basketConfirmed">
+        <p>Product add to basket !</p>
+      </div>
+
     </div>
     <div *ngSwitchCase="false">
       <a (click)="login()" class="myButton">Connect yourself</a>
