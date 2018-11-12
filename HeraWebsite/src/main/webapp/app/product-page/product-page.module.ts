@@ -5,10 +5,11 @@ import { FormsModule } from '@angular/forms';
 
 import { ProductPageComponent } from './product-page.component';
 import { PRODUCT_PAGE_ROUTE } from './product-page.route';
+import { AllCommentComponent } from './all-comment/all-comment.component';
 
 @NgModule({
     imports: [CommonModule, RouterModule.forRoot([PRODUCT_PAGE_ROUTE], { useHash: true }), FormsModule],
-    declarations: [ProductPageComponent],
+    declarations: [ProductPageComponent, AllCommentComponent],
     entryComponents: [],
     providers: []
 })

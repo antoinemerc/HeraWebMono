@@ -24,9 +24,5 @@
   </div>
   <h2>Comments</h2>
 
-  <div *ngFor="let comment of product.comments ;">
-    <p>Posted by {{comment.user.login}}</p>
-    <p>{{comment.title}}</p>
-    <p>{{comment.body}}</p>
-  </div>
+  <jhi-comment [allComments]=product.comments ></jhi-comment>
 </div>

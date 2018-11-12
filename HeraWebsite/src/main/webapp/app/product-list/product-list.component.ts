@@ -4,11 +4,11 @@ import { HttpResponse } from '@angular/common/http';
 import { Product } from 'app/shared/model/product.model';
 
 @Component({
-    selector: 'jhi-list-product',
-    templateUrl: './list-product.component.html',
+    selector: 'jhi-product-list',
+    templateUrl: './product-list.component.html',
     styles: []
 })
-export class ListProductComponent implements OnInit {
+export class ProductListComponent implements OnInit {
     allProducts: Product[];
 
     constructor(private productService: ProductService) {

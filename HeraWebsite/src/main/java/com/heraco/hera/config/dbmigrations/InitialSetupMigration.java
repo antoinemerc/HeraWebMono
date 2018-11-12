@@ -120,12 +120,19 @@ public class InitialSetupMigration {
         comment.setUser(adminUser);
         comments.add(comment);
 
+        ImageUrl url = new ImageUrl();
+        url.setUrl("content/images/placeHolder.png");
+        url.setAlternativeText("Placeholder picture");
+        ArrayList<ImageUrl> allImageUrl = new ArrayList<ImageUrl>();
+        allImageUrl.add(url);
+
         Product p = new Product();
         p.setName("TESTDTO");
         p.setDescription("DTOOOOOOOO");
         p.setQuantity(1);
         p.setPrice(10.0);
         p.setUser(adminUser);
+        p.setAllImageUrl(allImageUrl);
         p.setComments(comments);     
         mongoTemplate.save(p);
 
@@ -162,8 +169,8 @@ public class InitialSetupMigration {
     public void addProduct(MongoTemplate mongoTemplate) {
         
         ImageUrl url = new ImageUrl();
-        url.setUrl("test");
-        url.setAlternativeText("test alternative");
+        url.setUrl("content/images/placeHolder.png");
+        url.setAlternativeText("Placeholder picture");
         ArrayList<ImageUrl> allImageUrl = new ArrayList<ImageUrl>();
         allImageUrl.add(url);
 

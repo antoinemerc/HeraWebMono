@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { IProduct } from '../../shared/model/product.model';
-import { IBasketItem, BasketItem } from '../../shared/model/basket_item.model';
-import { ProductService } from './../../entities/product/product.service';
+import { IProduct } from '../shared/model/product.model';
+import { IBasketItem, BasketItem } from '../shared/model/basket_item.model';
+import { ProductService } from '../entities/product/product.service';
 import { HttpResponse } from '@angular/common/http';
 import { LoginModalService, Principal, UserService, IUser, Account } from 'app/core';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -36,7 +36,7 @@ export class ProductPageComponent implements OnInit {
         this.basketConfirmed = false;
         this.route.params.subscribe((params: Params) => (this.id = params['id']));
         this.productService.find(this.id).subscribe((res: HttpResponse<IProduct>) => this.bindBody(res.body));
-        if (this.principal.isAuthenticated) {
+        if (this.principal.isAuthenticated()) {
             console.log('tst');
             this.principal.identity().then(account => {
                 this.accountConnected = account;
