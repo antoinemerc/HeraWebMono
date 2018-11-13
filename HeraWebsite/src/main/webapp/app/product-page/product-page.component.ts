@@ -17,7 +17,7 @@ export class ProductPageComponent implements OnInit {
     id: string;
     modalRef: NgbModalRef;
     finished: boolean;
-    basketConfirmed: boolean;
+    basketConfirmed: number;
     newItem: IBasketItem;
     currentUser: IUser;
     accountConnected: Account;
@@ -33,41 +33,50 @@ export class ProductPageComponent implements OnInit {
 
     ngOnInit() {
         this.finished = false;
-        this.basketConfirmed = false;
+        this.basketConfirmed = 0;
         this.route.params.subscribe((params: Params) => (this.id = params['id']));
         this.productService.find(this.id).subscribe((res: HttpResponse<IProduct>) => this.bindBody(res.body));
-        if (this.principal.isAuthenticated()) {
-            console.log('tst');
-            this.principal.identity().then(account => {
-                this.accountConnected = account;
-                this.userService.find(this.accountConnected.login).subscribe((res: HttpResponse<IUser>) => (this.currentUser = res.body));
-            });
-        }
     }
 
     isAuthenticated() {
         return this.principal.isAuthenticated();
     }
 
+    productAvailable() {
+        return this.product.quantity > 0;
+    }
+
     click() {
-        this.currentUser.basket.push(this.newItem);
-        this.userService.update(this.currentUser).subscribe(response => {
-            if (response.status === 200) {
-                console.log('p');
-            } else {
-                console.log('k');
-            }
-        });
-        this.basketConfirmed = true;
+        this.basketConfirmed = 1;
+        if (this.principal.isAuthenticated()) {
+            this.principal.identity().then(account => {
+                this.accountConnected = account;
+                this.userService.find(this.accountConnected.login).subscribe((res: HttpResponse<IUser>) => {
+                    this.currentUser = res.body;
+                    this.currentUser.basket.push(this.newItem);
+                    this.userService.update(this.currentUser).subscribe(response => {
+                        if (response.status === 200) {
+                            this.basketConfirmed = 2;
+                        } else {
+                            this.basketConfirmed = -1;
+                        }
+                    });
+                });
+            });
+        }
     }
 
     login() {
         this.modalRef = this.loginModalService.open();
     }
 
+    quantityValid() {
+        return this.newItem.quantity > 0 && this.newItem.quantity <= this.product.quantity;
+    }
+
     private bindBody(data: IProduct) {
         this.product = data;
-        this.newItem = new BasketItem(this.id);
+        this.newItem = new BasketItem(this.id, 1);
         this.finished = true;
     }
 }

@@ -1,19 +1,51 @@
 <div *ngIf="finished">
   <h1>{{product.name}}</h1>
-  <img class="fit-picture" src="http://www3.pictures.zimbio.com/gi/Hans+Kristian+Solberg+Vittinghus+Daihatsu+h2hs9Fdhlivl.jpg"
-    alt="Grapefruit slice atop a pile of other slices" />
+  <img class="fit-picture" src={{product.allImageUrl[0].url}} height="42" width="42" alt="Grapefruit slice atop a pile of other slices" />
   <p>Description : {{product.description}}</p>
   <p>Quantity : {{product.quantity}}</p>
   <p>Price : {{product.price}}</p>
   <div [ngSwitch]="isAuthenticated()">
     <div *ngSwitchCase="true">
-      <input type="number" name="quantity" value="0" min="1" max={{product.quantity}} [(ngModel)]="newItem.quantity">
-      <div *ngIf="!basketConfirmed">
-        <a (click)="click()" class="myButton">Add to basket</a>
+      <div *ngIf="productAvailable()">
+        <form name="addBasketForm" role="form" novalidate (ngSubmit)="click()" #editForm="ngForm">
+          <div class="form-group">
+            <label class="form-control-label" jhiTranslate="heraShopApp.product.quantity" for="field_quantity">Quantity</label>
+            <input type="number" class="form-control" name="quantity" min="1" max={{product.quantity}} id="field_quantity"
+              [(ngModel)]="newItem.quantity" required />
+            <div [hidden]="!(editForm.controls.quantity?.dirty && editForm.controls.quantity?.invalid) && quantityValid()">
+              <small class="form-text text-danger" [hidden]="!editForm.controls.quantity?.errors?.required"
+                jhiTranslate="entity.validation.required">
+                This field is required.
+              </small>
+              <small class="form-text text-danger" [hidden]="!editForm.controls.quantity?.errors?.number" jhiTranslate="entity.validation.number">
+                This field should be a number.
+              </small>
+              <small class="form-text text-danger" [hidden]="quantityValid()" jhiTranslate="entity.validation.minMax">
+                This field should be between 0 and {{ product.quantity}}
+              </small>
+            </div>
+          </div>
+          <div *ngIf="basketConfirmed == 0">
+            <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || !quantityValid()" class="btn btn-primary">
+              <span jhiTranslate="entity.action.save">Save</span>
+            </button>
+          </div>
+          <div *ngIf="basketConfirmed == 1">
+            <p>Adding your product to your basket...</p>
+          </div>
+          <div *ngIf="basketConfirmed == 2">
+            <p>Product add to basket !</p>
+          </div>
+          <div *ngIf="basketConfirmed == -1">
+            <p>Error when trying to put in basket !</p>
+          </div>
+        </form>
       </div>
-      <div *ngIf="basketConfirmed">
-        <p>Product add to basket !</p>
+      <div *ngIf="!productAvailable()">
+        <p>Product not in stock !</p>
       </div>
+
+
 
     </div>
     <div *ngSwitchCase="false">
@@ -24,5 +56,5 @@
   </div>
   <h2>Comments</h2>
 
-  <jhi-comment [allComments]=product.comments ></jhi-comment>
+  <jhi-comment [allComments]=product.comments></jhi-comment>
 </div>

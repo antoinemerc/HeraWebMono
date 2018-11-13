@@ -119,7 +119,8 @@
             "maxbytes": "Ce champ doit être inférieur à {{max}} bytes.",
             "pattern": "Ce champ doit suivre l'expression régulière {{pattern}}.",
             "number": "Ce champ doit être un nombre.",
-            "datetimelocal": "Ce champ doit être une date et une heure."
+            "datetimelocal": "Ce champ doit être une date et une heure.",
+            "minMax": "Ce champ doit être au moins 0 et au plus {{ max }}." 
         }
     },
     "error": {

@@ -12,7 +12,7 @@ public class BasketItem implements Serializable{
         return prod;
     }
 
-    public void setProduct(String prod) {
+    public void setProd(String prod) {
         this.prod = prod;
     }
 

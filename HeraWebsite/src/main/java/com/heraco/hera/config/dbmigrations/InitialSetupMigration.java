@@ -149,6 +149,7 @@ public class InitialSetupMigration {
         userUser.setCreatedBy(systemUser.getLogin());
         userUser.setCreatedDate(Instant.now());
         userUser.getAuthorities().add(userAuthority);
+        userUser.setBasket(new ArrayList<BasketItem>());
         mongoTemplate.save(userUser);
     }
     
@@ -186,7 +187,7 @@ public class InitialSetupMigration {
         Product p2 = new Product();
         p2.setName("ORDI");
         p2.setDescription("GROS ORDI MA GUEULE");
-        p2.setQuantity(1);
+        p2.setQuantity(0);
         p2.setPrice(1000.);
         p2.setComments(new ArrayList<Comment>());
         p2.setAllImageUrl(allImageUrl);
