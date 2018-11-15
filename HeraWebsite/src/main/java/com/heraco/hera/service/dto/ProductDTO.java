@@ -35,6 +35,12 @@ public class ProductDTO implements Serializable {
 
     private ArrayList<Comment> comments;
 
+    public ProductDTO(){
+        this.allImageUrl = new ArrayList<ImageUrl>();
+        this.categories = new ArrayList<Category>();
+        this.comments = new ArrayList<Comment>();
+    }
+
     public ArrayList<Comment> getComments() {
         return comments;
     }
@@ -130,12 +136,7 @@ public class ProductDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "ProductDTO{" +
-            "id=" + getId() +
-            ", name='" + getName() + "'" +
-            ", description='" + getDescription() + "'" +
-            ", quantity=" + getQuantity() +
-            ", price=" + getPrice() +
-            "}";
+        return "ProductDTO{" + "id=" + getId() + ", name='" + getName() + "'" + ", description='" + getDescription()
+                + "'" + ", quantity=" + getQuantity() + ", price=" + getPrice() + "}";
     }
 }

@@ -4,6 +4,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.elasticsearch.annotations.FieldType;
+import org.springframework.data.elasticsearch.annotations.Mapping;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
@@ -19,10 +21,14 @@ public class Category implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @org.springframework.data.elasticsearch.annotations.Field(type = FieldType.Keyword)
+    @Mapping(mappingPath = "/mappings/asset_id_mapping.json")
     private String id;
 
     @NotNull
     @Field("name")
+    @org.springframework.data.elasticsearch.annotations.Field(type = FieldType.Keyword)
+    @Mapping(mappingPath = "/mappings/asset_id_mapping.json")
     private String name;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove

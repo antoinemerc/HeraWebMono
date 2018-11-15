@@ -9,6 +9,8 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import javax.validation.constraints.*;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import org.springframework.data.elasticsearch.annotations.FieldType;
+import org.springframework.data.elasticsearch.annotations.Mapping;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -28,10 +30,14 @@ public class Product implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @org.springframework.data.elasticsearch.annotations.Field(type = FieldType.Keyword)
+    @Mapping(mappingPath = "/mappings/asset_id_mapping.json")
     private String id;
 
     @NotNull
     @Field("name")
+    @org.springframework.data.elasticsearch.annotations.Field(type = FieldType.Keyword)
+    @Mapping(mappingPath = "/mappings/asset_id_mapping.json")
     private String name;
 
     @Field("description")
@@ -51,13 +57,20 @@ public class Product implements Serializable {
     @DBRef(lazy = true)
     @Field("user")
     private User user;
-    
+
     @DBRef(lazy = true)
     @Field("categories")
     private ArrayList<Category> categories;
 
     @Field("comments")
     private ArrayList<Comment> comments;
+
+
+    public Product(){
+        this.allImageUrl = new ArrayList<ImageUrl>();
+        this.categories = new ArrayList<Category>();
+        this.comments = new ArrayList<Comment>();
+    }
 
     public ArrayList<Comment> getComments() {
         return comments;
@@ -91,16 +104,15 @@ public class Product implements Serializable {
         return allImageUrl;
     }
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
+    // jhipster-needle-entity-add-field - JHipster will add fields here, do not
+    // remove
     public String getId() {
         return id;
     }
 
-
     public void setId(String id) {
         this.id = id;
     }
-
 
     public String getName() {
         return name;
@@ -153,7 +165,8 @@ public class Product implements Serializable {
     public void setPrice(Double price) {
         this.price = price;
     }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
+    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and
+    // setters here, do not remove
 
     @Override
     public boolean equals(Object o) {
@@ -177,12 +190,7 @@ public class Product implements Serializable {
 
     @Override
     public String toString() {
-        return "Product{" +
-            "id=" + getId() +
-            ", name='" + getName() + "'" +
-            ", description='" + getDescription() + "'" +
-            ", quantity=" + getQuantity() +
-            ", price=" + getPrice() +
-            "}";
+        return "Product{" + "id=" + getId() + ", name='" + getName() + "'" + ", description='" + getDescription() + "'"
+                + ", quantity=" + getQuantity() + ", price=" + getPrice() + "}";
     }
 }
