@@ -24,7 +24,7 @@ public class Comment implements Serializable {
     @Field("note")
     private Integer note;
     @Field("date")
-    private Date date ;
+    private String date ;
 
     public Comment() {
     }
@@ -61,15 +61,15 @@ public class Comment implements Serializable {
         this.note = note;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
-    public Comment(String title, String body, Integer note, Date date) {
+    public Comment(String title, String body, Integer note, String date) {
         this.title = title;
         this.body = body;
         this.note = note;
