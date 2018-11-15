@@ -1,6 +1,6 @@
 import { User } from '../../core/user/user.model';
 import { Category } from './category.model';
-import { Comment } from './comment.model';
+import { Comments } from './comment.model';
 
 export interface IProduct {
     id?: string;
@@ -11,7 +11,7 @@ export interface IProduct {
     price?: number;
     user?: User;
     categories?: Category[];
-    comments?: Comment[];
+    comments?: Comments[];
 }
 
 export class Product implements IProduct {
@@ -24,6 +24,6 @@ export class Product implements IProduct {
         public price?: number,
         public user?: User,
         public categories?: Category[],
-        public comments?: Comment[]
+        public comments?: Comments[]
     ) {}
 }

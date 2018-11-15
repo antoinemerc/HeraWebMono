@@ -6,7 +6,7 @@ import java.util.Objects;
 import java.util.ArrayList;
 import com.heraco.hera.domain.User;
 import com.heraco.hera.domain.Category;
-import com.heraco.hera.domain.Comment;
+import com.heraco.hera.domain.Comments;
 import com.heraco.hera.domain.ImageUrl;
 
 /**
@@ -33,19 +33,19 @@ public class ProductDTO implements Serializable {
 
     private ArrayList<Category> categories;
 
-    private ArrayList<Comment> comments;
+    private ArrayList<Comments> comments;
 
     public ProductDTO(){
         this.allImageUrl = new ArrayList<ImageUrl>();
         this.categories = new ArrayList<Category>();
-        this.comments = new ArrayList<Comment>();
+        this.comments = new ArrayList<Comments>();
     }
 
-    public ArrayList<Comment> getComments() {
+    public ArrayList<Comments> getComments() {
         return comments;
     }
 
-    public void setComments(ArrayList<Comment> c) {
+    public void setComments(ArrayList<Comments> c) {
         this.comments = c;
     }
 

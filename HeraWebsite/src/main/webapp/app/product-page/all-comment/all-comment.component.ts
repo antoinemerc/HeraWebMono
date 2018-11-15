@@ -1,5 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { CommentService } from './comment.service';
+import { Principal, IUser, Account, UserService } from 'app/core';
+import { IProduct } from '../../shared/model/product.model';
+import { IComments, Comments } from '../../shared/model/comment.model';
+import { ProductService } from '../../entities/product/product.service';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
     selector: 'jhi-comment',
@@ -7,11 +11,39 @@ import { CommentService } from './comment.service';
     styles: ['all-comment.scss']
 })
 export class AllCommentComponent implements OnInit {
-    @Input() allComments: Comment[];
+    allComments: IComments[];
+    @Input() product: IProduct;
+    currentUser: IUser;
+    accountConnected: Account;
+    title: string;
+    body: string;
+    newComment: Comments;
 
-    constructor(private comments: CommentService) {}
+    constructor(private productService: ProductService, private principal: Principal, private userService: UserService) {}
 
     ngOnInit() {
-        // this.productComments = this.comments.getAllComments(1);
+        this.allComments = this.product.comments;
+    }
+
+    addComment(event) {
+        if (this.principal.isAuthenticated()) {
+            this.principal.identity().then(account => {
+                this.accountConnected = account;
+                this.userService.find(this.accountConnected.login).subscribe((res: HttpResponse<IUser>) => {
+                    this.currentUser = res.body;
+                    console.log(this.currentUser);
+                    this.newComment = new Comments(this.currentUser, this.title, this.body, 5, '15/11/2018');
+                    console.log(this.newComment);
+                    this.product.comments.push(this.newComment);
+                    this.productService.update(this.product).subscribe(response => {
+                        if (response.status === 200) {
+                            console.log('OKI');
+                        }
+                    });
+                });
+            });
+        }
+        console.log(this.title);
+        console.log(this.body);
     }
 }

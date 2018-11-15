@@ -5,7 +5,7 @@ import com.heraco.hera.domain.BasketItem;
 import com.heraco.hera.domain.User;
 import com.heraco.hera.domain.Product;
 import com.heraco.hera.domain.Category;
-import com.heraco.hera.domain.Comment;
+import com.heraco.hera.domain.Comments;
 import com.heraco.hera.domain.ImageUrl;
 import com.heraco.hera.security.AuthoritiesConstants;
 import com.heraco.hera.domain.Address;
@@ -136,8 +136,8 @@ public class InitialSetupMigration151120181205 {
         userUser.setBasket(new ArrayList<BasketItem>());
         mongoTemplate.save(userUser);
 
-        ArrayList<Comment> comments = new ArrayList<>();
-        Comment comment = new Comment();
+        ArrayList<Comments> comments = new ArrayList<>();
+        Comments comment = new Comments();
         comment.setTitle("TITLE");
         comment.setBody("BODY");
         comment.setUser(adminUser);
@@ -179,35 +179,35 @@ public class InitialSetupMigration151120181205 {
 
         User adminUser = mongoTemplate.findById("user-2", User.class);
         
-        ArrayList<Comment> comments1 = new ArrayList<>();
-        ArrayList<Comment> comments2 = new ArrayList<>();
-        ArrayList<Comment> comments3 = new ArrayList<>();
-        ArrayList<Comment> comments4 = new ArrayList<>();
+        ArrayList<Comments> comments1 = new ArrayList<>();
+        ArrayList<Comments> comments2 = new ArrayList<>();
+        ArrayList<Comments> comments3 = new ArrayList<>();
+        ArrayList<Comments> comments4 = new ArrayList<>();
 
         String date = "10-05-2018;22:14:54";
 
-        Comment comment1 = new Comment();
+        Comments comment1 = new Comments();
         comment1.setTitle("This is the best Graphic Card I ever bougth");
         comment1.setBody("J'ai acheté cette carte pour remplacer l'ancienne carte video du PC de mon fils que j'ai monté moi-même il y a trois ans avec un Core i5 et une carte mère Asus. Alors qu'avant il \"plafonnait\" à 40 fps ou même 25 dans certains nouveaux jeux gourmands, il est passé largement au delà des 100 fps. Cette carte est puissante même si un peu chère.");
         comment1.setNote(5);
         comment1.setDate(date);
         comment1.setUser(adminUser);
         
-        Comment comment2 = new Comment();
+        Comments comment2 = new Comments();
         comment2.setTitle("Ne marche plus au bout de 5 mois");
         comment2.setBody("ça allait plutôt bien les premiers mois.Maintenant j'ai un écran noir a chaque fois que je lance un jeu. Bien sûr le support MSI met des plombs à répondre..        à éviter");
         comment2.setNote(1);
         comment2.setDate(date);
         comment2.setUser(adminUser);
 
-        Comment comment3 = new Comment();
+        Comments comment3 = new Comments();
         comment3.setTitle("Très bonne carte");
         comment3.setBody("Très content de cette carte ! Prepar3d est fluide avec un niveau détails élevé et à la résolution maximale de mon écran 22p.");
         comment3.setNote(5);
         comment3.setDate(date);
         comment3.setUser(adminUser);
 
-        Comment comment4 = new Comment();
+        Comments comment4 = new Comments();
         comment4.setTitle("Pas de suremballage");
         comment4.setBody("Pas de problème au niveau de la carte graphique.        Mais aucune protection par suremballage, une déception, surtout pour un produit vendu par amazon.");
         comment4.setNote(3);
@@ -264,7 +264,7 @@ public class InitialSetupMigration151120181205 {
         p5.setDescription("The cheapest one");
         p5.setQuantity(5);
         p5.setPrice(150.00);
-        p5.setComments(new ArrayList<Comment>());
+        p5.setComments(new ArrayList<Comments>());
         p5.setAllImageUrl(allImageUrl);
         p5.setUser(adminUser);
         mongoTemplate.save(p5);
@@ -294,7 +294,7 @@ public class InitialSetupMigration151120181205 {
         p6.setDescription("The middle ground card");
         p6.setQuantity(50);
         p6.setPrice(650.00);
-        p6.setComments(new ArrayList<Comment>());
+        p6.setComments(new ArrayList<Comments>());
         p6.setAllImageUrl(allImageUrl);
         p6.setUser(adminUser);
         mongoTemplate.save(p6);
@@ -304,7 +304,7 @@ public class InitialSetupMigration151120181205 {
         p9.setDescription("High end card for AMD");
         p9.setQuantity(150);
         p9.setPrice(450.00);
-        p9.setComments(new ArrayList<Comment>());
+        p9.setComments(new ArrayList<Comments>());
         p9.setAllImageUrl(allImageUrl);
         p9.setUser(adminUser);
         mongoTemplate.save(p9);
@@ -344,7 +344,7 @@ public class InitialSetupMigration151120181205 {
         p13.setDescription("Only the best for a gamer");
         p13.setQuantity(10);
         p13.setPrice(1000.00);
-        p13.setComments(new ArrayList<Comment>());
+        p13.setComments(new ArrayList<Comments>());
         p13.setAllImageUrl(allImageUrl);
         p13.setUser(adminUser);
         mongoTemplate.save(p13);
@@ -354,7 +354,7 @@ public class InitialSetupMigration151120181205 {
         p14.setDescription("The heavyweigth for a no compromise product");
         p14.setQuantity(15);
         p14.setPrice(2000.00);
-        p14.setComments(new ArrayList<Comment>());
+        p14.setComments(new ArrayList<Comments>());
         p14.setAllImageUrl(allImageUrl);
         p14.setUser(adminUser);
         mongoTemplate.save(p14);
@@ -364,7 +364,7 @@ public class InitialSetupMigration151120181205 {
         p15.setDescription("The stealtiest laptop for gamers");
         p15.setQuantity(15);
         p15.setPrice(2500.00);
-        p15.setComments(new ArrayList<Comment>());
+        p15.setComments(new ArrayList<Comments>());
         p15.setAllImageUrl(allImageUrl);
         p15.setUser(adminUser);
         mongoTemplate.save(p15);

@@ -12,7 +12,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Document
-public class Comment implements Serializable {
+public class Comments implements Serializable {
 
     @DBRef(lazy = true)
     @Field("user")
@@ -26,7 +26,7 @@ public class Comment implements Serializable {
     @Field("date")
     private String date ;
 
-    public Comment() {
+    public Comments() {
     }
 
     public User getUser() {
@@ -69,7 +69,7 @@ public class Comment implements Serializable {
         this.date = date;
     }
 
-    public Comment(String title, String body, Integer note, String date) {
+    public Comments(String title, String body, Integer note, String date) {
         this.title = title;
         this.body = body;
         this.note = note;
