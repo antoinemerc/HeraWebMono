@@ -12,6 +12,7 @@ type EntityArrayResponseType = HttpResponse<IProduct[]>;
 @Injectable({ providedIn: 'root' })
 export class ProductService {
     private resourceUrl = SERVER_API_URL + 'api/products';
+    private resourceUrlCategory = SERVER_API_URL + 'api/products/category/';
     private resourceSearchUrl = SERVER_API_URL + 'api/_search/products';
 
     constructor(private http: HttpClient) {}
@@ -40,5 +41,9 @@ export class ProductService {
     search(req?: any): Observable<EntityArrayResponseType> {
         const options = createRequestOption(req);
         return this.http.get<IProduct[]>(this.resourceSearchUrl, { params: options, observe: 'response' });
+    }
+
+    queryCategory(categoryId: string): Observable<EntityArrayResponseType> {
+        return this.http.get<IProduct[]>(`${this.resourceUrlCategory}/${categoryId}`, { observe: 'response' });
     }
 }

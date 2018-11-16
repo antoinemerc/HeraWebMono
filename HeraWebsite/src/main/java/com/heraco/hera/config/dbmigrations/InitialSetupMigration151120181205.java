@@ -12,7 +12,10 @@ import com.heraco.hera.domain.Address;
 
 import com.github.mongobee.changeset.ChangeLog;
 import com.github.mongobee.changeset.ChangeSet;
+
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -165,11 +168,11 @@ public class InitialSetupMigration151120181205 {
     public void addCategory(MongoTemplate mongoTemplate) {
        
         Category c1 = new Category();
-        c1.setName("LEGUMES");
+        c1.setName("Ordinateur Portable");
         mongoTemplate.save(c1);
 
         Category c2 = new Category();
-        c2.setName("ORDINATEUR");
+        c2.setName("Carte Graphique");
         mongoTemplate.save(c2);
         
     }
@@ -178,7 +181,24 @@ public class InitialSetupMigration151120181205 {
     public void addProduct(MongoTemplate mongoTemplate) {
 
         User adminUser = mongoTemplate.findById("user-2", User.class);
-        
+
+        Query query1 = new Query();        
+        query1.addCriteria(Criteria.where("name").is("Ordinateur Portable"));
+        Query query2 = new Query();        
+        query2.addCriteria(Criteria.where("name").is("Carte Graphique"));
+
+        Category category1 = mongoTemplate.findOne(query1,Category.class);
+        Category category2 = mongoTemplate.findOne(query2,Category.class);
+
+        ArrayList<Category> allCategories1 = new ArrayList<>();
+        ArrayList<Category> allCategories2 = new ArrayList<>();
+        ArrayList<Category> allCategories3 = new ArrayList<>();
+
+        allCategories1.add(category2);
+        allCategories2.add(category1);
+        allCategories3.add(category1);
+        allCategories3.add(category2);
+
         ArrayList<Comments> comments1 = new ArrayList<>();
         ArrayList<Comments> comments2 = new ArrayList<>();
         ArrayList<Comments> comments3 = new ArrayList<>();
@@ -237,6 +257,7 @@ public class InitialSetupMigration151120181205 {
         p2.setComments(comments1);
         p2.setAllImageUrl(allImageUrl);
         p2.setUser(adminUser);
+        p2.setCategories(allCategories1);
         mongoTemplate.save(p2);
 
         Product p3 = new Product();
@@ -247,6 +268,7 @@ public class InitialSetupMigration151120181205 {
         p3.setComments(comments2);
         p3.setAllImageUrl(allImageUrl);
         p3.setUser(adminUser);
+        p3.setCategories(allCategories1);
         mongoTemplate.save(p3);
 
         Product p4 = new Product();
@@ -257,6 +279,7 @@ public class InitialSetupMigration151120181205 {
         p4.setComments(comments3);
         p4.setAllImageUrl(allImageUrl);
         p4.setUser(adminUser);
+        p4.setCategories(allCategories1);
         mongoTemplate.save(p4);
 
         Product p5 = new Product();
@@ -267,6 +290,7 @@ public class InitialSetupMigration151120181205 {
         p5.setComments(new ArrayList<Comments>());
         p5.setAllImageUrl(allImageUrl);
         p5.setUser(adminUser);
+        p5.setCategories(allCategories1);
         mongoTemplate.save(p5);
 
         Product p7 = new Product();
@@ -277,6 +301,7 @@ public class InitialSetupMigration151120181205 {
         p7.setComments(comments4);
         p7.setAllImageUrl(allImageUrl);
         p7.setUser(adminUser);
+        p7.setCategories(allCategories1);
         mongoTemplate.save(p7);
 
         Product p8 = new Product();
@@ -287,6 +312,7 @@ public class InitialSetupMigration151120181205 {
         p8.setComments(comments4);
         p8.setAllImageUrl(allImageUrl);
         p8.setUser(adminUser);
+        p8.setCategories(allCategories3);
         mongoTemplate.save(p8);
 
         Product p6 = new Product();
@@ -297,6 +323,7 @@ public class InitialSetupMigration151120181205 {
         p6.setComments(new ArrayList<Comments>());
         p6.setAllImageUrl(allImageUrl);
         p6.setUser(adminUser);
+        p6.setCategories(allCategories3);
         mongoTemplate.save(p6);
 
         Product p9 = new Product();
@@ -307,6 +334,7 @@ public class InitialSetupMigration151120181205 {
         p9.setComments(new ArrayList<Comments>());
         p9.setAllImageUrl(allImageUrl);
         p9.setUser(adminUser);
+        p9.setCategories(allCategories3);
         mongoTemplate.save(p9);
 
         Product p10 = new Product();
@@ -317,6 +345,7 @@ public class InitialSetupMigration151120181205 {
         p10.setComments(comments1);
         p10.setAllImageUrl(allImageUrl);
         p10.setUser(adminUser);
+        p10.setCategories(allCategories2);
         mongoTemplate.save(p10);
 
         Product p11 = new Product();
@@ -327,6 +356,7 @@ public class InitialSetupMigration151120181205 {
         p11.setComments(comments2);
         p11.setAllImageUrl(allImageUrl);
         p11.setUser(adminUser);
+        p11.setCategories(allCategories2);
         mongoTemplate.save(p11);
 
         Product p12 = new Product();
@@ -337,6 +367,8 @@ public class InitialSetupMigration151120181205 {
         p12.setComments(comments3);
         p12.setAllImageUrl(allImageUrl);
         p12.setUser(adminUser);
+        p12.setCategories(allCategories2);
+
         mongoTemplate.save(p12);
 
         Product p13 = new Product();
@@ -347,6 +379,7 @@ public class InitialSetupMigration151120181205 {
         p13.setComments(new ArrayList<Comments>());
         p13.setAllImageUrl(allImageUrl);
         p13.setUser(adminUser);
+        p13.setCategories(allCategories2);
         mongoTemplate.save(p13);
 
         Product p14 = new Product();
@@ -357,6 +390,7 @@ public class InitialSetupMigration151120181205 {
         p14.setComments(new ArrayList<Comments>());
         p14.setAllImageUrl(allImageUrl);
         p14.setUser(adminUser);
+        p14.setCategories(allCategories2);
         mongoTemplate.save(p14);
 
         Product p15 = new Product();
@@ -367,6 +401,7 @@ public class InitialSetupMigration151120181205 {
         p15.setComments(new ArrayList<Comments>());
         p15.setAllImageUrl(allImageUrl);
         p15.setUser(adminUser);
+        p15.setCategories(allCategories2);
         mongoTemplate.save(p15);
 
         Product p16 = new Product();
@@ -377,6 +412,7 @@ public class InitialSetupMigration151120181205 {
         p16.setComments(comments3);
         p16.setAllImageUrl(allImageUrl);
         p16.setUser(adminUser);
+        p16.setCategories(allCategories2);
         mongoTemplate.save(p16);
 
         Product p17 = new Product();
@@ -387,6 +423,7 @@ public class InitialSetupMigration151120181205 {
         p17.setComments(comments1);
         p17.setAllImageUrl(allImageUrl);
         p17.setUser(adminUser);
+        p17.setCategories(allCategories2);
         mongoTemplate.save(p17);
 
         Product p18 = new Product();
@@ -397,6 +434,7 @@ public class InitialSetupMigration151120181205 {
         p18.setComments(comments2);
         p18.setAllImageUrl(allImageUrl);
         p18.setUser(adminUser);
+        p18.setCategories(allCategories2);
         mongoTemplate.save(p18);
     }
 

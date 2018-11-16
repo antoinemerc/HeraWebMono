@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
-
+import { Router, ActivatedRoute } from '@angular/router';
 import { LoginModalService, Principal, Account } from 'app/core';
 
 @Component({

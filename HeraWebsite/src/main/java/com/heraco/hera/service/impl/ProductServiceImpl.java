@@ -107,4 +107,18 @@ public class ProductServiceImpl implements ProductService {
         return productSearchRepository.search(queryStringQuery(query), pageable)
             .map(productMapper::toDto);
     }
+
+
+    /**
+     * Search for the product corresponding to the query.
+     *
+     * @param query the query of the search
+     * @param pageable the pagination information
+     * @return the list of entities
+     */
+    public Page<ProductDTO> findCategory(String categories, Pageable pageable) {
+        log.debug("Request to search for a page of Products for query {}", categories);
+        return productRepository.findAllByCategories(pageable, categories)
+            .map(productMapper::toDto);
+    }
 }

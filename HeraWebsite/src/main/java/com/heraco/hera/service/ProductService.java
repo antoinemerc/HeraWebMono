@@ -53,4 +53,14 @@ public interface ProductService {
      * @return the list of entities
      */
     Page<ProductDTO> search(String query, Pageable pageable);
+
+    /**
+     * Search for the product corresponding to the category.
+     *
+     * @param category the category to fetch
+     * 
+     * @param pageable the pagination information
+     * @return the list of entities
+     */
+    Page<ProductDTO> findCategory(String categories, Pageable pageable);
 }
