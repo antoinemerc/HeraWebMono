@@ -1,53 +1,241 @@
 <div *ngIf="finished">
-  <h1>{{product.name}}</h1>
-  <img class="fit-picture" src={{product.allImageUrl[0].url}} height="42" width="42" alt="Grapefruit slice atop a pile of other slices" />
-  <p>Description : {{product.description}}</p>
-  <p>Quantity : {{product.quantity}}</p>
-  <p>Price : {{product.price}}</p>
-  <div [ngSwitch]="isAuthenticated()">
-    <div *ngSwitchCase="true">
-      <div *ngIf="productAvailable()">
-        <form name="addBasketForm" role="form" novalidate (ngSubmit)="click()" #editForm="ngForm">
-          <div class="form-group">
-            <label class="form-control-label" jhiTranslate="heraShopApp.product.quantity" for="field_quantity">Quantity</label>
-            <input type="number" class="form-control" name="quantity" min="1" max={{product.quantity}} id="field_quantity"
-              [(ngModel)]="newItem.quantity" required />
-            <div [hidden]="!(editForm.controls.quantity?.dirty && editForm.controls.quantity?.invalid) && quantityValid()">
-              <small class="form-text text-danger" [hidden]="!editForm.controls.quantity?.errors?.required"
-                jhiTranslate="entity.validation.required">
-                This field is required.
-              </small>
-              <small class="form-text text-danger" [hidden]="!editForm.controls.quantity?.errors?.number" jhiTranslate="entity.validation.number">
-                This field should be a number.
-              </small>
-              <small class="form-text text-danger" [hidden]="quantityValid()" jhiTranslate="entity.validation.minMax">
-                This field should be between 0 and {{ product.quantity}}
-              </small>
+  <html>
+    <head>
+    </head>
+
+    <body class="body">
+      <!-- Start navigation-->
+      <div class="myNavBar">
+        <ul>
+          <li>
+            <a href="#">navigation 1</a>
+          </li>
+          <li>
+            <a href="#">navigation 2</a>
+          </li>
+          <li>
+            <a href="#">navigation 3</a>
+          </li>
+        </ul>
+      </div>
+      <div class="clear"></div>
+
+      <!-- Start Product Name-->
+      <div class="productName">
+        {{product.name}}
+      </div>
+
+      <!-- Start main page-->
+      <div class="productPage">
+        <!-- Start product page top-->
+        <div class="productPageTop">
+          <!-- image left of the product -->
+          <div class="productImage"> 
+            <img class="fit-picture" src={{product.allImageUrl[0].url}} alt="Grapefruit slice atop a pile of other slices" />
+          </div>
+          <div class="productInformation"> 
+            <div class="productInformationPrix">
+              <h3>Prix standard : {{product.price}}€</h3>
+            </div>
+            <div class="productInformationdetail">
+              <h2>Product info</h2>
+              <ul>
+                {{product.description}}
+              </ul>
+              <a href="#">See more product details<br></a>
+              <p>Quantity : {{product.quantity}}</p>
+            </div>
+            <div class="addToPannier">
+              <div [ngSwitch]="isAuthenticated()">
+                <div *ngSwitchCase="true">
+                  <div *ngIf="productAvailable()">
+                    <form name="addBasketForm" role="form" novalidate (ngSubmit)="click()" #editForm="ngForm">
+                      <div class="form-group">
+                        <label class="form-control-label" jhiTranslate="heraShopApp.product.quantity" for="field_quantity">Quantity</label>
+                        <input type="number" class="form-control" name="quantity" min="1" max={{product.quantity}} id="field_quantity"
+                          [(ngModel)]="newItem.quantity" required />
+                        <div [hidden]="!(editForm.controls.quantity?.dirty && editForm.controls.quantity?.invalid) && quantityValid()">
+                          <small class="form-text text-danger" [hidden]="!editForm.controls.quantity?.errors?.required"
+                            jhiTranslate="entity.validation.required">
+                            This field is required.
+                          </small>
+                          <small class="form-text text-danger" [hidden]="!editForm.controls.quantity?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                          </small>
+                          <small class="form-text text-danger" [hidden]="quantityValid()" jhiTranslate="entity.validation.minMax">
+                            This field should be between 0 and {{ product.quantity}}
+                          </small>
+                        </div>
+                      </div>
+                      <div *ngIf="basketConfirmed == 0">
+                        <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || !quantityValid()" class="btn btn-primary">
+                          <span jhiTranslate="entity.action.save">add to basket </span>
+                        </button>
+                      </div>
+                      <div *ngIf="basketConfirmed == 1">
+                        <p>Adding your product to your basket...</p>
+                      </div>
+                      <div *ngIf="basketConfirmed == 2">
+                        <p>Product add to basket !</p>
+                      </div>
+                      <div *ngIf="basketConfirmed == -1">
+                        <p>Error when trying to put in basket !</p>
+                      </div>
+                    </form>
+                  </div>
+                  <div *ngIf="!productAvailable()">
+                    <p>Product not in stock !</p>
+                  </div>
+                </div>
+                <div *ngSwitchCase="false">
+                  <a (click)="login()" class="myButton">Connect yourself</a>
+                </div>
+              </div>
             </div>
           </div>
-          <div *ngIf="basketConfirmed == 0">
-            <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || !quantityValid()" class="btn btn-primary">
-              <span jhiTranslate="entity.action.save">Save</span>
-            </button>
+        </div>
+      
+        <!-- Start footer of product page top-->
+        <div class="productPagebottom">
+          <div class="productStrateTop">
+            Les internautes ont aussi acheté
           </div>
-          <div *ngIf="basketConfirmed == 1">
-            <p>Adding your product to your basket...</p>
+          <div class="productRecommend">
+            <div class="itemRecommend">
+              <div class="itemRecommendImg">
+                <img class="fit-picture" src={{product.allImageUrl[0].url}} alt="Grapefruit slice atop a pile of other slices" />
+              </div>
+              <div class="itemRecommendName"> 
+                PC Hybride Microsoft Surface Go 10" Tactile Intel Pentium Gold 8 Go RAM 128 Go SSD
+              </div>
+              <div class="itemRecommendPrix">
+                500 €
+              </div>
+            </div>
+            <div class="itemRecommend">
+              <div class="itemRecommendImg">
+                <img class="fit-picture" src={{product.allImageUrl[0].url}} alt="Grapefruit slice atop a pile of other slices" />
+              </div>
+              <div class="itemRecommendName"> 
+                PC Hybride Microsoft Surface Go 10" Tactile Intel Pentium Gold 8 Go RAM 128 Go SSD
+              </div>
+              <div class="itemRecommendPrix">
+                500 €
+              </div>
+            </div>
+            <div class="itemRecommend">
+              <div class="itemRecommendImg">
+                <img class="fit-picture" src={{product.allImageUrl[0].url}} alt="Grapefruit slice atop a pile of other slices" />
+              </div>
+              <div class="itemRecommendName"> 
+                PC Hybride Microsoft Surface Go 10" Tactile Intel Pentium Gold 8 Go RAM 128 Go SSD
+              </div>
+              <div class="itemRecommendPrix">
+                500 €
+              </div>
+            </div>
+            <div class="itemRecommend">
+              <div class="itemRecommendImg">
+                <img class="fit-picture" src={{product.allImageUrl[0].url}} alt="Grapefruit slice atop a pile of other slices" />
+              </div>
+              <div class="itemRecommendName"> 
+                PC Hybride Microsoft Surface Go 10" Tactile Intel Pentium Gold 8 Go RAM 128 Go SSD
+              </div>
+              <div class="itemRecommendPrix">
+                500 €
+              </div>
+            </div>
+            <div class="itemRecommend">
+              <div class="itemRecommendImg">
+                <img class="fit-picture" src={{product.allImageUrl[0].url}} alt="Grapefruit slice atop a pile of other slices" />
+              </div>
+              <div class="itemRecommendName"> 
+                PC Hybride Microsoft Surface Go 10" Tactile Intel Pentium Gold 8 Go RAM 128 Go SSD
+              </div>
+              <div class="itemRecommendPrix">
+                500 €
+              </div>
+            </div>
           </div>
-          <div *ngIf="basketConfirmed == 2">
-            <p>Product add to basket !</p>
-          </div>
-          <div *ngIf="basketConfirmed == -1">
-            <p>Error when trying to put in basket !</p>
-          </div>
-        </form>
+        </div>
       </div>
-      <div *ngIf="!productAvailable()">
-        <p>Product not in stock !</p>
+      <div class="clear"></div>
+
+      <!-- Start Product page extend-->
+      <div class="pageExtend">
+        <!-- Product detail-->
+        <div class="productdetail">
+          <div class="productdetailTitre">Caractéristiques détaillées</div>
+          <div class="productdetailContent">
+            <ul>
+              <li>
+                <div class="detailType">
+                  Type de produit
+                </div>
+                <div class="detailInformation">
+                  Ultra portable - Sub Notebook
+                </div>
+              </li>
+              <li>
+                <div class="detailType">
+                  Taille de l'écran
+                </div>
+                <div class="detailInformation">
+                  10 " PixelSense
+                </div>
+              </li>
+              <li>
+                <div class="detailType">
+                  Poids du produit
+                </div>
+                <div class="detailInformation">
+                  522 g
+                </div>
+              </li>
+              <li>
+                <div class="detailType">
+                  Largeur du produit
+                </div>
+                <div class="detailInformation">
+                  17,5 cm
+                </div>
+              </li>
+              <li>
+                <div class="detailType">
+                  Longueur du produit
+                </div>
+                <div class="detailInformation">
+                  24,5 cm
+                </div>
+              </li>
+              <li>
+                <div class="detailType">
+                  Hauteur du produit
+                </div>
+                <div class="detailInformation">
+                  0,83 cm
+                </div>
+              </li>
+              <li>
+                <div class="detailType">
+                  Caractéristiques de l'écran
+                </div>
+                <div class="detailInformation">
+                  Format : 3:2
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
-    </div>
-    <div *ngSwitchCase="false">
-      <a (click)="login()" class="myButton">Connect yourself</a>
-    </div>
-  </div>
-  <jhi-comment [product]=product> </jhi-comment>
+
+      <div class="clear"></div>
+      
+      <div class="comment">
+        <jhi-comment [product]=product> </jhi-comment>
+      </div>
+      <div class="footer">
+      </div>
+    </body>
+  </html>
 </div>
