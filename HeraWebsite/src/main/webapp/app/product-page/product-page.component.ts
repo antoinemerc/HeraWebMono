@@ -10,7 +10,7 @@ import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 @Component({
     selector: 'jhi-product-page',
     templateUrl: './product-page.component.html',
-    styles: []
+    styleUrls: ['product-page.scss']
 })
 export class ProductPageComponent implements OnInit {
     product: IProduct;
