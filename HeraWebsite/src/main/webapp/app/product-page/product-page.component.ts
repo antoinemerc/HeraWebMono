@@ -6,6 +6,8 @@ import { ProductService } from '../entities/product/product.service';
 import { HttpResponse } from '@angular/common/http';
 import { LoginModalService, Principal, UserService, IUser, Account } from 'app/core';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/forkJoin';
 
 @Component({
     selector: 'jhi-product-page',
@@ -35,7 +37,10 @@ export class ProductPageComponent implements OnInit {
         this.finished = false;
         this.basketConfirmed = 0;
         this.route.params.subscribe((params: Params) => (this.id = params['id']));
-        this.productService.find(this.id).subscribe((res: HttpResponse<IProduct>) => this.bindBody(res.body));
+        this.productService
+            .find(this.id)
+            .toPromise()
+            .then((res: HttpResponse<IProduct>) => this.bindBody(res.body));
     }
 
     isAuthenticated() {
@@ -46,6 +51,9 @@ export class ProductPageComponent implements OnInit {
         return this.product.quantity > 0;
     }
 
+    /**
+     * Action to perform when click on the button to add in basket. (Save the product)
+     */
     click() {
         this.basketConfirmed = 1;
         if (this.principal.isAuthenticated()) {
@@ -66,17 +74,56 @@ export class ProductPageComponent implements OnInit {
         }
     }
 
+    /**
+     * Return true if the connected user has the current product in his basket.
+     * Else return false
+     */
+    isItemInBasket() {
+        let retour: boolean;
+        retour = false;
+        if (this.principal.isAuthenticated()) {
+            this.principal.identity().then(account => {
+                this.accountConnected = account;
+                this.userService
+                    .find(this.accountConnected.login)
+                    .toPromise()
+                    .then((res: HttpResponse<IUser>) => {
+                        this.currentUser = res.body;
+                        for (const item of this.currentUser.basket) {
+                            if (item.prod === this.product.id) {
+                                return true;
+                            }
+                        }
+                    });
+            });
+        } else {
+            retour = false;
+        }
+        return retour;
+    }
+    /**
+     * Open the modal window for connection
+     */
     login() {
         this.modalRef = this.loginModalService.open();
     }
 
+    /**
+     * Return true if the quantity given by the user is within the stock range.
+     */
     quantityValid() {
         return this.newItem.quantity > 0 && this.newItem.quantity <= this.product.quantity;
     }
 
+    /**
+     * @param data The body get from the HTTP
+     *
+     * Bind the data get from an HTTP query to the variable product
+     */
     private bindBody(data: IProduct) {
         this.product = data;
         this.newItem = new BasketItem(this.id, 1);
+        this.isItemInBasket();
         this.finished = true;
     }
 }
