@@ -19,7 +19,7 @@ export class AllCommentComponent implements OnInit {
     body: string;
     newComment: Comments;
 
-    constructor(private productService: ProductService, private principal: Principal, private userService: UserService) {}
+    constructor(private productService: ProductService, public principal: Principal, private userService: UserService) {}
 
     ngOnInit() {
         this.allComments = this.product.comments;
