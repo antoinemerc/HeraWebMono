@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { IProduct } from '../shared/model/product.model';
 import { IBasketItem, BasketItem } from '../shared/model/basket_item.model';
-import { ProductService } from '../entities/product/product.service';
 import { HttpResponse } from '@angular/common/http';
 import { LoginModalService, Principal, UserService, IUser, Account } from 'app/core';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { ProductService } from 'app/shared/service/product.service';
+import { SafeResourceUrl } from '@angular/platform-browser';
+import { ImageUrlService } from 'app/shared/service/imageUrl.service';
 
 @Component({
     selector: 'jhi-product-page',
@@ -21,12 +23,14 @@ export class ProductPageComponent implements OnInit {
     newItem: IBasketItem;
     currentUser: IUser;
     accountConnected: Account;
+    mainImage: SafeResourceUrl = 'content/images/placeHolder.png';
 
     constructor(
         private route: ActivatedRoute,
         private loginModalService: LoginModalService,
         private router: Router,
         private productService: ProductService,
+        private imageUrlService: ImageUrlService,
         private principal: Principal,
         private userService: UserService
     ) {}
@@ -78,5 +82,15 @@ export class ProductPageComponent implements OnInit {
         this.product = data;
         this.newItem = new BasketItem(this.id, 1);
         this.finished = true;
+
+        if (this.product.allImageUrl.length !== 0) {
+            this.imageUrlService.getOneImageFrom('heraimagescontainer', this.product.allImageUrl[0].url).subscribe(value => {
+                this.bindUrl(value);
+            });
+        }
+    }
+
+    private bindUrl(data: SafeResourceUrl) {
+        this.mainImage = data;
     }
 }

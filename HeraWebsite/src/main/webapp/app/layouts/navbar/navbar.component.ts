@@ -6,9 +6,9 @@ import { JhiLanguageService } from 'ng-jhipster';
 import { VERSION } from 'app/app.constants';
 import { JhiLanguageHelper, Principal, LoginModalService, LoginService } from 'app/core';
 import { ProfileService } from '../profiles/profile.service';
-import { CategoryService } from 'app/entities/category';
 import { HttpResponse } from '@angular/common/http';
 import { Category } from 'app/shared/model/category.model';
+import { CategoryService } from 'app/shared';
 
 @Component({
     selector: 'jhi-navbar',

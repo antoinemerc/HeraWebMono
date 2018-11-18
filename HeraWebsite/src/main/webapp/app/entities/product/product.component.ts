@@ -8,7 +8,7 @@ import { IProduct } from 'app/shared/model/product.model';
 import { Principal } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
-import { ProductService } from './product.service';
+import { ProductService } from 'app/shared/service/product.service';
 
 @Component({
     selector: 'jhi-product',

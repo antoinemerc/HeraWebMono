@@ -5,7 +5,7 @@ import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstra
 import { JhiEventManager } from 'ng-jhipster';
 
 import { ICategory } from 'app/shared/model/category.model';
-import { CategoryService } from './category.service';
+import { CategoryService } from '../../shared/service/category.service';
 
 @Component({
     selector: 'jhi-category-delete-dialog',

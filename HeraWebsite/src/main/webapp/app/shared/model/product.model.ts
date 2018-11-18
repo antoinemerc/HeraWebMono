@@ -1,12 +1,13 @@
 import { User } from '../../core/user/user.model';
 import { Category } from './category.model';
 import { Comments } from './comment.model';
+import { ImageUrl } from './imageUrl.model';
 
 export interface IProduct {
     id?: string;
     name?: string;
     description?: string;
-    allImageUrl?: string[];
+    allImageUrl?: ImageUrl[];
     quantity?: number;
     price?: number;
     user?: User;
@@ -19,7 +20,7 @@ export class Product implements IProduct {
         public id?: string,
         public name?: string,
         public description?: string,
-        public allImageUrl?: string[],
+        public allImageUrl?: ImageUrl[],
         public quantity?: number,
         public price?: number,
         public user?: User,

@@ -1,6 +1,6 @@
 <div *ngIf="finished">
   <h1>{{product.name}}</h1>
-  <img class="fit-picture" src={{product.allImageUrl[0].url}} height="42" width="42" alt="Grapefruit slice atop a pile of other slices" />
+  <img class="fit-picture" [src]=mainImage height="42" width="42" alt="Grapefruit slice atop a pile of other slices" />
   <p>Description : {{product.description}}</p>
   <p>Quantity : {{product.quantity}}</p>
   <p>Price : {{product.price}}</p>

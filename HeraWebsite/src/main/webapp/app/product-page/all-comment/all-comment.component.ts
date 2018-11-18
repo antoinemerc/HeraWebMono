@@ -2,8 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Principal, IUser, Account, UserService } from 'app/core';
 import { IProduct } from '../../shared/model/product.model';
 import { IComments, Comments } from '../../shared/model/comment.model';
-import { ProductService } from '../../entities/product/product.service';
 import { HttpResponse } from '@angular/common/http';
+import { ProductService } from 'app/shared/service/product.service';
 
 @Component({
     selector: 'jhi-comment',

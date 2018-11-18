@@ -6,7 +6,7 @@ import { UserRouteAccessService } from 'app/core';
 import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Category } from 'app/shared/model/category.model';
-import { CategoryService } from './category.service';
+import { CategoryService } from '../../shared/service/category.service';
 import { CategoryComponent } from './category.component';
 import { CategoryDetailComponent } from './category-detail.component';
 import { CategoryUpdateComponent } from './category-update.component';
