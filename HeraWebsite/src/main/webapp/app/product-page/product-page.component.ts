@@ -93,7 +93,7 @@ export class ProductPageComponent implements OnInit {
                         this.currentUser = res.body;
                         for (const item of this.currentUser.basket) {
                             if (item.prod === this.product.id) {
-                                return true;
+                                retour = true;
                             }
                         }
                     });
@@ -125,7 +125,6 @@ export class ProductPageComponent implements OnInit {
     private bindBody(data: IProduct) {
         this.product = data;
         this.newItem = new BasketItem(this.id, 1);
-        this.isItemInBasket();
         this.finished = true;
 
         if (this.product.allImageUrl.length !== 0) {
