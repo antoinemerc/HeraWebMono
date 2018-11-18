@@ -5,7 +5,7 @@ import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstra
 import { JhiEventManager } from 'ng-jhipster';
 
 import { IProduct } from 'app/shared/model/product.model';
-import { ProductService } from './product.service';
+import { ProductService } from 'app/shared/service/product.service';
 
 @Component({
     selector: 'jhi-product-delete-dialog',

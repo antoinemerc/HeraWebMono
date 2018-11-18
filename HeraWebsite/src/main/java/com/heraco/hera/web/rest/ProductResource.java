@@ -145,4 +145,21 @@ public class ProductResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
+    /**
+     * SEARCH  /_search/products?query=:query : search for the product corresponding
+     * to the query.
+     *
+     * @param query the query of the product search
+     * @param pageable the pagination information
+     * @return the result of the search
+     */
+    @GetMapping("/products/category/{categories}")
+    @Timed
+    public ResponseEntity<List<ProductDTO>> getProductsByCategories(@PathVariable String categories, Pageable pageable) {
+        log.debug("REST request to search for a page of Products for query {}", categories);
+        Page<ProductDTO> page = productService.findCategory(categories, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/products");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
 }

@@ -6,7 +6,7 @@ import { JhiEventManager } from 'ng-jhipster';
 
 import { HeraShopTestModule } from '../../../test.module';
 import { ProductDeleteDialogComponent } from 'app/entities/product/product-delete-dialog.component';
-import { ProductService } from 'app/entities/product/product.service';
+import { ProductService } from 'app/shared/service/product.service';
 
 describe('Component Tests', () => {
     describe('Product Management Delete Component', () => {

@@ -4,7 +4,7 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { IProduct } from 'app/shared/model/product.model';
-import { ProductService } from './product.service';
+import { ProductService } from 'app/shared/service/product.service';
 
 @Component({
     selector: 'jhi-product-update',

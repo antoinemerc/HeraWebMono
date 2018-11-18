@@ -1,7 +1,7 @@
 /* tslint:disable max-line-length */
 import { TestBed, getTestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { CategoryService } from 'app/entities/category/category.service';
+import { CategoryService } from 'app/shared/service/category.service';
 import { Category } from 'app/shared/model/category.model';
 import { SERVER_API_URL } from 'app/app.constants';
 
