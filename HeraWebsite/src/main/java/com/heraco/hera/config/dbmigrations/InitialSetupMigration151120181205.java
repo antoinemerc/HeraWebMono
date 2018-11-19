@@ -4,9 +4,11 @@ import com.heraco.hera.domain.Authority;
 import com.heraco.hera.domain.BasketItem;
 import com.heraco.hera.domain.User;
 import com.heraco.hera.domain.Product;
+import com.heraco.hera.domain.TransportationMethod;
 import com.heraco.hera.domain.Category;
 import com.heraco.hera.domain.Comments;
 import com.heraco.hera.domain.ImageUrl;
+import com.heraco.hera.domain.Order;
 import com.heraco.hera.security.AuthoritiesConstants;
 import com.heraco.hera.domain.Address;
 
@@ -139,10 +141,10 @@ public class InitialSetupMigration151120181205 {
         userUser.setBasket(new ArrayList<BasketItem>());
         mongoTemplate.save(userUser);
     }
-    
+
     @ChangeSet(order = "03", author = "initiator", id = "03-addCategory")
     public void addCategory(MongoTemplate mongoTemplate) {
-       
+
         Category c1 = new Category();
         c1.setName("Ordinateur Portable");
         mongoTemplate.save(c1);
@@ -150,7 +152,7 @@ public class InitialSetupMigration151120181205 {
         Category c2 = new Category();
         c2.setName("Carte Graphique");
         mongoTemplate.save(c2);
-        
+
     }
 
     @ChangeSet(order = "04", author = "initiator", id = "04-addProduct")
@@ -163,8 +165,8 @@ public class InitialSetupMigration151120181205 {
         Query query2 = new Query();
         query2.addCriteria(Criteria.where("name").is("Ordinateur Portable"));
 
-        Category category1 = mongoTemplate.findOne(query1,Category.class);
-        Category category2 = mongoTemplate.findOne(query2,Category.class);
+        Category category1 = mongoTemplate.findOne(query1, Category.class);
+        Category category2 = mongoTemplate.findOne(query2, Category.class);
 
         ArrayList<Category> allCategories1 = new ArrayList<>();
         ArrayList<Category> allCategories2 = new ArrayList<>();
@@ -182,32 +184,36 @@ public class InitialSetupMigration151120181205 {
 
         Comments comment1 = new Comments();
         comment1.setTitle("This is the best Graphic Card I ever bougth");
-        comment1.setBody("J'ai acheté cette carte pour remplacer l'ancienne carte video du PC de mon fils que j'ai monté moi-même il y a trois ans avec un Core i5 et une carte mère Asus. Alors qu'avant il \"plafonnait\" à 40 fps ou même 25 dans certains nouveaux jeux gourmands, il est passé largement au delà des 100 fps. Cette carte est puissante même si un peu chère.");
+        comment1.setBody(
+                "J'ai acheté cette carte pour remplacer l'ancienne carte video du PC de mon fils que j'ai monté moi-même il y a trois ans avec un Core i5 et une carte mère Asus. Alors qu'avant il \"plafonnait\" à 40 fps ou même 25 dans certains nouveaux jeux gourmands, il est passé largement au delà des 100 fps. Cette carte est puissante même si un peu chère.");
         comment1.setNote(5);
         comment1.setDate(date);
         comment1.setUser(adminUser);
-        
+
         Comments comment2 = new Comments();
         comment2.setTitle("Ne marche plus au bout de 5 mois");
-        comment2.setBody("ça allait plutôt bien les premiers mois.Maintenant j'ai un écran noir a chaque fois que je lance un jeu. Bien sûr le support MSI met des plombs à répondre..        à éviter");
+        comment2.setBody(
+                "ça allait plutôt bien les premiers mois.Maintenant j'ai un écran noir a chaque fois que je lance un jeu. Bien sûr le support MSI met des plombs à répondre..        à éviter");
         comment2.setNote(1);
         comment2.setDate(date);
         comment2.setUser(adminUser);
 
         Comments comment3 = new Comments();
         comment3.setTitle("Très bonne carte");
-        comment3.setBody("Très content de cette carte ! Prepar3d est fluide avec un niveau détails élevé et à la résolution maximale de mon écran 22p.");
+        comment3.setBody(
+                "Très content de cette carte ! Prepar3d est fluide avec un niveau détails élevé et à la résolution maximale de mon écran 22p.");
         comment3.setNote(5);
         comment3.setDate(date);
         comment3.setUser(adminUser);
 
         Comments comment4 = new Comments();
         comment4.setTitle("Pas de suremballage");
-        comment4.setBody("Pas de problème au niveau de la carte graphique.        Mais aucune protection par suremballage, une déception, surtout pour un produit vendu par amazon.");
+        comment4.setBody(
+                "Pas de problème au niveau de la carte graphique.        Mais aucune protection par suremballage, une déception, surtout pour un produit vendu par amazon.");
         comment4.setNote(3);
         comment4.setDate(date);
         comment4.setUser(adminUser);
-        
+
         comments1.add(comment1);
         comments1.add(comment2);
         comments2.add(comment2);
@@ -216,9 +222,9 @@ public class InitialSetupMigration151120181205 {
         comments3.add(comment4);
         comments3.add(comment3);
         comments4.add(comment3);
-        
+
         ArrayList<ImageUrl> images = new ArrayList<ImageUrl>();
-        ImageUrl imagesDefault = new ImageUrl("content/images/placeHolder.png","Placeholder picture");
+        ImageUrl imagesDefault = new ImageUrl("content/images/placeHolder.png", "Placeholder picture");
         ArrayList<ImageUrl> allImageDefaultUrl = new ArrayList<ImageUrl>();
         allImageDefaultUrl.add(imagesDefault);
 
@@ -440,5 +446,63 @@ public class InitialSetupMigration151120181205 {
         p18.setUser(adminUser);
         p18.setCategories(allCategories2);
         mongoTemplate.save(p18);
+    }
+
+    @ChangeSet(order = "05", author = "initiator", id = "05-addTransportationMethod")
+    public void addTransportationMethod(MongoTemplate mongoTemplate) {
+        TransportationMethod t1 = new TransportationMethod();
+        t1.setName("Colis");
+        t1.setFixCost(0.);
+        t1.setPercentCost(0.);
+        mongoTemplate.save(t1);
+
+        TransportationMethod t2 = new TransportationMethod();
+        t2.setName("Transporteur Hera");
+        t2.setFixCost(10.);
+        t2.setPercentCost(0.);
+        mongoTemplate.save(t2);
+
+    }
+
+    @ChangeSet(order = "06", author = "initiator", id = "06-addOrder")
+    public void addOrder(MongoTemplate mongoTemplate) {
+        Order o1 = new Order();
+
+        User adminUser = mongoTemplate.findById("user-2", User.class);
+        o1.setUser(adminUser);
+        Query query1 = new Query();
+        query1.addCriteria(Criteria.where("name").is("Colis"));
+        TransportationMethod t = mongoTemplate.findOne(query1, TransportationMethod.class);
+
+        Query query2 = new Query();
+        query2.addCriteria(Criteria.where("name").is("GTX 1080"));
+        Product p = mongoTemplate.findOne(query2, Product.class);
+        int q1 = 1;
+
+        Query query3 = new Query();
+        query3.addCriteria(Criteria.where("name").is("GTX 1070"));
+        Product p2 = mongoTemplate.findOne(query3, Product.class);
+        int q2 = 10;
+
+        ArrayList<BasketItem> cart = new ArrayList<>();
+        BasketItem item = new BasketItem();
+        item.setProd(p.getId());
+        item.setQuantity(q1);
+        cart.add(item);
+
+        BasketItem item2 = new BasketItem();
+        item2.setProd(p2.getId());
+        item2.setQuantity(q2);
+        cart.add(item2);
+
+        o1.setOrderLine(cart);
+        o1.setAddress(adminUser.getAddress().get(0));
+        o1.setTransportationMethod(t);
+        o1.setDate("Dates are so boring");
+        o1.setState("In transit");
+        o1.setTotalPrice(p.getPrice() * q1 + p2.getPrice() * q2);
+
+        mongoTemplate.save(o1);
+
     }
 }
