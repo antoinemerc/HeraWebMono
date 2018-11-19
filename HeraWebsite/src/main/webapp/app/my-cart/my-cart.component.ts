@@ -8,6 +8,7 @@ import { IProduct } from 'app/shared/model/product.model';
   TO ADD:
     Error message when the user is not connected and invite him to connect
     Error message when there is no item products in the cart
+    ERRORS WITH BRANCHES
 */
 
 @Component({
