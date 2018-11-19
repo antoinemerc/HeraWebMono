@@ -1,0 +1,15 @@
+<p>
+    <div [ngSwitch]="this.principal.isAuthenticated()">
+      <div *ngSwitchCase="false">You need to be logged in in order to add products to your cart.</div>
+      <div *ngSwitchCase="true">
+        <h2>Your products</h2>
+          <jhi-my-cart-item [cartProducts]="this.cartProducts"></jhi-my-cart-item>
+        </table>
+        <div>
+          <span>Total: </span>
+          <span>{{ this.totalCost }}</span> EUR
+        </div>
+        <button>Payer</button>
+      </div>
+    </div>
+</p>

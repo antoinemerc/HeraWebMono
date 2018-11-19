@@ -22,6 +22,8 @@ import * as moment from 'moment';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ActiveMenuDirective, ErrorComponent } from './layouts';
 import { ProductPageModule } from './product-page/product-page.module';
+import { MyCartComponent } from './my-cart/my-cart.component';
+import { MyCartItemComponent } from './my-cart/my-cart-item/my-cart-item.component';
 
 @NgModule({
     imports: [
@@ -36,7 +38,16 @@ import { ProductPageModule } from './product-page/product-page.module';
         ProductPageModule
         // jhipster-needle-angular-add-module JHipster will add new module here
     ],
-    declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],
+    declarations: [
+        JhiMainComponent,
+        NavbarComponent,
+        ErrorComponent,
+        PageRibbonComponent,
+        ActiveMenuDirective,
+        FooterComponent,
+        MyCartComponent,
+        MyCartItemComponent
+    ],
     providers: [
         {
             provide: HTTP_INTERCEPTORS,
