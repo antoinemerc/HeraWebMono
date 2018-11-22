@@ -71,6 +71,7 @@ export class AddressPageComponent implements OnInit {
             // this.order.address = orderAddress;
             // Navigate to next page
         }
+        console.log(orderAddress);
     }
 
     onAddressSelectionChange(entry): void {
