@@ -8,7 +8,7 @@ import { ICategory } from 'app/shared/model/category.model';
 import { Principal } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
-import { CategoryService } from './category.service';
+import { CategoryService } from 'app/shared/service/category.service';
 
 @Component({
     selector: 'jhi-category',

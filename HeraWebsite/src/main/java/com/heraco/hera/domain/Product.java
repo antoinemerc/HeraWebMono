@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import com.heraco.hera.domain.User;
 import com.heraco.hera.domain.Category;
 import com.heraco.hera.domain.ImageUrl;
-import com.heraco.hera.domain.Comment;
+import com.heraco.hera.domain.Comments;
 
 /**
  * A Product.
@@ -63,20 +63,20 @@ public class Product implements Serializable {
     private ArrayList<Category> categories;
 
     @Field("comments")
-    private ArrayList<Comment> comments;
+    private ArrayList<Comments> comments;
 
 
     public Product(){
         this.allImageUrl = new ArrayList<ImageUrl>();
         this.categories = new ArrayList<Category>();
-        this.comments = new ArrayList<Comment>();
+        this.comments = new ArrayList<Comments>();
     }
 
-    public ArrayList<Comment> getComments() {
+    public ArrayList<Comments> getComments() {
         return comments;
     }
 
-    public void setComments(ArrayList<Comment> c) {
+    public void setComments(ArrayList<Comments> c) {
         this.comments = c;
     }
 

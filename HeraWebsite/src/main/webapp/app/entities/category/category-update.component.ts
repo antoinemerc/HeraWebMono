@@ -4,7 +4,7 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { ICategory } from 'app/shared/model/category.model';
-import { CategoryService } from './category.service';
+import { CategoryService } from '../../shared/service/category.service';
 
 @Component({
     selector: 'jhi-category-update',

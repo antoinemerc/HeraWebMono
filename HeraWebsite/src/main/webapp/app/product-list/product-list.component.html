@@ -1,6 +1,11 @@
+<div class="row" *ngIf="category == true && currentCategory != undefined">
+    <h1 style="margin-bottom: 15px">{{currentCategory.name}}</h1>
+</div>
+
 <div class="row" >
     <jhi-product-item class="col-2" *ngFor="let product of allProducts" style="margin-bottom: 10px"
-        [product]=product>
+        [product]=product
+        >
     </jhi-product-item>
 </div>
 

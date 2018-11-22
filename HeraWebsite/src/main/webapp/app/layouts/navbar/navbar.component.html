@@ -7,13 +7,25 @@
             <span jhiTranslate="global.title" class="navbar-title">HeraShop</span>
         </a>
     </div>
+    <div ngbDropdown class="dropdown marginCat" >
+        <a class="dropdown-toggle btn btn-outline-secondary" ngbDropdownToggle  id="account-menu" >
+            <span class="whiteText">Category</span>
+        </a>
+        <ul class="dropdown-menu" ngbDropdownMenu>
+            <li>
+                <a class="dropdown-item" *ngFor="let category of allCategories" [routerLink]="['/displayCategory', category.id]" id={{category.id}} href="#" (click)="collapseNavbar()">
+                    {{category.name}}
+                </a>
+            </li>
+        </ul>
+    </div>
     <div style="margin: 0 auto;">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Laptop, graphics card...">
-                <div class="input-group-append">
-                    <button class="btn btn-outline-secondary" type="button">Search</button>
-                </div>
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Laptop, graphics card...">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary whiteText" type="button">Search</button>
             </div>
+        </div>
     </div>
     <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed" [ngSwitch]="isAuthenticated()">
         <ul class="navbar-nav ml-auto">
@@ -38,6 +50,18 @@
                         <a class="dropdown-item" routerLink="product" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <fa-icon [icon]="'asterisk'" [fixedWidth]="true"></fa-icon>
                             <span jhiTranslate="global.menu.entities.product">Product</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="transportation-method" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon [icon]="'asterisk'" [fixedWidth]="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.transportationMethod">Transportation Method</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="order" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon [icon]="'asterisk'" [fixedWidth]="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.order">Order</span>
                         </a>
                     </li>
                     <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->

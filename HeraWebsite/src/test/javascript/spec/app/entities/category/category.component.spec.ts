@@ -6,7 +6,7 @@ import { ActivatedRoute, Data } from '@angular/router';
 
 import { HeraShopTestModule } from '../../../test.module';
 import { CategoryComponent } from 'app/entities/category/category.component';
-import { CategoryService } from 'app/entities/category/category.service';
+import { CategoryService } from 'app/shared/service/category.service';
 import { Category } from 'app/shared/model/category.model';
 
 describe('Component Tests', () => {

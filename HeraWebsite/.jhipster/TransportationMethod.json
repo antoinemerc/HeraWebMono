@@ -1,0 +1,25 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "fixCost",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "percentCost",
+            "fieldType": "Double"
+        }
+    ],
+    "dto": "mapstruct",
+    "searchEngine": "elasticsearch",
+    "service": "serviceImpl",
+    "entityTableName": "transportation_method",
+    "jpaMetamodelFiltering": false,
+    "pagination": "pagination"
+}

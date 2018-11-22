@@ -6,6 +6,9 @@ import { JhiLanguageService } from 'ng-jhipster';
 import { VERSION } from 'app/app.constants';
 import { JhiLanguageHelper, Principal, LoginModalService, LoginService } from 'app/core';
 import { ProfileService } from '../profiles/profile.service';
+import { HttpResponse } from '@angular/common/http';
+import { Category } from 'app/shared/model/category.model';
+import { CategoryService } from 'app/shared';
 
 @Component({
     selector: 'jhi-navbar',
@@ -19,6 +22,7 @@ export class NavbarComponent implements OnInit {
     swaggerEnabled: boolean;
     modalRef: NgbModalRef;
     version: string;
+    allCategories: Category[];
 
     constructor(
         private loginService: LoginService,
@@ -27,7 +31,8 @@ export class NavbarComponent implements OnInit {
         private principal: Principal,
         private loginModalService: LoginModalService,
         private profileService: ProfileService,
-        private router: Router
+        private router: Router,
+        private categoryService: CategoryService
     ) {
         this.version = VERSION ? 'v' + VERSION : '';
         this.isNavbarCollapsed = true;
@@ -42,6 +47,8 @@ export class NavbarComponent implements OnInit {
             this.inProduction = profileInfo.inProduction;
             this.swaggerEnabled = profileInfo.swaggerEnabled;
         });
+
+        this.categoryService.query().subscribe((res: HttpResponse<Category[]>) => this.bindBody(res.body));
     }
 
     changeLanguage(languageKey: string) {
@@ -72,5 +79,9 @@ export class NavbarComponent implements OnInit {
 
     getImageUrl() {
         return this.isAuthenticated() ? this.principal.getImageUrl() : null;
+    }
+
+    private bindBody(data: Category[]) {
+        this.allCategories = data;
     }
 }

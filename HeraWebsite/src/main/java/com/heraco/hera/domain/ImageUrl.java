@@ -24,4 +24,12 @@ public class ImageUrl implements Serializable{
         this.alternativeText = alternativeText;
     }
 
+    public ImageUrl(){}
+
+    public ImageUrl(String url, String alternativeText){
+        this.url = url;
+        this.alternativeText = alternativeText;
+    }
+
+
 }

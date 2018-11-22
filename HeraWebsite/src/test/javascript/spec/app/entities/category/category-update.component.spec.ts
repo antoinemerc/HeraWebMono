@@ -5,7 +5,7 @@ import { Observable, of } from 'rxjs';
 
 import { HeraShopTestModule } from '../../../test.module';
 import { CategoryUpdateComponent } from 'app/entities/category/category-update.component';
-import { CategoryService } from 'app/entities/category/category.service';
+import { CategoryService } from 'app/shared/service/category.service';
 import { Category } from 'app/shared/model/category.model';
 
 describe('Component Tests', () => {
