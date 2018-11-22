@@ -1,0 +1,8 @@
+<div>
+    <div *ngFor="let transport of transportMethods; let i = index;">
+        <input type="radio" id="{{transport.name}}"  [checked]="idx === i" (change)="onTransportSelectionChange(i)" name="transport" value={{i}} >
+        <label for="{{transport.name}}">{{transport.name}} (fix cost : {{transport.fixCost}}, percent cost : {{transport.percentCost}})</label>
+    </div>
+    <a (click)="display()" class="myButton">Next step</a>
+</div>
+
