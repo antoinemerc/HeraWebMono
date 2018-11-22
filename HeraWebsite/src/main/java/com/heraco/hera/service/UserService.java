@@ -112,7 +112,7 @@ public class UserService {
         newUser.setFirstName(userDTO.getFirstName());
         newUser.setLastName(userDTO.getLastName());
         newUser.setEmail(userDTO.getEmail().toLowerCase());
-        newUser.setAddress(userDTO.getAddress());
+        newUser.setAllAddress(userDTO.getAllAddress());
         newUser.setBasket(userDTO.getBasket());
         newUser.setImageUrl(userDTO.getImageUrl());
         newUser.setLangKey(userDTO.getLangKey());
@@ -145,7 +145,7 @@ public class UserService {
         user.setFirstName(userDTO.getFirstName());
         user.setLastName(userDTO.getLastName());
         user.setEmail(userDTO.getEmail().toLowerCase());
-        user.setAddress(userDTO.getAddress());
+        user.setAllAddress(userDTO.getAllAddress());
         user.setBasket(userDTO.getBasket());
         user.setImageUrl(userDTO.getImageUrl());
         if (userDTO.getLangKey() == null) {
@@ -208,7 +208,7 @@ public class UserService {
                     user.setFirstName(userDTO.getFirstName());
                     user.setLastName(userDTO.getLastName());
                     user.setEmail(userDTO.getEmail().toLowerCase());
-                    user.setAddress(userDTO.getAddress());
+                    user.setAllAddress(userDTO.getAllAddress());
                     user.setBasket(userDTO.getBasket());
                     user.setImageUrl(userDTO.getImageUrl());
                     user.setActivated(userDTO.isActivated());
