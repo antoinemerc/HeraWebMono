@@ -1,0 +1,25 @@
+
+{
+    "heraShopApp": {
+        "transportationMethod" : {
+            "home": {
+                "title": "Transportation Methods",
+                "createLabel": "Create a new Transportation Method",
+                "createOrEditLabel": "Create or edit a Transportation Method",
+                "search": "Search for Transportation Method"
+            },
+            "created": "A new Transportation Method is created with identifier {{ param }}",
+            "updated": "A Transportation Method is updated with identifier {{ param }}",
+            "deleted": "A Transportation Method is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Transportation Method {{ id }}?"
+            },
+            "detail": {
+                "title": "Transportation Method"
+            },
+            "name": "Name",
+            "fixCost": "Fix Cost",
+            "percentCost": "Percent Cost"
+        }
+    }
+}
