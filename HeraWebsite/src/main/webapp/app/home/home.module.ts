@@ -4,9 +4,10 @@ import { RouterModule } from '@angular/router';
 import { HeraShopSharedModule } from 'app/shared';
 import { ALL_HOME_ROUTE, HomeComponent } from './';
 import { ProductListModule } from 'app/product-list/product-list.module';
+import { TransportManagementModule } from 'app/transport-management/transport-management.module';
 
 @NgModule({
-    imports: [HeraShopSharedModule, RouterModule.forChild(ALL_HOME_ROUTE), ProductListModule],
+    imports: [HeraShopSharedModule, RouterModule.forChild(ALL_HOME_ROUTE), ProductListModule, TransportManagementModule],
     declarations: [HomeComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
