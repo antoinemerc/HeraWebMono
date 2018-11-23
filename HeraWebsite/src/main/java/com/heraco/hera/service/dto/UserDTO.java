@@ -74,7 +74,7 @@ public class UserDTO {
         this.activated = user.getActivated();
         this.imageUrl = user.getImageUrl();
         this.langKey = user.getLangKey();
-        this.allAddress = user.getAddress();
+        this.allAddress = user.getAllAddress();
         this.basket = user.getBasket();
         this.createdBy = user.getCreatedBy();
         this.createdDate = user.getCreatedDate();
@@ -93,7 +93,7 @@ public class UserDTO {
         return this.basket;
     }
 
-    public void setAddress(ArrayList<Address> allAddress) {
+    public void setAllAddress(ArrayList<Address> allAddress) {
         this.allAddress = allAddress;
     }
 
@@ -101,7 +101,7 @@ public class UserDTO {
         this.allAddress.add(address);
     }
 
-    public ArrayList<Address> getAddress() {
+    public ArrayList<Address> getAllAddress() {
         return allAddress;
     }
 

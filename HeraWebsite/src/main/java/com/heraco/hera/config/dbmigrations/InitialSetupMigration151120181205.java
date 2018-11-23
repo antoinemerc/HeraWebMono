@@ -85,7 +85,7 @@ public class InitialSetupMigration151120181205 {
         systemUser.setEmail("system@localhost");
         systemUser.setActivated(true);
         systemUser.setLangKey("fr");
-        systemUser.setAddress(allAddress1);
+        systemUser.setAllAddress(allAddress1);
         systemUser.setCreatedBy(systemUser.getLogin());
         systemUser.setCreatedDate(Instant.now());
         systemUser.getAuthorities().add(adminAuthority);
@@ -102,7 +102,7 @@ public class InitialSetupMigration151120181205 {
         anonymousUser.setEmail("anonymous@localhost");
         anonymousUser.setActivated(true);
         anonymousUser.setLangKey("fr");
-        anonymousUser.setAddress(allAddress2);
+        anonymousUser.setAllAddress(allAddress2);
         anonymousUser.setCreatedBy(systemUser.getLogin());
         anonymousUser.setCreatedDate(Instant.now());
         anonymousUser.setBasket(new ArrayList<BasketItem>());
@@ -117,7 +117,7 @@ public class InitialSetupMigration151120181205 {
         adminUser.setEmail("admin@localhost");
         adminUser.setActivated(true);
         adminUser.setLangKey("fr");
-        adminUser.setAddress(allAddress3);
+        adminUser.setAllAddress(allAddress3);
         adminUser.setCreatedBy(systemUser.getLogin());
         adminUser.setCreatedDate(Instant.now());
         adminUser.getAuthorities().add(adminAuthority);
@@ -134,7 +134,7 @@ public class InitialSetupMigration151120181205 {
         userUser.setEmail("user@localhost");
         userUser.setActivated(true);
         userUser.setLangKey("fr");
-        userUser.setAddress(allAddress2);
+        userUser.setAllAddress(allAddress2);
         userUser.setCreatedBy(systemUser.getLogin());
         userUser.setCreatedDate(Instant.now());
         userUser.getAuthorities().add(userAuthority);
@@ -496,7 +496,7 @@ public class InitialSetupMigration151120181205 {
         cart.add(item2);
 
         o1.setOrderLine(cart);
-        o1.setAddress(adminUser.getAddress().get(0));
+        o1.setAddress(adminUser.getAllAddress().get(0));
         o1.setTransportationMethod(t);
         o1.setDate("Dates are so boring");
         o1.setState("In transit");
