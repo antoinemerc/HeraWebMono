@@ -3,7 +3,9 @@ import { Principal, IUser, Account, UserService } from 'app/core';
 import { HttpResponse } from '@angular/common/http';
 import { ProductService } from 'app/shared/service/product.service';
 import { IProduct } from 'app/shared/model/product.model';
+import { OrderService } from '../shared/service/order.service';
 import { Order } from '../shared/model/order.model';
+import { Router } from '@angular/router';
 
 /*
   TO ADD:
@@ -23,7 +25,13 @@ export class MyCartComponent implements OnInit {
     cartProducts: IProduct[];
     totalCost: Number = 0;
 
-    constructor(public principal: Principal, private productService: ProductService, private userService: UserService) {}
+    constructor(
+        public principal: Principal,
+        private productService: ProductService,
+        private userService: UserService,
+        private router: Router,
+        private orderService: OrderService
+    ) {}
 
     ngOnInit() {
         this.principal.identity().then(account => {
@@ -59,7 +67,8 @@ export class MyCartComponent implements OnInit {
                 order.orderLine = this.currentUser.basket;
                 order.date = this.createDate();
                 order.totalPrice = this.getTotalCost();
-                console.log(order);
+                this.orderService.save(order);
+                this.router.navigate(['/transportManagement']);
             });
         });
     }

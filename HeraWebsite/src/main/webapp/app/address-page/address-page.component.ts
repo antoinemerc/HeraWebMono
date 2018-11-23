@@ -6,6 +6,7 @@ import { Principal, IUser, UserService, Account } from 'app/core';
 import { Location } from '@angular/common';
 import { IAddress, Address } from '../shared/model/address.model';
 import { AddressModalService } from './add-address-popup/address-modal.service';
+import { OrderService } from '../shared/service/order.service';
 
 @Component({
     selector: 'jhi-address-page',
@@ -24,7 +25,8 @@ export class AddressPageComponent implements OnInit {
         private userService: UserService,
         private router: Router,
         private location: Location,
-        private addressModalService: AddressModalService
+        private addressModalService: AddressModalService,
+        private orderService: OrderService
     ) {}
 
     ngOnInit() {
@@ -34,15 +36,10 @@ export class AddressPageComponent implements OnInit {
         } else {
             this.newAddress = new Address();
             this.idxAddress = 1;
+            this.order = this.orderService.retrieve();
             // Decommenter quand le lien sera fait
-            // this.user = this.order.user;
+            this.user = this.order.user;
             // Supprimer les lignes suivantes
-            this.principal.identity().then(account => {
-                this.accountConnected = account;
-                this.userService.find(this.accountConnected.login).subscribe((res: HttpResponse<IUser>) => {
-                    this.user = res.body;
-                });
-            });
             // Jusque là
         }
     }
@@ -57,21 +54,22 @@ export class AddressPageComponent implements OnInit {
                     console.log(data);
                     this.user.allAddress.push(orderAddress);
                     this.userService.update(this.user).subscribe();
-                    // this.order.address = orderAddress;
+                    this.order.address = orderAddress;
+                    console.log(this.order);
                     // Navigate to next page
                 },
                 reason => {
-                    console.log(reason);
-                    // this.order.address = orderAddress;
+                    this.order.address = orderAddress;
+                    console.log(this.order);
                     // Navigate to next page
                 }
             );
         } else {
             orderAddress = this.user.allAddress[this.idxAddress - 1];
-            // this.order.address = orderAddress;
+            this.order.address = orderAddress;
+            console.log(this.order);
             // Navigate to next page
         }
-        console.log(orderAddress);
     }
 
     onAddressSelectionChange(entry): void {

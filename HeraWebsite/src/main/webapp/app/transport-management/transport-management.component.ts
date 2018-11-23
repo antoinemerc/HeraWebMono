@@ -1,11 +1,12 @@
 import { Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { TransportationMethodService } from '../entities/transportation-method/transportation-method.service';
 import { ITransportationMethod } from 'app/shared/model/transportation-method.model';
 import { HttpResponse } from '@angular/common/http';
 import { Principal } from 'app/core';
 import { Location } from '@angular/common';
 import { IOrder } from 'app/shared/model/order.model';
+import { OrderService } from '../shared/service/order.service';
 
 @Component({
     selector: 'jhi-transport-management',
@@ -21,7 +22,9 @@ export class TransportManagementComponent implements OnInit {
         private principal: Principal,
         private transportService: TransportationMethodService,
         private router: Router,
-        private location: Location
+        private location: Location,
+        private route: ActivatedRoute,
+        private orderService: OrderService
     ) {}
 
     ngOnInit() {
@@ -29,14 +32,16 @@ export class TransportManagementComponent implements OnInit {
             this.location.replaceState('/');
             this.router.navigate(['/']);
         } else {
+            this.order = this.orderService.retrieve();
             this.idx = 0;
             this.transportService.query().subscribe((res: HttpResponse<ITransportationMethod[]>) => this.bindBody(res.body));
         }
     }
 
-    display() {
-        // this.order.transportationMethod = this.transportMethods[this.idx];
-        console.log(this.transportMethods[this.idx]);
+    nextStep() {
+        this.order.transportationMethod = this.transportMethods[this.idx];
+        this.orderService.save(this.order);
+        this.router.navigate(['/addressChoice']);
     }
 
     onTransportSelectionChange(entry): void {
