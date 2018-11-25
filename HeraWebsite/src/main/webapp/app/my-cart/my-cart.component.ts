@@ -6,6 +6,9 @@ import { IProduct } from 'app/shared/model/product.model';
 import { Order } from '../shared/model/order.model';
 import { LoginModalService } from 'app/core';
 
+/*==================================================
+==================================================*/
+
 @Component({
     selector: 'jhi-my-cart',
     templateUrl: './my-cart.component.html',
@@ -14,8 +17,8 @@ import { LoginModalService } from 'app/core';
 export class MyCartComponent implements OnInit {
     accountConnected: Account;
     currentUser: IUser;
+    basket: IProduct[];
     cartProducts: IProduct[];
-    totalCost: Number = 0;
     confirmation: Boolean = false;
 
     constructor(
@@ -30,9 +33,10 @@ export class MyCartComponent implements OnInit {
             this.accountConnected = account;
             this.userService.find(this.accountConnected.login).subscribe((res: HttpResponse<IUser>) => {
                 this.currentUser = res.body;
+                this.basket = res.body.basket;
+                // console.log( this.basket );
                 this.productService.queryBasket(this.currentUser).subscribe((cart: HttpResponse<IProduct[]>) => {
                     this.cartProducts = cart.body;
-                    this.totalCost = this.getTotalCost();
                     this.confirmation = true;
                 });
             });
@@ -58,18 +62,9 @@ export class MyCartComponent implements OnInit {
                 order.user = this.currentUser;
                 order.orderLine = this.currentUser.basket;
                 order.date = this.createDate();
-                order.totalPrice = this.getTotalCost();
                 console.log(order);
             });
         });
-    }
-
-    getTotalCost() {
-        let total = 0;
-        for (const entry of this.cartProducts) {
-            total += entry.quantity * entry.price;
-        }
-        return total;
     }
 
     logIn() {
@@ -78,8 +73,10 @@ export class MyCartComponent implements OnInit {
 
     cartIsEmpty() {
         let empty = true;
-        if (this.cartProducts.length > 0) {
-            empty = false;
+        if (this.cartProducts != null) {
+            if (this.cartProducts.length > 0) {
+                empty = false;
+            }
         }
         return empty;
     }

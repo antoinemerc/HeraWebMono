@@ -12,15 +12,10 @@
       </div>
       <div *ngIf="!this.cartIsEmpty()">
         <div *ngIf="this.confirmation">
-            <jhi-my-cart-item [cartProducts]="this.cartProducts"></jhi-my-cart-item>
-            <div>
-              <span>Total: </span>
-              <span>{{ this.totalCost }}</span> EUR
-            </div>
-            <button (click)="pay()" class="btn btn-primary">Payer</button>
+            <jhi-my-cart-item [cartProducts]="this.cartProducts" [basket]="this.basket"></jhi-my-cart-item>
         </div>
-        <div *ngIf="!this.confirmation">Loading...</div>
       </div>
+      <div *ngIf="!this.confirmation">Loading...</div>
     </div>
   </div>
 </p>
