@@ -24,8 +24,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
-
 /**
  * REST controller for managing Category.
  */
@@ -135,7 +133,7 @@ public class CategoryResource {
      * @param query the query of the category search
      * @param pageable the pagination information
      * @return the result of the search
-     */
+     *//*
     @GetMapping("/_search/categories")
     @Timed
     public ResponseEntity<List<CategoryDTO>> searchCategories(@RequestParam String query, Pageable pageable) {
@@ -143,6 +141,6 @@ public class CategoryResource {
         Page<CategoryDTO> page = categoryService.search(query, pageable);
         HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/categories");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
-    }
+    }*/
 
 }

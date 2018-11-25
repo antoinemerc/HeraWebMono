@@ -3,7 +3,6 @@ package com.heraco.hera.service.impl;
 import com.heraco.hera.service.TransportationMethodService;
 import com.heraco.hera.domain.TransportationMethod;
 import com.heraco.hera.repository.TransportationMethodRepository;
-import com.heraco.hera.repository.search.TransportationMethodSearchRepository;
 import com.heraco.hera.service.dto.TransportationMethodDTO;
 import com.heraco.hera.service.mapper.TransportationMethodMapper;
 import org.slf4j.Logger;
@@ -14,8 +13,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * Service Implementation for managing TransportationMethod.
@@ -29,12 +26,10 @@ public class TransportationMethodServiceImpl implements TransportationMethodServ
 
     private final TransportationMethodMapper transportationMethodMapper;
 
-    private final TransportationMethodSearchRepository transportationMethodSearchRepository;
 
-    public TransportationMethodServiceImpl(TransportationMethodRepository transportationMethodRepository, TransportationMethodMapper transportationMethodMapper, TransportationMethodSearchRepository transportationMethodSearchRepository) {
+    public TransportationMethodServiceImpl(TransportationMethodRepository transportationMethodRepository, TransportationMethodMapper transportationMethodMapper) {
         this.transportationMethodRepository = transportationMethodRepository;
         this.transportationMethodMapper = transportationMethodMapper;
-        this.transportationMethodSearchRepository = transportationMethodSearchRepository;
     }
 
     /**
@@ -49,7 +44,6 @@ public class TransportationMethodServiceImpl implements TransportationMethodServ
         TransportationMethod transportationMethod = transportationMethodMapper.toEntity(transportationMethodDTO);
         transportationMethod = transportationMethodRepository.save(transportationMethod);
         TransportationMethodDTO result = transportationMethodMapper.toDto(transportationMethod);
-        transportationMethodSearchRepository.save(transportationMethod);
         return result;
     }
 
@@ -89,7 +83,6 @@ public class TransportationMethodServiceImpl implements TransportationMethodServ
     public void delete(String id) {
         log.debug("Request to delete TransportationMethod : {}", id);
         transportationMethodRepository.deleteById(id);
-        transportationMethodSearchRepository.deleteById(id);
     }
 
     /**
@@ -98,11 +91,11 @@ public class TransportationMethodServiceImpl implements TransportationMethodServ
      * @param query the query of the search
      * @param pageable the pagination information
      * @return the list of entities
-     */
+     *//*
     @Override
     public Page<TransportationMethodDTO> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of TransportationMethods for query {}", query);
         return transportationMethodSearchRepository.search(queryStringQuery(query), pageable)
             .map(transportationMethodMapper::toDto);
-    }
+    }*/
 }

@@ -23,8 +23,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
-
 /**
  * REST controller for managing Order.
  */
@@ -134,7 +132,7 @@ public class OrderResource {
      * @param query the query of the order search
      * @param pageable the pagination information
      * @return the result of the search
-     */
+     *//*
     @GetMapping("/_search/orders")
     @Timed
     public ResponseEntity<List<OrderDTO>> searchOrders(@RequestParam String query, Pageable pageable) {
@@ -142,6 +140,6 @@ public class OrderResource {
         Page<OrderDTO> page = orderService.search(query, pageable);
         HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/orders");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
-    }
+    }*/
 
 }

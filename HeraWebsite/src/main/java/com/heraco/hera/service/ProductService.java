@@ -52,7 +52,7 @@ public interface ProductService {
      * @param pageable the pagination information
      * @return the list of entities
      */
-    Page<ProductDTO> search(String query, Pageable pageable);
+    // Page<ProductDTO> search(String query, Pageable pageable);
 
     /**
      * Search for the product corresponding to the category.

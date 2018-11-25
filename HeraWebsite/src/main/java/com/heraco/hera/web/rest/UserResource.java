@@ -3,7 +3,6 @@ package com.heraco.hera.web.rest;
 import com.heraco.hera.config.Constants;
 import com.heraco.hera.domain.User;
 import com.heraco.hera.repository.UserRepository;
-import com.heraco.hera.repository.search.UserSearchRepository;
 import com.heraco.hera.security.AuthoritiesConstants;
 import com.heraco.hera.service.MailService;
 import com.heraco.hera.service.UserService;
@@ -32,8 +31,6 @@ import java.net.URISyntaxException;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * REST controller for managing users.
@@ -71,14 +68,11 @@ public class UserResource {
 
     private final MailService mailService;
 
-    private final UserSearchRepository userSearchRepository;
-
-    public UserResource(UserService userService, UserRepository userRepository, MailService mailService, UserSearchRepository userSearchRepository) {
+    public UserResource(UserService userService, UserRepository userRepository, MailService mailService) {
 
         this.userService = userService;
         this.userRepository = userRepository;
         this.mailService = mailService;
-        this.userSearchRepository = userSearchRepository;
     }
 
     /**
@@ -202,12 +196,12 @@ public class UserResource {
      *
      * @param query the query to search
      * @return the result of the search
-     */
+     *//*
     @GetMapping("/_search/users/{query}")
     @Timed
     public List<User> search(@PathVariable String query) {
         return StreamSupport
             .stream(userSearchRepository.search(queryStringQuery(query)).spliterator(), false)
             .collect(Collectors.toList());
-    }
+    }*/
 }

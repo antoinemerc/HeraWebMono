@@ -52,5 +52,5 @@ public interface CategoryService {
      * @param pageable the pagination information
      * @return the list of entities
      */
-    Page<CategoryDTO> search(String query, Pageable pageable);
+    // Page<CategoryDTO> search(String query, Pageable pageable);
 }

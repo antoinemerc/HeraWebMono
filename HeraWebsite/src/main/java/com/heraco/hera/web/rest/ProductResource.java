@@ -28,8 +28,6 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
-
 /**
  * REST controller for managing Product.
  */
@@ -144,7 +142,7 @@ public class ProductResource {
      * @param query    the query of the product search
      * @param pageable the pagination information
      * @return the result of the search
-     */
+     *//*
     @GetMapping("/_search/products")
     @Timed
     public ResponseEntity<List<ProductDTO>> searchProducts(@RequestParam String query, Pageable pageable) {
@@ -152,7 +150,7 @@ public class ProductResource {
         Page<ProductDTO> page = productService.search(query, pageable);
         HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/products");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
-    }
+    }*/
 
     /**
      * SEARCH /_search/products?query=:query : search for the product corresponding

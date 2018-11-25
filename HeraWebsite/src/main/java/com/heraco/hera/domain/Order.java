@@ -13,7 +13,6 @@ import java.util.ArrayList;
  * A Order.
  */
 @Document(collection = "order")
-@org.springframework.data.elasticsearch.annotations.Document(indexName = "order")
 public class Order implements Serializable {
 
     private static final long serialVersionUID = 1L;

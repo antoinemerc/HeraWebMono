@@ -9,8 +9,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import javax.validation.constraints.*;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import org.springframework.data.elasticsearch.annotations.FieldType;
-import org.springframework.data.elasticsearch.annotations.Mapping;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -24,20 +22,15 @@ import com.heraco.hera.domain.Comments;
  * A Product.
  */
 @Document(collection = "product")
-@org.springframework.data.elasticsearch.annotations.Document(indexName = "product")
 public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @org.springframework.data.elasticsearch.annotations.Field(type = FieldType.Keyword)
-    @Mapping(mappingPath = "/mappings/asset_id_mapping.json")
     private String id;
 
     @NotNull
     @Field("name")
-    @org.springframework.data.elasticsearch.annotations.Field(type = FieldType.Keyword)
-    @Mapping(mappingPath = "/mappings/asset_id_mapping.json")
     private String name;
 
     @Field("description")

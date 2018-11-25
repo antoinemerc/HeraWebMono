@@ -3,7 +3,6 @@ package com.heraco.hera.service.impl;
 import com.heraco.hera.service.CategoryService;
 import com.heraco.hera.domain.Category;
 import com.heraco.hera.repository.CategoryRepository;
-import com.heraco.hera.repository.search.CategorySearchRepository;
 import com.heraco.hera.service.dto.CategoryDTO;
 import com.heraco.hera.service.mapper.CategoryMapper;
 import org.slf4j.Logger;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * Service Implementation for managing Category.
@@ -29,12 +27,9 @@ public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryMapper categoryMapper;
 
-    private final CategorySearchRepository categorySearchRepository;
-
-    public CategoryServiceImpl(CategoryRepository categoryRepository, CategoryMapper categoryMapper, CategorySearchRepository categorySearchRepository) {
+    public CategoryServiceImpl(CategoryRepository categoryRepository, CategoryMapper categoryMapper) {
         this.categoryRepository = categoryRepository;
         this.categoryMapper = categoryMapper;
-        this.categorySearchRepository = categorySearchRepository;
     }
 
     /**
@@ -49,7 +44,6 @@ public class CategoryServiceImpl implements CategoryService {
         Category category = categoryMapper.toEntity(categoryDTO);
         category = categoryRepository.save(category);
         CategoryDTO result = categoryMapper.toDto(category);
-        categorySearchRepository.save(category);
         return result;
     }
 
@@ -89,7 +83,6 @@ public class CategoryServiceImpl implements CategoryService {
     public void delete(String id) {
         log.debug("Request to delete Category : {}", id);
         categoryRepository.deleteById(id);
-        categorySearchRepository.deleteById(id);
     }
 
     /**
@@ -98,11 +91,11 @@ public class CategoryServiceImpl implements CategoryService {
      * @param query the query of the search
      * @param pageable the pagination information
      * @return the list of entities
-     */
+     *//*
     @Override
     public Page<CategoryDTO> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of Categories for query {}", query);
         return categorySearchRepository.search(queryStringQuery(query), pageable)
             .map(categoryMapper::toDto);
-    }
+    }*/
 }

@@ -4,7 +4,6 @@ import com.heraco.hera.HeraShopApp;
 
 import com.heraco.hera.domain.TransportationMethod;
 import com.heraco.hera.repository.TransportationMethodRepository;
-import com.heraco.hera.repository.search.TransportationMethodSearchRepository;
 import com.heraco.hera.service.TransportationMethodService;
 import com.heraco.hera.service.dto.TransportationMethodDTO;
 import com.heraco.hera.service.mapper.TransportationMethodMapper;
@@ -31,7 +30,6 @@ import java.util.List;
 
 import static com.heraco.hera.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 import static org.hamcrest.Matchers.hasItem;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -63,14 +61,6 @@ public class TransportationMethodResourceIntTest {
     
     @Autowired
     private TransportationMethodService transportationMethodService;
-
-    /**
-     * This repository is mocked in the com.heraco.hera.repository.search test package.
-     *
-     * @see com.heraco.hera.repository.search.TransportationMethodSearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private TransportationMethodSearchRepository mockTransportationMethodSearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -135,8 +125,6 @@ public class TransportationMethodResourceIntTest {
         assertThat(testTransportationMethod.getFixCost()).isEqualTo(DEFAULT_FIX_COST);
         assertThat(testTransportationMethod.getPercentCost()).isEqualTo(DEFAULT_PERCENT_COST);
 
-        // Validate the TransportationMethod in Elasticsearch
-        verify(mockTransportationMethodSearchRepository, times(1)).save(testTransportationMethod);
     }
 
     @Test
@@ -157,8 +145,6 @@ public class TransportationMethodResourceIntTest {
         List<TransportationMethod> transportationMethodList = transportationMethodRepository.findAll();
         assertThat(transportationMethodList).hasSize(databaseSizeBeforeCreate);
 
-        // Validate the TransportationMethod in Elasticsearch
-        verify(mockTransportationMethodSearchRepository, times(0)).save(transportationMethod);
     }
 
     @Test
@@ -226,8 +212,6 @@ public class TransportationMethodResourceIntTest {
         assertThat(testTransportationMethod.getFixCost()).isEqualTo(UPDATED_FIX_COST);
         assertThat(testTransportationMethod.getPercentCost()).isEqualTo(UPDATED_PERCENT_COST);
 
-        // Validate the TransportationMethod in Elasticsearch
-        verify(mockTransportationMethodSearchRepository, times(1)).save(testTransportationMethod);
     }
 
     @Test
@@ -247,8 +231,6 @@ public class TransportationMethodResourceIntTest {
         List<TransportationMethod> transportationMethodList = transportationMethodRepository.findAll();
         assertThat(transportationMethodList).hasSize(databaseSizeBeforeUpdate);
 
-        // Validate the TransportationMethod in Elasticsearch
-        verify(mockTransportationMethodSearchRepository, times(0)).save(transportationMethod);
     }
 
     @Test
@@ -267,24 +249,6 @@ public class TransportationMethodResourceIntTest {
         List<TransportationMethod> transportationMethodList = transportationMethodRepository.findAll();
         assertThat(transportationMethodList).hasSize(databaseSizeBeforeDelete - 1);
 
-        // Validate the TransportationMethod in Elasticsearch
-        verify(mockTransportationMethodSearchRepository, times(1)).deleteById(transportationMethod.getId());
-    }
-
-    @Test
-    public void searchTransportationMethod() throws Exception {
-        // Initialize the database
-        transportationMethodRepository.save(transportationMethod);
-        when(mockTransportationMethodSearchRepository.search(queryStringQuery("id:" + transportationMethod.getId()), PageRequest.of(0, 20)))
-            .thenReturn(new PageImpl<>(Collections.singletonList(transportationMethod), PageRequest.of(0, 1), 1));
-        // Search the transportationMethod
-        restTransportationMethodMockMvc.perform(get("/api/_search/transportation-methods?query=id:" + transportationMethod.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(transportationMethod.getId())))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
-            .andExpect(jsonPath("$.[*].fixCost").value(hasItem(DEFAULT_FIX_COST.doubleValue())))
-            .andExpect(jsonPath("$.[*].percentCost").value(hasItem(DEFAULT_PERCENT_COST.doubleValue())));
     }
 
     @Test

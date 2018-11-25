@@ -23,8 +23,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
-
 /**
  * REST controller for managing TransportationMethod.
  */
@@ -134,7 +132,7 @@ public class TransportationMethodResource {
      * @param query the query of the transportationMethod search
      * @param pageable the pagination information
      * @return the result of the search
-     */
+     *//*
     @GetMapping("/_search/transportation-methods")
     @Timed
     public ResponseEntity<List<TransportationMethodDTO>> searchTransportationMethods(@RequestParam String query, Pageable pageable) {
@@ -142,6 +140,6 @@ public class TransportationMethodResource {
         Page<TransportationMethodDTO> page = transportationMethodService.search(query, pageable);
         HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/transportation-methods");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
-    }
+    }*/
 
 }

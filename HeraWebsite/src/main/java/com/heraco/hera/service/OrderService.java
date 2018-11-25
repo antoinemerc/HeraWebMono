@@ -52,5 +52,5 @@ public interface OrderService {
      * @param pageable the pagination information
      * @return the list of entities
      */
-    Page<OrderDTO> search(String query, Pageable pageable);
+    // Page<OrderDTO> search(String query, Pageable pageable);
 }

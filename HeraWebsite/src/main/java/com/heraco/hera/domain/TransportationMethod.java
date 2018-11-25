@@ -12,7 +12,6 @@ import java.util.Objects;
  * A TransportationMethod.
  */
 @Document(collection = "transportation_method")
-@org.springframework.data.elasticsearch.annotations.Document(indexName = "transportationmethod")
 public class TransportationMethod implements Serializable {
 
     private static final long serialVersionUID = 1L;

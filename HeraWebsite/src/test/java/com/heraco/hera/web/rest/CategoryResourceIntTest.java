@@ -4,7 +4,6 @@ import com.heraco.hera.HeraShopApp;
 
 import com.heraco.hera.domain.Category;
 import com.heraco.hera.repository.CategoryRepository;
-import com.heraco.hera.repository.search.CategorySearchRepository;
 import com.heraco.hera.service.CategoryService;
 import com.heraco.hera.service.dto.CategoryDTO;
 import com.heraco.hera.service.mapper.CategoryMapper;
@@ -31,7 +30,6 @@ import java.util.List;
 
 import static com.heraco.hera.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 import static org.hamcrest.Matchers.hasItem;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -57,14 +55,6 @@ public class CategoryResourceIntTest {
     
     @Autowired
     private CategoryService categoryService;
-
-    /**
-     * This repository is mocked in the com.heraco.hera.repository.search test package.
-     *
-     * @see com.heraco.hera.repository.search.CategorySearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private CategorySearchRepository mockCategorySearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -125,8 +115,6 @@ public class CategoryResourceIntTest {
         Category testCategory = categoryList.get(categoryList.size() - 1);
         assertThat(testCategory.getName()).isEqualTo(DEFAULT_NAME);
 
-        // Validate the Category in Elasticsearch
-        verify(mockCategorySearchRepository, times(1)).save(testCategory);
     }
 
     @Test
@@ -147,8 +135,6 @@ public class CategoryResourceIntTest {
         List<Category> categoryList = categoryRepository.findAll();
         assertThat(categoryList).hasSize(databaseSizeBeforeCreate);
 
-        // Validate the Category in Elasticsearch
-        verify(mockCategorySearchRepository, times(0)).save(category);
     }
 
     @Test
@@ -226,8 +212,6 @@ public class CategoryResourceIntTest {
         Category testCategory = categoryList.get(categoryList.size() - 1);
         assertThat(testCategory.getName()).isEqualTo(UPDATED_NAME);
 
-        // Validate the Category in Elasticsearch
-        verify(mockCategorySearchRepository, times(1)).save(testCategory);
     }
 
     @Test
@@ -247,8 +231,6 @@ public class CategoryResourceIntTest {
         List<Category> categoryList = categoryRepository.findAll();
         assertThat(categoryList).hasSize(databaseSizeBeforeUpdate);
 
-        // Validate the Category in Elasticsearch
-        verify(mockCategorySearchRepository, times(0)).save(category);
     }
 
     @Test
@@ -267,22 +249,6 @@ public class CategoryResourceIntTest {
         List<Category> categoryList = categoryRepository.findAll();
         assertThat(categoryList).hasSize(databaseSizeBeforeDelete - 1);
 
-        // Validate the Category in Elasticsearch
-        verify(mockCategorySearchRepository, times(1)).deleteById(category.getId());
-    }
-
-    @Test
-    public void searchCategory() throws Exception {
-        // Initialize the database
-        categoryRepository.save(category);
-        when(mockCategorySearchRepository.search(queryStringQuery("id:" + category.getId()), PageRequest.of(0, 20)))
-            .thenReturn(new PageImpl<>(Collections.singletonList(category), PageRequest.of(0, 1), 1));
-        // Search the category
-        restCategoryMockMvc.perform(get("/api/_search/categories?query=id:" + category.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(category.getId())))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())));
     }
 
     @Test

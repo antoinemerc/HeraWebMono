@@ -3,7 +3,6 @@ package com.heraco.hera.service.impl;
 import com.heraco.hera.service.ProductService;
 import com.heraco.hera.domain.Product;
 import com.heraco.hera.repository.ProductRepository;
-import com.heraco.hera.repository.search.ProductSearchRepository;
 import com.heraco.hera.service.dto.ProductDTO;
 import com.heraco.hera.service.mapper.ProductMapper;
 import org.slf4j.Logger;
@@ -14,8 +13,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * Service Implementation for managing Product.
@@ -29,12 +26,9 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductMapper productMapper;
 
-    private final ProductSearchRepository productSearchRepository;
-
-    public ProductServiceImpl(ProductRepository productRepository, ProductMapper productMapper, ProductSearchRepository productSearchRepository) {
+    public ProductServiceImpl(ProductRepository productRepository, ProductMapper productMapper) {
         this.productRepository = productRepository;
         this.productMapper = productMapper;
-        this.productSearchRepository = productSearchRepository;
     }
 
     /**
@@ -49,7 +43,6 @@ public class ProductServiceImpl implements ProductService {
         Product product = productMapper.toEntity(productDTO);
         product = productRepository.save(product);
         ProductDTO result = productMapper.toDto(product);
-        productSearchRepository.save(product);
         return result;
     }
 
@@ -91,7 +84,6 @@ public class ProductServiceImpl implements ProductService {
     public void delete(String id) {
         log.debug("Request to delete Product : {}", id);
         productRepository.deleteById(id);
-        productSearchRepository.deleteById(id);
     }
 
     /**
@@ -100,13 +92,13 @@ public class ProductServiceImpl implements ProductService {
      * @param query the query of the search
      * @param pageable the pagination information
      * @return the list of entities
-     */
+     *//*
     @Override
     public Page<ProductDTO> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of Products for query {}", query);
         return productSearchRepository.search(queryStringQuery(query), pageable)
             .map(productMapper::toDto);
-    }
+    }*/
 
 
     /**

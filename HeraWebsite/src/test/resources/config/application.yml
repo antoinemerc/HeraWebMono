@@ -30,10 +30,6 @@ spring:
             host: localhost
             port: 0
             database: HeraShop
-        elasticsearch:
-            properties:
-                path:
-                    home: target/elasticsearch
     mail:
         host: localhost
     messages:

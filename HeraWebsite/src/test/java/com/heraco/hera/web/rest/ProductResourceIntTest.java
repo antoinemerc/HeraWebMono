@@ -4,7 +4,6 @@ import com.heraco.hera.HeraShopApp;
 
 import com.heraco.hera.domain.Product;
 import com.heraco.hera.repository.ProductRepository;
-import com.heraco.hera.repository.search.ProductSearchRepository;
 import com.heraco.hera.service.ProductService;
 import com.heraco.hera.service.dto.ProductDTO;
 import com.heraco.hera.service.mapper.ProductMapper;
@@ -31,7 +30,6 @@ import java.util.List;
 
 import static com.heraco.hera.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 import static org.hamcrest.Matchers.hasItem;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -66,14 +64,6 @@ public class ProductResourceIntTest {
     
     @Autowired
     private ProductService productService;
-
-    /**
-     * This repository is mocked in the com.heraco.hera.repository.search test package.
-     *
-     * @see com.heraco.hera.repository.search.ProductSearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private ProductSearchRepository mockProductSearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -140,8 +130,6 @@ public class ProductResourceIntTest {
         assertThat(testProduct.getQuantity()).isEqualTo(DEFAULT_QUANTITY);
         assertThat(testProduct.getPrice()).isEqualTo(DEFAULT_PRICE);
 
-        // Validate the Product in Elasticsearch
-        verify(mockProductSearchRepository, times(1)).save(testProduct);
     }
 
     @Test
@@ -162,8 +150,6 @@ public class ProductResourceIntTest {
         List<Product> productList = productRepository.findAll();
         assertThat(productList).hasSize(databaseSizeBeforeCreate);
 
-        // Validate the Product in Elasticsearch
-        verify(mockProductSearchRepository, times(0)).save(product);
     }
 
     @Test
@@ -289,8 +275,6 @@ public class ProductResourceIntTest {
         assertThat(testProduct.getQuantity()).isEqualTo(UPDATED_QUANTITY);
         assertThat(testProduct.getPrice()).isEqualTo(UPDATED_PRICE);
 
-        // Validate the Product in Elasticsearch
-        verify(mockProductSearchRepository, times(1)).save(testProduct);
     }
 
     @Test
@@ -310,8 +294,6 @@ public class ProductResourceIntTest {
         List<Product> productList = productRepository.findAll();
         assertThat(productList).hasSize(databaseSizeBeforeUpdate);
 
-        // Validate the Product in Elasticsearch
-        verify(mockProductSearchRepository, times(0)).save(product);
     }
 
     @Test
@@ -330,25 +312,6 @@ public class ProductResourceIntTest {
         List<Product> productList = productRepository.findAll();
         assertThat(productList).hasSize(databaseSizeBeforeDelete - 1);
 
-        // Validate the Product in Elasticsearch
-        verify(mockProductSearchRepository, times(1)).deleteById(product.getId());
-    }
-
-    @Test
-    public void searchProduct() throws Exception {
-        // Initialize the database
-        productRepository.save(product);
-        when(mockProductSearchRepository.search(queryStringQuery("id:" + product.getId()), PageRequest.of(0, 20)))
-            .thenReturn(new PageImpl<>(Collections.singletonList(product), PageRequest.of(0, 1), 1));
-        // Search the product
-        restProductMockMvc.perform(get("/api/_search/products?query=id:" + product.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(product.getId())))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
-            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
-            .andExpect(jsonPath("$.[*].quantity").value(hasItem(DEFAULT_QUANTITY)))
-            .andExpect(jsonPath("$.[*].price").value(hasItem(DEFAULT_PRICE.doubleValue())));
     }
 
     @Test

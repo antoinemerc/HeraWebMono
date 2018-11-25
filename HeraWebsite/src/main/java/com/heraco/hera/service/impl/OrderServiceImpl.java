@@ -3,7 +3,6 @@ package com.heraco.hera.service.impl;
 import com.heraco.hera.service.OrderService;
 import com.heraco.hera.domain.Order;
 import com.heraco.hera.repository.OrderRepository;
-import com.heraco.hera.repository.search.OrderSearchRepository;
 import com.heraco.hera.service.dto.OrderDTO;
 import com.heraco.hera.service.mapper.OrderMapper;
 import org.slf4j.Logger;
@@ -14,8 +13,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * Service Implementation for managing Order.
@@ -29,12 +26,9 @@ public class OrderServiceImpl implements OrderService {
 
     private final OrderMapper orderMapper;
 
-    private final OrderSearchRepository orderSearchRepository;
-
-    public OrderServiceImpl(OrderRepository orderRepository, OrderMapper orderMapper, OrderSearchRepository orderSearchRepository) {
+    public OrderServiceImpl(OrderRepository orderRepository, OrderMapper orderMapper) {
         this.orderRepository = orderRepository;
         this.orderMapper = orderMapper;
-        this.orderSearchRepository = orderSearchRepository;
     }
 
     /**
@@ -49,7 +43,6 @@ public class OrderServiceImpl implements OrderService {
         Order order = orderMapper.toEntity(orderDTO);
         order = orderRepository.save(order);
         OrderDTO result = orderMapper.toDto(order);
-        orderSearchRepository.save(order);
         return result;
     }
 
@@ -89,7 +82,6 @@ public class OrderServiceImpl implements OrderService {
     public void delete(String id) {
         log.debug("Request to delete Order : {}", id);
         orderRepository.deleteById(id);
-        orderSearchRepository.deleteById(id);
     }
 
     /**
@@ -98,11 +90,11 @@ public class OrderServiceImpl implements OrderService {
      * @param query the query of the search
      * @param pageable the pagination information
      * @return the list of entities
-     */
+     *//*
     @Override
     public Page<OrderDTO> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of Orders for query {}", query);
         return orderSearchRepository.search(queryStringQuery(query), pageable)
             .map(orderMapper::toDto);
-    }
+    }*/
 }

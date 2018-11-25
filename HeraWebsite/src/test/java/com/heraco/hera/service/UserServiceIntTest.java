@@ -3,7 +3,6 @@ package com.heraco.hera.service;
 import com.heraco.hera.HeraShopApp;
 import com.heraco.hera.config.Constants;
 import com.heraco.hera.domain.User;
-import com.heraco.hera.repository.search.UserSearchRepository;
 import com.heraco.hera.repository.UserRepository;
 import com.heraco.hera.service.dto.UserDTO;
 import com.heraco.hera.service.util.RandomUtil;
@@ -42,14 +41,6 @@ public class UserServiceIntTest {
 
     @Autowired
     private UserService userService;
-
-    /**
-     * This repository is mocked in the com.heraco.hera.repository.search test package.
-     *
-     * @see com.heraco.hera.repository.search.UserSearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private UserSearchRepository mockUserSearchRepository;
 
     private User user;
 
@@ -148,9 +139,6 @@ public class UserServiceIntTest {
         userService.removeNotActivatedUsers();
         users = userRepository.findAllByActivatedIsFalseAndCreatedDateBefore(now.minus(3, ChronoUnit.DAYS));
         assertThat(users).isEmpty();
-
-        // Verify Elasticsearch mock
-        verify(mockUserSearchRepository, times(1)).delete(user);
     }
 
     @Test
@@ -180,8 +168,6 @@ public class UserServiceIntTest {
         userService.removeNotActivatedUsers();
         assertThat(userRepository.findOneByLogin("johndoe")).isNotPresent();
 
-        // Verify Elasticsearch mock
-        verify(mockUserSearchRepository, times(1)).delete(user);
     }
 
 }

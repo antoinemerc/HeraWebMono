@@ -4,7 +4,6 @@ import com.heraco.hera.HeraShopApp;
 
 import com.heraco.hera.domain.Order;
 import com.heraco.hera.repository.OrderRepository;
-import com.heraco.hera.repository.search.OrderSearchRepository;
 import com.heraco.hera.service.OrderService;
 import com.heraco.hera.service.dto.OrderDTO;
 import com.heraco.hera.service.mapper.OrderMapper;
@@ -31,7 +30,6 @@ import java.util.List;
 
 import static com.heraco.hera.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 import static org.hamcrest.Matchers.hasItem;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -63,14 +61,6 @@ public class OrderResourceIntTest {
     
     @Autowired
     private OrderService orderService;
-
-    /**
-     * This repository is mocked in the com.heraco.hera.repository.search test package.
-     *
-     * @see com.heraco.hera.repository.search.OrderSearchRepositoryMockConfiguration
-     */
-    @Autowired
-    private OrderSearchRepository mockOrderSearchRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -135,8 +125,6 @@ public class OrderResourceIntTest {
         assertThat(testOrder.getState()).isEqualTo(DEFAULT_STATE);
         assertThat(testOrder.getTotalPrice()).isEqualTo(DEFAULT_TOTAL_PRICE);
 
-        // Validate the Order in Elasticsearch
-        verify(mockOrderSearchRepository, times(1)).save(testOrder);
     }
 
     @Test
@@ -157,8 +145,6 @@ public class OrderResourceIntTest {
         List<Order> orderList = orderRepository.findAll();
         assertThat(orderList).hasSize(databaseSizeBeforeCreate);
 
-        // Validate the Order in Elasticsearch
-        verify(mockOrderSearchRepository, times(0)).save(order);
     }
 
     @Test
@@ -226,8 +212,6 @@ public class OrderResourceIntTest {
         assertThat(testOrder.getState()).isEqualTo(UPDATED_STATE);
         assertThat(testOrder.getTotalPrice()).isEqualTo(UPDATED_TOTAL_PRICE);
 
-        // Validate the Order in Elasticsearch
-        verify(mockOrderSearchRepository, times(1)).save(testOrder);
     }
 
     @Test
@@ -247,8 +231,6 @@ public class OrderResourceIntTest {
         List<Order> orderList = orderRepository.findAll();
         assertThat(orderList).hasSize(databaseSizeBeforeUpdate);
 
-        // Validate the Order in Elasticsearch
-        verify(mockOrderSearchRepository, times(0)).save(order);
     }
 
     @Test
@@ -267,24 +249,6 @@ public class OrderResourceIntTest {
         List<Order> orderList = orderRepository.findAll();
         assertThat(orderList).hasSize(databaseSizeBeforeDelete - 1);
 
-        // Validate the Order in Elasticsearch
-        verify(mockOrderSearchRepository, times(1)).deleteById(order.getId());
-    }
-
-    @Test
-    public void searchOrder() throws Exception {
-        // Initialize the database
-        orderRepository.save(order);
-        when(mockOrderSearchRepository.search(queryStringQuery("id:" + order.getId()), PageRequest.of(0, 20)))
-            .thenReturn(new PageImpl<>(Collections.singletonList(order), PageRequest.of(0, 1), 1));
-        // Search the order
-        restOrderMockMvc.perform(get("/api/_search/orders?query=id:" + order.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(order.getId())))
-            .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())))
-            .andExpect(jsonPath("$.[*].state").value(hasItem(DEFAULT_STATE.toString())))
-            .andExpect(jsonPath("$.[*].totalPrice").value(hasItem(DEFAULT_TOTAL_PRICE.doubleValue())));
     }
 
     @Test
