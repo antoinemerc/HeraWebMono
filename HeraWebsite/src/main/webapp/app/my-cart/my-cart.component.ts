@@ -3,7 +3,7 @@ import { Principal, IUser, Account, UserService } from 'app/core';
 import { HttpResponse } from '@angular/common/http';
 import { ProductService } from 'app/shared/service/product.service';
 import { IProduct } from 'app/shared/model/product.model';
-import { Order } from '../shared/model/order.model';
+
 import { LoginModalService } from 'app/core';
 
 /*==================================================
@@ -39,30 +39,6 @@ export class MyCartComponent implements OnInit {
                     this.cartProducts = cart.body;
                     this.confirmation = true;
                 });
-            });
-        });
-    }
-
-    createDate() {
-        const today = new Date();
-        const dd = today.getDate();
-        const mm = today.getMonth() + 1;
-        const yyyy = today.getFullYear();
-
-        console.log(mm + '/' + dd + '/' + yyyy);
-        return dd + '/' + mm + '/' + yyyy;
-    }
-
-    pay() {
-        const order = new Order();
-        this.principal.identity().then(account => {
-            this.accountConnected = account;
-            this.userService.find(this.accountConnected.login).subscribe((res: HttpResponse<IUser>) => {
-                this.currentUser = res.body;
-                order.user = this.currentUser;
-                order.orderLine = this.currentUser.basket;
-                order.date = this.createDate();
-                console.log(order);
             });
         });
     }
