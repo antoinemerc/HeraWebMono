@@ -1,5 +1,5 @@
 <div class="panel">
-    <a href="">
+    <a [routerLink]="['/displayProduct', product.id]">
         <img class="img-fluid" [src]="mainImage"  />
     </a>
     <div class="panel-body">
@@ -16,7 +16,7 @@
                             </small>
                             </span>
         </p>
-        <h4> <a class="alert-link" [routerLink]="['/displayProduct', product.id]">{{product.name}}</a>
+        <h4><a class="alert-link" [routerLink]="['/displayProduct', product.id]">{{product.name}}</a>
         </h4>
     </div>
 </div>
