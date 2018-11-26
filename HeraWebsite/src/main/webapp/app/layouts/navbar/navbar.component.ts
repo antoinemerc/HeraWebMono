@@ -9,6 +9,7 @@ import { ProfileService } from '../profiles/profile.service';
 import { HttpResponse } from '@angular/common/http';
 import { Category } from 'app/shared/model/category.model';
 import { CategoryService } from 'app/shared';
+import { SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
     selector: 'jhi-navbar',
@@ -17,7 +18,6 @@ import { CategoryService } from 'app/shared';
 })
 export class NavbarComponent implements OnInit {
     mainImage: SafeResourceUrl = 'content/images/panier.png';
-    inProduction: boolean;
     inProduction: boolean;
     isNavbarCollapsed: boolean;
     languages: any[];
