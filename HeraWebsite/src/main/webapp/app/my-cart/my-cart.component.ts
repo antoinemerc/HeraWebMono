@@ -20,6 +20,7 @@ export class MyCartComponent implements OnInit {
     basket: IProduct[];
     cartProducts: IProduct[];
     confirmation: Boolean = false;
+    emptyCart: Boolean = true;
 
     constructor(
         public principal: Principal,
@@ -38,6 +39,7 @@ export class MyCartComponent implements OnInit {
                 this.productService.queryBasket(this.currentUser).subscribe((cart: HttpResponse<IProduct[]>) => {
                     this.cartProducts = cart.body;
                     this.confirmation = true;
+                    this.cartIsEmpty();
                 });
             });
         });
@@ -48,12 +50,11 @@ export class MyCartComponent implements OnInit {
     }
 
     cartIsEmpty() {
-        let empty = true;
         if (this.cartProducts != null) {
+            console.log(this.cartProducts);
             if (this.cartProducts.length > 0) {
-                empty = false;
+                this.emptyCart = false;
             }
         }
-        return empty;
     }
 }
