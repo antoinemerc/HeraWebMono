@@ -3,16 +3,10 @@ import { Principal, IUser, Account, UserService } from 'app/core';
 import { HttpResponse } from '@angular/common/http';
 import { ProductService } from 'app/shared/service/product.service';
 import { IProduct } from 'app/shared/model/product.model';
-import { OrderService } from '../shared/service/order.service';
-import { Order } from '../shared/model/order.model';
-import { Router } from '@angular/router';
+import { LoginModalService } from 'app/core';
 
-/*
-  TO ADD:
-    Error message when the user is not connected and invite him to connect
-    Error message when there is no item products in the cart
-    ERRORS WITH BRANCHES
-*/
+/*==================================================
+==================================================*/
 
 @Component({
     selector: 'jhi-my-cart',
@@ -22,15 +16,16 @@ import { Router } from '@angular/router';
 export class MyCartComponent implements OnInit {
     accountConnected: Account;
     currentUser: IUser;
+    basket: IProduct[];
     cartProducts: IProduct[];
-    totalCost: Number = 0;
+    confirmation: Boolean = false;
+    emptyCart: Boolean = true;
 
     constructor(
         public principal: Principal,
         private productService: ProductService,
         private userService: UserService,
-        private router: Router,
-        private orderService: OrderService
+        private loginService: LoginModalService
     ) {}
 
     ngOnInit() {
@@ -38,46 +33,27 @@ export class MyCartComponent implements OnInit {
             this.accountConnected = account;
             this.userService.find(this.accountConnected.login).subscribe((res: HttpResponse<IUser>) => {
                 this.currentUser = res.body;
+                this.basket = res.body.basket;
+                // console.log( this.basket );
                 this.productService.queryBasket(this.currentUser).subscribe((cart: HttpResponse<IProduct[]>) => {
                     this.cartProducts = cart.body;
-                    this.totalCost = this.getTotalCost();
-                    // console.log(this.cartProducts);
+                    this.confirmation = true;
+                    this.cartIsEmpty();
                 });
             });
         });
     }
 
-    createDate() {
-        const today = new Date();
-        const dd = today.getDate();
-        const mm = today.getMonth() + 1;
-        const yyyy = today.getFullYear();
-
-        console.log(mm + '/' + dd + '/' + yyyy);
-        return dd + '/' + mm + '/' + yyyy;
+    logIn() {
+        this.loginService.open();
     }
 
-    pay() {
-        let order = new Order();
-        this.principal.identity().then(account => {
-            this.accountConnected = account;
-            this.userService.find(this.accountConnected.login).subscribe((res: HttpResponse<IUser>) => {
-                this.currentUser = res.body;
-                order.user = this.currentUser;
-                order.orderLine = this.currentUser.basket;
-                order.date = this.createDate();
-                order.totalPrice = this.getTotalCost();
-                this.orderService.save(order);
-                this.router.navigate(['/transportManagement']);
-            });
-        });
-    }
-
-    getTotalCost() {
-        let total = 0;
-        for (const entry of this.cartProducts) {
-            total += entry.quantity * entry.price;
+    cartIsEmpty() {
+        if (this.cartProducts != null) {
+            console.log(this.cartProducts);
+            if (this.cartProducts.length > 0) {
+                this.emptyCart = false;
+            }
         }
-        return total;
     }
 }

@@ -1,17 +1,36 @@
 <table class="table">
   <thead class="thead-dark">
-  <tr>
-    <th scope="col">Product</th>
-    <th scope="col">Quantity</th>
-    <th scope="col">Price per unit</th>
-    <th scope="col">Total</th>
-  </tr>
+    <tr>
+      <th scope="col">Product</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Price per unit</th>
+      <th scope="col">Total</th>
+    </tr>
   <tbody>
-    <tr *ngFor="let item of this.cartProducts">
-          <td><img class="img-thumbnail" style="max-width: 150px;" src="{{ item.allImageUrl[0].url }}" alt=""> {{ item.name }}</td>
-          <td>{{ item.quantity }}</td>
-          <td>{{ item.price }}</td>
-          <td>{{ item.price * item.quantity }}</td>
-        </tr>
+    <tr *ngFor="let item of this.basket">
+      <td>
+        <img  class="img-thumbnail" 
+              style="max-width: 150px;" 
+              src="{{ this.getInfoProduct( item.prod ).allImageUrl[0].url }}"
+              alt="">
+        <a class="alert-link" [routerLink]="['/displayProduct', item.prod]">{{ this.getInfoProduct( item.prod ).name }}</a>
+        <div *ngIf="!this.verifyStock( item )" class="alert alert-warning">
+          The product is no more available in our stocks, please change the quantity or delete de product to proceed.
+        </div>
+      </td>
+      <td>{{ item.quantity }}</td>
+      <td>{{ this.getInfoProduct( item.prod ).price }}</td>
+      <td>{{ this.getInfoProduct( item.prod ).price * item.quantity }}</td>
+    </tr>
   </tbody>
 </table>
+<div>
+  <span>Total: </span>
+  <span>{{ this.totalCost }}</span> EUR
+</div>
+<div *ngIf="this.stockErrors" class="alert alert-warning">
+  One or multiple products are not available in our stocks, please change the quantity or delete them to proceed the checkout.
+</div>
+<div *ngIf="!this.stockErrors">
+  <button (click)="pay()" class="btn btn-primary">Pay</button>
+</div>
