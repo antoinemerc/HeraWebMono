@@ -1,14 +1,22 @@
-<div class="card" style="width: 100%; max-height: 100%">
-    <img class="card-img-top" [src]="mainImage" alt="Card image cap">
-    <div class="card-body" style="display: block">
-            <a class="alert-link" [routerLink]="['/displayProduct', product.id]">{{product.name}}</a>
-        <div>
-            {{product.price}} Eur
-            <button type="button" class="btn btn-default btn-sm" style="float: right;">
-                Add to cart
-            </button>
-        </div>
-        
-  
+<div class="panel">
+    <a href="">
+        <img class="img-fluid" [src]="mainImage"  />
+    </a>
+    <div class="panel-body">
+        <p class="clearfix">
+                            <span class="float-left">
+                        <small class="mr-sm">Quantité :<a>{{product.quantity}}</a>
+                        </small>
+
+                     </span>
+            <span class="float-right">
+                        <small>
+                           <strong>{{product.price}}</strong>
+                           <span>EUROS</span>
+                            </small>
+                            </span>
+        </p>
+        <h4> <a class="alert-link" [routerLink]="['/displayProduct', product.id]">{{product.name}}</a>
+        </h4>
     </div>
 </div>

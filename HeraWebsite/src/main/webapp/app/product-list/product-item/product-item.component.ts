@@ -10,7 +10,7 @@ import { ImageUrlService } from 'app/shared/service/imageUrl.service';
 })
 export class ProductItemComponent implements OnInit, OnChanges {
     @Input() product: Product = null;
-    mainImage: SafeResourceUrl = 'content/images/placeHolder.png';
+    mainImage: SafeResourceUrl = 'content/images/bg7.jpg';
 
     constructor(private imageUrlService: ImageUrlService, private _sanitizer: DomSanitizer) {}
 

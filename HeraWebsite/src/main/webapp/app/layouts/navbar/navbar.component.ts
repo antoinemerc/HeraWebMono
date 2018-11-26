@@ -16,6 +16,8 @@ import { CategoryService } from 'app/shared';
     styleUrls: ['navbar.scss']
 })
 export class NavbarComponent implements OnInit {
+    mainImage: SafeResourceUrl = 'content/images/panier.png';
+    inProduction: boolean;
     inProduction: boolean;
     isNavbarCollapsed: boolean;
     languages: any[];

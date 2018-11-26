@@ -2,11 +2,26 @@
     <h1 style="margin-bottom: 15px">{{currentCategory.name}}</h1>
 </div>
 
-<div class="row" >
-    <jhi-product-item class="col-2" *ngFor="let product of allProducts" style="margin-bottom: 10px"
-        [product]=product
-        >
-    </jhi-product-item>
+<div class="row">
+    <!-- Blog Content-->
+    <div class="col-lg-11">
+        <div class="row">
+            <!-- Posts column 1-->
+
+
+            <div class="row" >
+                <jhi-product-item   class="col-lg-3" *ngFor="let product of allProducts" style="margin-bottom: 10px"
+                                    [product]=product
+                >
+                </jhi-product-item>
+            </div>
+
+        </div>
+    </div>
+
+
 </div>
+</div>
+
 
 
