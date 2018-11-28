@@ -43,7 +43,6 @@ export class ValidationPageComponent implements OnInit {
 
     validate() {
         this.productService.queryUpdateOrder(this.order.orderLine).subscribe();
-        this.orderService.create(this.order).subscribe();
-        // this.orderService.update(this.order);
+        this.orderService.create(this.order).subscribe((res: HttpResponse<IProduct>) => console.log('Order created'));
     }
 }
