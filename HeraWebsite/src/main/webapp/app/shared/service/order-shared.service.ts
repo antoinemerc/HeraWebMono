@@ -4,7 +4,7 @@ import { IOrder } from '../model/order.model';
 @Injectable({
     providedIn: 'root'
 })
-export class OrderService {
+export class OrderSharedService {
     order: IOrder;
 
     constructor() {}

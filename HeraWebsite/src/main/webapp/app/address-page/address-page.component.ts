@@ -6,7 +6,7 @@ import { Principal, IUser, UserService, Account } from 'app/core';
 import { Location } from '@angular/common';
 import { IAddress, Address } from '../shared/model/address.model';
 import { AddressModalService } from './add-address-popup/address-modal.service';
-import { OrderService } from '../shared/service/order.service';
+import { OrderSharedService } from '../shared/service/order-shared.service';
 
 @Component({
     selector: 'jhi-address-page',
@@ -26,7 +26,7 @@ export class AddressPageComponent implements OnInit {
         private router: Router,
         private location: Location,
         private addressModalService: AddressModalService,
-        private orderService: OrderService
+        private orderService: OrderSharedService
     ) {}
 
     ngOnInit() {
