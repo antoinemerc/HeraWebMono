@@ -1,6 +1,7 @@
 package com.heraco.hera.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.heraco.hera.domain.BasketItem;
 import com.heraco.hera.security.SecurityUtils;
 import com.heraco.hera.service.ProductService;
 import com.heraco.hera.web.rest.errors.BadRequestAlertException;
@@ -17,7 +18,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 
 import javax.validation.Valid;
 import java.net.URI;
@@ -173,22 +173,44 @@ public class ProductResource {
     }
 
     /**
-     * POST /products/basket : get all the products present in the connected user basket. .
+     * POST /products/basket : get all the products present in the connected user
+     * basket. .
      *
-     * @param userDTO the userDTO from which we want to extract the informations about products in the basket
+     * @param userDTO  the userDTO from which we want to extract the informations
+     *                 about products in the basket
      * @param pageable the pagination information
      * @return the ResponseEntity with status 200 (OK) and the list of products in
      *         body
      */
     @PostMapping("/products/basket")
     @Timed
-    public ResponseEntity<List<ProductDTO>> getProductsFromBasket( @Valid @RequestBody UserDTO userDTO, Pageable pageable) {
+    public ResponseEntity<List<ProductDTO>> getProductsFromBasket(@Valid @RequestBody List<BasketItem> basket,
+            Pageable pageable) {
         System.out.println("REST request to get products present in current user basket");
         ArrayList<ProductDTO> basketProduct = new ArrayList<>();
-        for(int i = 0; i < userDTO.getBasket().size();i++){
-            basketProduct.add(productService.findOne(userDTO.getBasket().get(i).getProd()).get());
+        for (int i = 0; i < basket.size(); i++) {
+            basketProduct.add(productService.findOne(basket.get(i).getProd()).get());
         }
         return new ResponseEntity<>(basketProduct, HttpStatus.OK);
+    }
+
+    /**
+     * POST /products/updateByOrder : Update the quantity available for all product
+     * in basket
+     *
+     * @param cart the cart containing the items to update.
+     * @return the ResponseEntity with status 200 (OK)
+     */
+    @PostMapping("/products/updateByOrder")
+    @Timed
+    public ResponseEntity<Void> updateByOrder(@Valid @RequestBody List<BasketItem> cart) {
+        System.out.println("REST request to update products in database after payment");
+        for (int i = 0; i < cart.size(); i++) {
+            ProductDTO prod = productService.findOne(cart.get(i).getProd()).get();
+            prod.setQuantity(prod.getQuantity() - cart.get(i).getQuantity());
+            productService.save(prod);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }
