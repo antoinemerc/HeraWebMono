@@ -9,6 +9,8 @@ import { ProductService } from 'app/shared/service/product.service';
 import { SafeResourceUrl } from '@angular/platform-browser';
 import { ImageUrlService } from 'app/shared/service/imageUrl.service';
 
+import { BUCKET_NAME } from 'app/app.constants';
+
 @Component({
     selector: 'jhi-product-page',
     templateUrl: './product-page.component.html',
@@ -128,7 +130,7 @@ export class ProductPageComponent implements OnInit {
         this.finished = true;
 
         if (this.product.allImageUrl.length !== 0) {
-            this.imageUrlService.getOneImageFrom('heraimagescontainer', this.product.allImageUrl[0].url).subscribe(value => {
+            this.imageUrlService.getOneImageFrom(BUCKET_NAME, this.product.allImageUrl[0].url).subscribe(value => {
                 this.bindUrl(value);
             });
         }

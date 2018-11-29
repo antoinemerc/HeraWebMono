@@ -1,21 +1,25 @@
-<p>
-  <div [ngSwitch]="this.principal.isAuthenticated()">
-    <div *ngSwitchCase="false">
-      You need to be logged in order to add products to your cart.
-      <button class="btn" (click)="logIn()">Connect</button>
-    </div>
-    <div *ngSwitchCase="true">
-      <h2>Your order:</h2>
-      <div *ngIf="this.emptyCart">
-        <div class="alert alert-warning">You haven't added any products yet</div>
-        <button routerLink="/" class="btn btn-secondary">Go back to shopping</button>
-      </div>
-      <div *ngIf="!this.emptyCart">
-        <div *ngIf="this.confirmation">
-            <jhi-my-cart-item [cartProducts]="this.cartProducts" [basket]="this.currentUser.basket"></jhi-my-cart-item>
-        </div>
-        <div *ngIf="!this.confirmation">Loading...</div>
-      </div>
-    </div>
+
+<div [ngSwitch]="this.principal.isAuthenticated()">
+  <div *ngSwitchCase="false">
+    You need to be logged in order to add products to your cart.
+    <button class="btn" (click)="logIn()">Connect</button>
   </div>
-</p>
+  <div *ngSwitchCase="true">
+    
+    <h2>Your order:</h2>
+    <div [ngSwitch]="loading">
+      <div *ngSwitchCase="true">Loading...</div>
+      <div *ngSwitchCase="false">
+        <div [ngSwitch]="emptyCart">
+          <div *ngSwitchCase="true">
+            <div class="alert alert-warning">You haven't added any products yet</div>
+            <button routerLink="/" class="btn btn-secondary">Go back to shopping</button>
+          </div>
+          <div *ngSwitchCase="false">
+              <jhi-my-cart-list [cartProducts]="this.cartProducts" [basket]="this.currentUser.basket"></jhi-my-cart-list>
+          </div>
+        </div>
+
+      
+  </div>
+</div>

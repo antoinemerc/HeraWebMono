@@ -1,21 +1,21 @@
-import { Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { TransportationMethodService } from '../entities/transportation-method/transportation-method.service';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Router } from '@angular/router';
 import { ITransportationMethod } from 'app/shared/model/transportation-method.model';
 import { HttpResponse } from '@angular/common/http';
 import { Principal } from 'app/core';
 import { Location } from '@angular/common';
 import { IOrder } from 'app/shared/model/order.model';
-import { OrderSharedService } from '../shared/service/order-shared.service';
+import { TransportationMethodService } from 'app/entities/transportation-method';
+import { OrderSharedService } from 'app/shared/service/order-shared.service';
 
 @Component({
     selector: 'jhi-transport-management',
     templateUrl: './transport-management.component.html',
     styles: []
 })
-export class TransportManagementComponent implements OnInit {
+export class TransportManagementComponent implements OnInit, OnChanges {
+    @Input() order: IOrder;
     transportMethods: ITransportationMethod[];
-    order: IOrder;
     idx: number;
 
     constructor(
@@ -23,8 +23,7 @@ export class TransportManagementComponent implements OnInit {
         private transportService: TransportationMethodService,
         private router: Router,
         private location: Location,
-        private route: ActivatedRoute,
-        private orderService: OrderSharedService
+        private orderSharedService: OrderSharedService
     ) {}
 
     ngOnInit() {
@@ -32,16 +31,16 @@ export class TransportManagementComponent implements OnInit {
             this.location.replaceState('/');
             this.router.navigate(['/']);
         } else {
-            this.order = this.orderService.retrieve();
             this.idx = 0;
+            this.order = this.orderSharedService.retrieve();
             this.transportService.query().subscribe((res: HttpResponse<ITransportationMethod[]>) => this.bindBody(res.body));
         }
     }
 
-    nextStep() {
+    ngOnChanges(changes: SimpleChanges): void {}
+
+    save() {
         this.order.transportationMethod = this.transportMethods[this.idx];
-        this.orderService.save(this.order);
-        this.router.navigate(['/addressChoice']);
     }
 
     onTransportSelectionChange(entry): void {

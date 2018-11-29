@@ -20,14 +20,24 @@ import { HeraShopEntityModule } from './entities/entity.module';
 import * as moment from 'moment';
 
 // jhipster-needle-angular-add-module-import JHipster will add new module here
-import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ActiveMenuDirective, ErrorComponent } from './layouts';
+import {
+    JhiMainComponent,
+    NavbarComponent,
+    FooterComponent,
+    PageRibbonComponent,
+    ActiveMenuDirective,
+    ErrorComponent,
+    BreadcrumbCustomComponent
+} from './layouts';
+import { McBreadcrumbsModule } from 'ngx-breadcrumbs';
 import { ProductPageModule } from './product-page/product-page.module';
-import { MyCartComponent } from './my-cart/my-cart.component';
-import { MyCartItemComponent } from './my-cart/my-cart-item/my-cart-item.component';
+import { MyCartModule } from './my-cart/my-cart.module';
+import { OrderModule } from './order/order.module';
 
 @NgModule({
     imports: [
         BrowserModule,
+        McBreadcrumbsModule.forRoot(),
         HeraShopAppRoutingModule,
         Ng2Webstorage.forRoot({ prefix: 'jhi', separator: '-' }),
         HeraShopSharedModule,
@@ -35,18 +45,19 @@ import { MyCartItemComponent } from './my-cart/my-cart-item/my-cart-item.compone
         HeraShopHomeModule,
         HeraShopAccountModule,
         HeraShopEntityModule,
-        ProductPageModule
+        ProductPageModule,
+        MyCartModule,
+        OrderModule
         // jhipster-needle-angular-add-module JHipster will add new module here
     ],
     declarations: [
         JhiMainComponent,
         NavbarComponent,
         ErrorComponent,
+        BreadcrumbCustomComponent,
         PageRibbonComponent,
         ActiveMenuDirective,
-        FooterComponent,
-        MyCartComponent,
-        MyCartItemComponent
+        FooterComponent
     ],
     providers: [
         {

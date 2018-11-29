@@ -5,6 +5,9 @@ import { ProductListComponent } from './product-list.component';
 export const ALL_PRODUCT_LIST_ROUTE: Routes = [
     {
         path: 'displayCategory/:idCategory',
-        component: ProductListComponent
+        component: ProductListComponent,
+        data: {
+            breadcrumbs: 'Category'
+        }
     }
 ];

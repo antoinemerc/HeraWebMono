@@ -7,11 +7,11 @@ import { OrderSharedService } from 'app/shared/service/order-shared.service';
 import { Router } from '@angular/router';
 
 @Component({
-    selector: 'jhi-my-cart-item',
-    templateUrl: './my-cart-item.component.html',
+    selector: 'jhi-my-cart-list',
+    templateUrl: './my-cart-list.component.html',
     styles: []
 })
-export class MyCartItemComponent implements OnInit {
+export class MyCartListComponent implements OnInit {
     @Input() cartProducts: IProduct[];
     @Input() basket;
     accountConnected: Account;
@@ -51,7 +51,7 @@ export class MyCartItemComponent implements OnInit {
                 order.date = this.createDate();
                 order.totalPrice = this.getTotalCost();
                 this.orderSharedService.save(order);
-                this.router.navigate(['/transportManagement']);
+                this.router.navigate(['/orderProcess']);
             });
         });
     }
@@ -84,8 +84,6 @@ export class MyCartItemComponent implements OnInit {
         const dd = today.getDate();
         const mm = today.getMonth() + 1;
         const yyyy = today.getFullYear();
-
-        console.log(mm + '/' + dd + '/' + yyyy);
         return dd + '/' + mm + '/' + yyyy;
     }
 }

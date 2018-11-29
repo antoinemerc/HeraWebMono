@@ -1,0 +1,24 @@
+<h1>Your Order</h1>
+
+<div>Your method of transportation</div>
+
+<div [ngSwitch]="step">
+    <div *ngSwitchCase=1>
+        <jhi-transport-management [order]=order></jhi-transport-management>
+    </div>
+    <div *ngSwitchCase=2>
+        <jhi-address-page [order]=order></jhi-address-page>
+    </div>
+    <div *ngSwitchCase=3>
+        <jhi-validation-page [order]=order></jhi-validation-page>
+    </div>
+</div>
+<div *ngIf="step != 1">
+    <a (click)="previousStep()" class="myButton">Previous step</a>
+</div>
+<div *ngIf="step != 3">
+        <a (click)="nextStep()" class="myButton">Next step</a>
+</div>
+<div *ngIf="step == 3">
+        <a (click)="passCommand()" class="myButton">Pass command</a>
+</div>

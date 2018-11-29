@@ -9,10 +9,6 @@
   <tbody>
     <tr *ngFor="let item of this.basket">
       <td>
-        <img  class="img-thumbnail" 
-              style="max-width: 150px;" 
-              src="{{ this.getInfoProduct( item.prod ).allImageUrl[0].url }}"
-              alt="">
         <a class="alert-link" [routerLink]="['/displayProduct', item.prod]">{{ this.getInfoProduct( item.prod ).name }}</a>
         <div *ngIf="!this.verifyStock( item )" class="alert alert-warning">
           The product is no more available in our stocks, please change the quantity or delete de product to proceed.

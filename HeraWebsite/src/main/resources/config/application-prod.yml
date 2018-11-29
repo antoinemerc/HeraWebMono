@@ -34,8 +34,8 @@ spring:
             enabled: false
     data:
         mongodb:
-            uri: mongodb://localhost:27017
-            database: HeraShop
+            uri: mongodb://testUser:testUser123@ds237363.mlab.com:37363/heradbmono
+            database: heradbmono
         jest:
             uri: http://localhost:9200
     mail:
