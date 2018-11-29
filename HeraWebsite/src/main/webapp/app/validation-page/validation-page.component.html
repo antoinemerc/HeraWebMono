@@ -1,7 +1,10 @@
 <div>
     <h1> Recap of the order </h1>
     <p>Date : {{order.date}}</p>
+    <p>Send to : {{order.user.lastName}} {{order.user.firstName}}</p>
+    <p>At address : {{order.address.street1}} {{order.address.city}} {{order.address.country}}</p>
     <p>Transportation : {{order.transportationMethod.name}}</p>
+
     <table class="table">
         <thead class="thead-dark">
             <tr>
