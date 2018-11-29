@@ -18,7 +18,7 @@ export class ProductItemComponent implements OnInit, OnChanges {
 
     ngOnInit() {}
 
-    ngOnChanges(changes: SimpleChanges) {
+    ngOnChanges(changes: SimpleChanges): void {
         if (this.product !== null) {
             if (this.product.allImageUrl.length !== 0) {
                 this.imageUrlService.getOneImageFrom(BUCKET_NAME, this.product.allImageUrl[0].url).subscribe(value => {
@@ -28,7 +28,9 @@ export class ProductItemComponent implements OnInit, OnChanges {
         }
     }
 
-    private bindUrl(data: SafeResourceUrl) {
+    private bindUrl(data: SafeResourceUrl): void {
         this.mainImage = data;
     }
+
+    private add1ToBasket(): void {}
 }

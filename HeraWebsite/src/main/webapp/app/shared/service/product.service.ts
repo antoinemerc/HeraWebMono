@@ -14,7 +14,7 @@ type EntityArrayResponseType = HttpResponse<IProduct[]>;
 @Injectable({ providedIn: 'root' })
 export class ProductService {
     private resourceUrl = SERVER_API_URL + 'api/products';
-    private resourceUrlCategory = SERVER_API_URL + 'api/products/category/';
+    private resourceUrlCategory = SERVER_API_URL + 'api/products/category';
     private resourceUrlBasket = SERVER_API_URL + 'api/products/basket';
     private resourceUrlOrder = SERVER_API_URL + 'api/products/updateByOrder';
     private resourceSearchUrl = SERVER_API_URL + 'api/_search/products';

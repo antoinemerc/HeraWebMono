@@ -60,6 +60,7 @@ export class MyCartComponent implements OnInit {
                 this.cartProducts = cart.body;
             });
         } else {
+            this.loading = false;
             this.emptyCart = true;
         }
     }
