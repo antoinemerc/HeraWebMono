@@ -12,7 +12,7 @@
       </div>
       <div *ngIf="!this.emptyCart">
         <div *ngIf="this.confirmation">
-            <jhi-my-cart-item [cartProducts]="this.cartProducts" [basket]="this.basket"></jhi-my-cart-item>
+            <jhi-my-cart-item [cartProducts]="this.cartProducts" [basket]="this.currentUser.basket"></jhi-my-cart-item>
         </div>
         <div *ngIf="!this.confirmation">Loading...</div>
       </div>

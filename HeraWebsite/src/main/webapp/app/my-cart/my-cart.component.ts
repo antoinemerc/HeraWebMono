@@ -33,9 +33,7 @@ export class MyCartComponent implements OnInit {
             this.accountConnected = account;
             this.userService.find(this.accountConnected.login).subscribe((res: HttpResponse<IUser>) => {
                 this.currentUser = res.body;
-                this.basket = res.body.basket;
-                // console.log( this.basket );
-                this.productService.queryBasket(this.currentUser).subscribe((cart: HttpResponse<IProduct[]>) => {
+                this.productService.queryBasket(this.currentUser.basket).subscribe((cart: HttpResponse<IProduct[]>) => {
                     this.cartProducts = cart.body;
                     this.confirmation = true;
                     this.cartIsEmpty();
@@ -50,7 +48,6 @@ export class MyCartComponent implements OnInit {
 
     cartIsEmpty() {
         if (this.cartProducts != null) {
-            console.log(this.cartProducts);
             if (this.cartProducts.length > 0) {
                 this.emptyCart = false;
             }

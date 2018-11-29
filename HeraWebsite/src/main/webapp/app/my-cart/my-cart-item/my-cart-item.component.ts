@@ -3,7 +3,7 @@ import { IProduct } from 'app/shared/model/product.model';
 import { Order } from 'app/shared/model/order.model';
 import { Principal, IUser, Account, UserService } from 'app/core';
 import { HttpResponse } from '@angular/common/http';
-import { OrderService } from 'app/shared/service/order.service';
+import { OrderSharedService } from 'app/shared/service/order-shared.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -21,7 +21,7 @@ export class MyCartItemComponent implements OnInit {
     constructor(
         public principal: Principal,
         private router: Router,
-        private orderService: OrderService,
+        private orderSharedService: OrderSharedService,
         private userService: UserService
     ) {}
 
@@ -50,7 +50,7 @@ export class MyCartItemComponent implements OnInit {
                 order.orderLine = this.currentUser.basket;
                 order.date = this.createDate();
                 order.totalPrice = this.getTotalCost();
-                this.orderService.save(order);
+                this.orderSharedService.save(order);
                 this.router.navigate(['/transportManagement']);
             });
         });

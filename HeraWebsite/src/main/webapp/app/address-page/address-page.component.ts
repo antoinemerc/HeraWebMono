@@ -6,7 +6,7 @@ import { Principal, IUser, UserService, Account } from 'app/core';
 import { Location } from '@angular/common';
 import { IAddress, Address } from '../shared/model/address.model';
 import { AddressModalService } from './add-address-popup/address-modal.service';
-import { OrderService } from '../shared/service/order.service';
+import { OrderSharedService } from '../shared/service/order-shared.service';
 
 @Component({
     selector: 'jhi-address-page',
@@ -26,7 +26,7 @@ export class AddressPageComponent implements OnInit {
         private router: Router,
         private location: Location,
         private addressModalService: AddressModalService,
-        private orderService: OrderService
+        private orderService: OrderSharedService
     ) {}
 
     ngOnInit() {
@@ -37,10 +37,7 @@ export class AddressPageComponent implements OnInit {
             this.newAddress = new Address();
             this.idxAddress = 1;
             this.order = this.orderService.retrieve();
-            // Decommenter quand le lien sera fait
             this.user = this.order.user;
-            // Supprimer les lignes suivantes
-            // Jusque là
         }
     }
 
@@ -51,24 +48,20 @@ export class AddressPageComponent implements OnInit {
             const ret = this.addressModalService.open();
             ret.result.then(
                 data => {
-                    console.log(data);
                     this.user.allAddress.push(orderAddress);
                     this.userService.update(this.user).subscribe();
                     this.order.address = orderAddress;
-                    console.log(this.order);
-                    // Navigate to next page
+                    this.router.navigate(['/validation']);
                 },
                 reason => {
                     this.order.address = orderAddress;
-                    console.log(this.order);
-                    // Navigate to next page
+                    this.router.navigate(['/validation']);
                 }
             );
         } else {
             orderAddress = this.user.allAddress[this.idxAddress - 1];
             this.order.address = orderAddress;
-            console.log(this.order);
-            // Navigate to next page
+            this.router.navigate(['/validation']);
         }
     }
 

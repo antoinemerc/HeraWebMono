@@ -6,7 +6,7 @@ import { HttpResponse } from '@angular/common/http';
 import { Principal } from 'app/core';
 import { Location } from '@angular/common';
 import { IOrder } from 'app/shared/model/order.model';
-import { OrderService } from '../shared/service/order.service';
+import { OrderSharedService } from '../shared/service/order-shared.service';
 
 @Component({
     selector: 'jhi-transport-management',
@@ -24,7 +24,7 @@ export class TransportManagementComponent implements OnInit {
         private router: Router,
         private location: Location,
         private route: ActivatedRoute,
-        private orderService: OrderService
+        private orderService: OrderSharedService
     ) {}
 
     ngOnInit() {
