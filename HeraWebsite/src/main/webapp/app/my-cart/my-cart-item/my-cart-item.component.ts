@@ -5,6 +5,7 @@ import { Principal, IUser, Account, UserService } from 'app/core';
 import { HttpResponse } from '@angular/common/http';
 import { OrderSharedService } from 'app/shared/service/order-shared.service';
 import { Router } from '@angular/router';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
     selector: 'jhi-my-cart-item',
@@ -26,8 +27,13 @@ export class MyCartItemComponent implements OnInit {
         public principal: Principal,
         private router: Router,
         private orderSharedService: OrderSharedService,
-        private userService: UserService
+        private userService: UserService,
+        private cdRef: ChangeDetectorRef
     ) {}
+
+    ngAfterViewChecked() {
+        this.cdRef.detectChanges();
+    }
 
     ngOnInit() {
         for (let i = 0; i < this.basket.length; i++) {
@@ -78,6 +84,11 @@ export class MyCartItemComponent implements OnInit {
         this.modifiedItem[idx] = false;
         this.basket[idx].quantity = this.quantities[idx];
         this.userService.updateBasket(this.basket[idx]).subscribe();
+        let cartValid = true;
+        for (let i = 0; i < this.basket.length; i++) {
+            cartValid = cartValid || this.verifyStock(this.basket[i]);
+        }
+        this.stockErrors = !cartValid;
         this.getTotalCost();
     }
 
