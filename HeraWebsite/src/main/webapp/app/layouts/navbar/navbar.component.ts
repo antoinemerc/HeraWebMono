@@ -17,7 +17,7 @@ import { SafeResourceUrl } from '@angular/platform-browser';
     styleUrls: ['navbar.scss']
 })
 export class NavbarComponent implements OnInit {
-    mainImage: SafeResourceUrl = 'content/images/panier.png';
+    mainImage: SafeResourceUrl = 'content/images/shoping_cart.png';
     inProduction: boolean;
     isNavbarCollapsed: boolean;
     languages: any[];
