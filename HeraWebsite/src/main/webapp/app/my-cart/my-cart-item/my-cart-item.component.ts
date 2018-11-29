@@ -14,10 +14,14 @@ import { Router } from '@angular/router';
 export class MyCartItemComponent implements OnInit {
     @Input() cartProducts: IProduct[];
     @Input() basket;
+    modifiedItem: boolean[] = [];
+    quantities: number[] = [];
     accountConnected: Account;
     currentUser: IUser;
-    totalCost: Number = 0;
+    totalCost = 0;
     stockErrors = false;
+    d = 0;
+
     constructor(
         public principal: Principal,
         private router: Router,
@@ -26,7 +30,17 @@ export class MyCartItemComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.totalCost = this.getTotalCost();
+        for (let i = 0; i < this.basket.length; i++) {
+            this.modifiedItem.push(false);
+            this.quantities.push(this.basket[i].quantity);
+        }
+        this.principal.identity().then(account => {
+            this.accountConnected = account;
+            this.userService.find(this.accountConnected.login).subscribe((res: HttpResponse<IUser>) => {
+                this.currentUser = res.body;
+            });
+        });
+        this.getTotalCost();
     }
 
     getInfoProduct(_id: String) {
@@ -42,18 +56,12 @@ export class MyCartItemComponent implements OnInit {
 
     pay() {
         const order = new Order();
-        this.principal.identity().then(account => {
-            this.accountConnected = account;
-            this.userService.find(this.accountConnected.login).subscribe((res: HttpResponse<IUser>) => {
-                this.currentUser = res.body;
-                order.user = this.currentUser;
-                order.orderLine = this.currentUser.basket;
-                order.date = this.createDate();
-                order.totalPrice = this.getTotalCost();
-                this.orderSharedService.save(order);
-                this.router.navigate(['/transportManagement']);
-            });
-        });
+        order.user = this.currentUser;
+        order.orderLine = this.basket;
+        order.date = this.createDate();
+        order.totalPrice = this.totalCost;
+        this.orderSharedService.save(order);
+        this.router.navigate(['/transportManagement']);
     }
 
     getTotalCost() {
@@ -63,7 +71,22 @@ export class MyCartItemComponent implements OnInit {
                 total += entry.quantity * this.getInfoProduct(entry.prod).price;
             }
         }
-        return total;
+        this.totalCost = total;
+    }
+
+    buttonUpdate(idx: number) {
+        this.modifiedItem[idx] = false;
+        this.basket[idx].quantity = this.quantities[idx];
+        this.userService.updateBasket(this.basket[idx]).subscribe();
+        this.getTotalCost();
+    }
+
+    updateQuantity(idx: number) {
+        this.modifiedItem[idx] = true;
+    }
+
+    preventKeyboard(e) {
+        e.preventDefault();
     }
 
     verifyStock(_item) {

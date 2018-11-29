@@ -7,18 +7,21 @@
       <th scope="col">Total</th>
     </tr>
   <tbody>
-    <tr *ngFor="let item of this.basket">
+    <tr *ngFor="let item of this.basket;let i = index; ">
       <td>
-        <img  class="img-thumbnail" 
-              style="max-width: 150px;" 
-              src="{{ this.getInfoProduct( item.prod ).allImageUrl[0].url }}"
-              alt="">
+        <img class="img-thumbnail" style="max-width: 150px;" src="{{ this.getInfoProduct( item.prod ).allImageUrl[0].url }}"
+          alt="">
         <a class="alert-link" [routerLink]="['/displayProduct', item.prod]">{{ this.getInfoProduct( item.prod ).name }}</a>
         <div *ngIf="!this.verifyStock( item )" class="alert alert-warning">
           The product is no more available in our stocks, please change the quantity or delete de product to proceed.
         </div>
       </td>
-      <td>{{ item.quantity }}</td>
+      <td>
+        <input type="number" (keypress)="preventKeyboard($event)" class="form-control text-center" value="{{ item.quantity }}"
+          [(ngModel)]="this.quantities[i]" (change)="updateQuantity(i)" min="0" max="{{this.cartProducts[i].quantity}}">
+        </input>
+        <button *ngIf="this.modifiedItem[i]" (click)="buttonUpdate(i)">Modify quantity</button>
+      </td>
       <td>{{ this.getInfoProduct( item.prod ).price }}</td>
       <td>{{ this.getInfoProduct( item.prod ).price * item.quantity }}</td>
     </tr>
@@ -29,7 +32,8 @@
   <span>{{ this.totalCost }}</span> EUR
 </div>
 <div *ngIf="this.stockErrors" class="alert alert-warning">
-  One or multiple products are not available in our stocks, please change the quantity or delete them to proceed the checkout.
+  One or multiple products are not available in our stocks, please change the quantity or delete them to proceed the
+  checkout.
 </div>
 <div *ngIf="!this.stockErrors">
   <button (click)="pay()" class="btn btn-primary">Pay</button>
