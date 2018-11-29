@@ -48,6 +48,18 @@ Connection au compte avec:
   - Login: TeamEcom
   - Pwd: Ecom2018
   
+## Déploiement
+
+Pour déployer l'application, on utilisera docker et docker compose pour générer une image qu'on peut mettre sur n'importe quel environnement
+Pour générer l'application en mode production et en .war:
+
+    ./mvnw package -Pprod verify jib:dockerBuild
+
+Pour lancer l'image docker:
+
+     docker-compose -f src/main/docker/app.yml up
+
+Vous aurez deux images: herashop et jhipster registery ces deux docker image doivent être lancée pour que l'application fonctionne
 
   
   
