@@ -45,6 +45,7 @@ export class ProductPageComponent implements OnInit {
             .find(this.id)
             .toPromise()
             .then((res: HttpResponse<IProduct>) => this.bindBody(res.body));
+        this.connectUser();
     }
 
     isAuthenticated() {
@@ -66,7 +67,7 @@ export class ProductPageComponent implements OnInit {
                 this.userService.find(this.accountConnected.login).subscribe((res: HttpResponse<IUser>) => {
                     this.currentUser = res.body;
                     this.currentUser.basket.push(this.newItem);
-                    this.userService.update(this.currentUser).subscribe(response => {
+                    this.userService.updateBasket(this.newItem).subscribe(response => {
                         if (response.status === 200) {
                             this.basketConfirmed = 2;
                         } else {
@@ -85,21 +86,12 @@ export class ProductPageComponent implements OnInit {
     isItemInBasket() {
         let retour: boolean;
         retour = false;
-        if (this.principal.isAuthenticated()) {
-            this.principal.identity().then(account => {
-                this.accountConnected = account;
-                this.userService
-                    .find(this.accountConnected.login)
-                    .toPromise()
-                    .then((res: HttpResponse<IUser>) => {
-                        this.currentUser = res.body;
-                        for (const item of this.currentUser.basket) {
-                            if (item.prod === this.product.id) {
-                                retour = true;
-                            }
-                        }
-                    });
-            });
+        if (this.principal.isAuthenticated() && this.currentUser !== undefined) {
+            for (const item of this.currentUser.basket) {
+                if (item.prod === this.product.id) {
+                    retour = true;
+                }
+            }
         } else {
             retour = false;
         }
@@ -110,6 +102,25 @@ export class ProductPageComponent implements OnInit {
      */
     login() {
         this.modalRef = this.loginModalService.open();
+        this.modalRef.result.then(
+            data => {
+                this.connectUser();
+            },
+            reason => {
+                this.connectUser();
+            }
+        );
+    }
+
+    connectUser() {
+        if (this.principal.isAuthenticated()) {
+            this.principal.identity().then(account => {
+                this.accountConnected = account;
+                this.userService.find(this.accountConnected.login).subscribe((res: HttpResponse<IUser>) => {
+                    this.currentUser = res.body;
+                });
+            });
+        }
     }
 
     /**

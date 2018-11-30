@@ -40,9 +40,22 @@ export class OrderComponent implements OnInit {
             this.order = this.transportComponent.order;
             this.step++;
         } else if (this.step === 2) {
-            this.adressComponent.save();
-            this.order = this.adressComponent.order;
-            this.step++;
+            const ret = this.adressComponent.save();
+            if (ret === null) {
+                this.order = this.adressComponent.order;
+                this.step++;
+            } else {
+                ret.result.then(
+                    data => {
+                        this.order = this.adressComponent.order;
+                        this.step++;
+                    },
+                    reason => {
+                        this.order = this.adressComponent.order;
+                        this.step++;
+                    }
+                );
+            }
         }
     }
 

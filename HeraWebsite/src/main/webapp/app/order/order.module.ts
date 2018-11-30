@@ -13,7 +13,7 @@ import { UserRouteAccessService } from 'app/core';
 @NgModule({
     imports: [CommonModule, RouterModule.forChild(ORDER_ROUTE), FormsModule],
     declarations: [OrderComponent, AddressPageComponent, AddressModalComponent, TransportManagementComponent, ValidationPageComponent],
-    entryComponents: [],
+    entryComponents: [AddressModalComponent],
     providers: [UserRouteAccessService]
 })
 export class OrderModule {}

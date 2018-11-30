@@ -57,10 +57,12 @@ export class AddressPageComponent implements OnInit, OnChanges {
                     this.order.address = orderAddress;
                 }
             );
+            return ret;
         } else {
             orderAddress = this.user.allAddress[this.idxAddress - 1];
             this.order.address = orderAddress;
         }
+        return null;
     }
 
     onAddressSelectionChange(entry): void {
