@@ -31,6 +31,4 @@ export class ProductItemComponent implements OnInit, OnChanges {
     private bindUrl(data: SafeResourceUrl): void {
         this.mainImage = data;
     }
-
-    private add1ToBasket(): void {}
 }
