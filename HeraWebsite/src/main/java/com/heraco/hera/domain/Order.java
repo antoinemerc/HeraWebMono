@@ -34,6 +34,9 @@ public class Order implements Serializable {
     @Field("transportationMethod")
     private TransportationMethod transportationMethod;
 
+    @Field("paymentMethod")
+    private String paymentMethod;
+
     @Field("date")
     private String date;
 
@@ -87,6 +90,14 @@ public class Order implements Serializable {
 
     public TransportationMethod getTransportationMethod() {
         return this.transportationMethod;
+    }
+
+    public String getPaymentMethod(){
+        return this.paymentMethod;
+    }
+
+    public void setPaymentMethod(String p){
+        this.paymentMethod = p;
     }
 
     public String getDate() {

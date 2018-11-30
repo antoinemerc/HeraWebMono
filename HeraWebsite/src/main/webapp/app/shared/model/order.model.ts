@@ -9,6 +9,7 @@ export interface IOrder {
     orderLine?: BasketItem[];
     address?: Address;
     transportationMethod?: TransportationMethod;
+    paymentMethod?: string;
     date?: string;
     state?: string;
     totalPrice?: number;
@@ -21,6 +22,7 @@ export class Order implements IOrder {
         public orderLine?: BasketItem[],
         public address?: Address,
         public transportationMethod?: TransportationMethod,
+        public paymentMethod?: string,
         public date?: string,
         public state?: string,
         public totalPrice?: number

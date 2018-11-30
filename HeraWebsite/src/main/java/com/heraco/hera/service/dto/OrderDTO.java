@@ -23,6 +23,8 @@ public class OrderDTO implements Serializable {
 
     private TransportationMethod transportationMethod;
 
+    private String paymentMethod;
+
     private String date;
 
     private String state;
@@ -71,6 +73,14 @@ public class OrderDTO implements Serializable {
 
     public TransportationMethod getTransportationMethod() {
         return this.transportationMethod;
+    }
+
+    public String getPaymentMethod(){
+        return this.paymentMethod;
+    }
+
+    public void setPaymentMethod(String p){
+        this.paymentMethod = p;
     }
 
     public String getDate() {
