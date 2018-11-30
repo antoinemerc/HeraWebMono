@@ -9,10 +9,18 @@ import { AddressModalComponent } from './address-page/add-address-popup/add-addr
 import { TransportManagementComponent } from './transport-management/transport-management.component';
 import { ValidationPageComponent } from './validation-page/validation-page.component';
 import { UserRouteAccessService } from 'app/core';
+import { OrderSummaryComponent } from './order-summary/order-summary.component';
 
 @NgModule({
     imports: [CommonModule, RouterModule.forChild(ORDER_ROUTE), FormsModule],
-    declarations: [OrderComponent, AddressPageComponent, AddressModalComponent, TransportManagementComponent, ValidationPageComponent],
+    declarations: [
+        OrderComponent,
+        AddressPageComponent,
+        AddressModalComponent,
+        TransportManagementComponent,
+        ValidationPageComponent,
+        OrderSummaryComponent
+    ],
     entryComponents: [AddressModalComponent],
     providers: [UserRouteAccessService]
 })

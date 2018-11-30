@@ -17,25 +17,37 @@
         </div>
       </td>
       <td>
-        <input type="number" (keypress)="preventKeyboard($event)" class="form-control text-center" value="{{ item.quantity }}"
-          [(ngModel)]="this.quantities[i]" (change)="updateQuantity(i)" min="0" max="{{this.cartProducts[i].quantity}}">
-        </input>
-        <button (click)="removeFromBasket(i)">X</button>
-        <button *ngIf="this.modifiedItem[i]" (click)="buttonUpdate(i)">Modify quantity</button>
+        <div class="row">
+          <input type="number" (keypress)="preventKeyboard($event)" class="form-control col-2" value="{{ item.quantity }}" [(ngModel)]="this.quantities[i]" (change)="updateQuantity(i)" min="0" max="{{this.cartProducts[i].quantity}}"/>
+          <button class="btn btn-primary col-3" *ngIf="this.modifiedItem[i]" (click)="buttonUpdate(i)">Modify quantity</button>
+          <div class="col-3" *ngIf="this.modifiedItem[i]"></div>
+          <button class="btn btn-danger col-2" (click)="removeFromBasket(i)">X</button>
+        </div>
       </td>
       <td>{{ this.getInfoProduct( item.prod ).price }}</td>
       <td>{{ this.getInfoProduct( item.prod ).price * item.quantity }}</td>
     </tr>
+    <tr *ngIf="this.stockErrors" class="alert alert-warning">
+        <td colspan="4">
+            One or multiple products are not available in our stocks, please change the quantity or delete them to proceed the checkout.
+        </td>
+    </tr>
+    <tr class="separator">
+      <td colspan="3">Total</td>
+      <td>{{ this.totalCost }} EUR</td>
+    </tr>
+    
+    <tr>
+        <td colspan="3"></td>
+        <td>
+          <button [disabled]="this.stockErrors" (click)="pay()" class="btn btn-primary">Initiate the order</button>
+        </td>
+    </tr>
   </tbody>
 </table>
-<div>
-  <span>Total: </span>
-  <span>{{ this.totalCost }}</span> EUR
+<div class="row justify-content-end">
+  
+    
+  
 </div>
-<div *ngIf="this.stockErrors" class="alert alert-warning">
-  One or multiple products are not available in our stocks, please change the quantity or delete them to proceed the
-  checkout.
-</div>
-<div *ngIf="!this.stockErrors">
-  <button (click)="pay()" class="btn btn-primary">Pay</button>
-</div>
+

@@ -1,24 +1,24 @@
 <h1>Your Order</h1>
 
-<div>Your method of transportation</div>
-
-<div [ngSwitch]="step">
-    <div *ngSwitchCase=1>
-        <jhi-transport-management [order]=order></jhi-transport-management>
+<hr />
+<div class="row">
+    <div class="col-9">
+        <div [ngSwitch]="step" class="row">
+            <jhi-transport-management *ngSwitchCase=1 [order]=order class="col-12"></jhi-transport-management>
+            <jhi-address-page *ngSwitchCase=2 [order]=order class="col-12"></jhi-address-page>
+            <jhi-validation-page *ngSwitchCase=3 [order]=order class="col-12"></jhi-validation-page>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <button *ngIf="step != 1" (click)="previousStep()" class="btn btn-primary">Previous step</button>
+                <button *ngIf="step != 3" (click)="nextStep()" class="btn btn-primary float-right" >Next step</button>
+            </div>
+        </div>
+        
+        
     </div>
-    <div *ngSwitchCase=2>
-        <jhi-address-page [order]=order></jhi-address-page>
+    
+    <div class="col-3">
+        <jhi-order-summary [order]=order></jhi-order-summary>
     </div>
-    <div *ngSwitchCase=3>
-        <jhi-validation-page [order]=order></jhi-validation-page>
-    </div>
-</div>
-<div *ngIf="step != 1">
-    <a (click)="previousStep()" class="myButton">Previous step</a>
-</div>
-<div *ngIf="step != 3">
-        <a (click)="nextStep()" class="myButton">Next step</a>
-</div>
-<div *ngIf="step == 3">
-        <a (click)="passCommand()" class="myButton">Pass command</a>
 </div>

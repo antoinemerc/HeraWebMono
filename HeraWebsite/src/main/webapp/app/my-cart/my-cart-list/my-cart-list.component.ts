@@ -11,7 +11,7 @@ import { IBasketItem } from '../../shared/model/basket_item.model';
 @Component({
     selector: 'jhi-my-cart-list',
     templateUrl: './my-cart-list.component.html',
-    styles: []
+    styleUrls: ['my-cart-list.component.scss']
 })
 export class MyCartListComponent implements OnInit, AfterViewChecked {
     @Input() cartProducts: IProduct[];
