@@ -3,11 +3,12 @@ import { TransportManagementComponent } from './transport-management/transport-m
 import { AddressPageComponent } from './address-page/address-page.component';
 import { ValidationPageComponent } from './validation-page/validation-page.component';
 import { IOrder } from 'app/shared/model/order.model';
+import { OrderSharedService } from 'app/shared/service/order-shared.service';
 
 @Component({
     selector: 'jhi-order',
     templateUrl: './order.component.html',
-    styles: []
+    styleUrls: ['order.component.scss']
 })
 export class OrderComponent implements OnInit {
     order: IOrder;
@@ -20,9 +21,11 @@ export class OrderComponent implements OnInit {
 
     step = 1;
 
-    constructor() {}
+    constructor(private orderSharedService: OrderSharedService) {}
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.order = this.orderSharedService.retrieve();
+    }
 
     previousStep(): void {
         if (this.step === 2) {
@@ -57,9 +60,6 @@ export class OrderComponent implements OnInit {
                 );
             }
         }
-    }
-
-    passCommand() {
-        this.validationComponent.validate();
+        console.log(this.order);
     }
 }

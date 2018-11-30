@@ -6,12 +6,11 @@ import { Principal } from 'app/core';
 import { Location } from '@angular/common';
 import { IOrder } from 'app/shared/model/order.model';
 import { TransportationMethodService } from 'app/entities/transportation-method';
-import { OrderSharedService } from 'app/shared/service/order-shared.service';
 
 @Component({
     selector: 'jhi-transport-management',
     templateUrl: './transport-management.component.html',
-    styles: []
+    styleUrls: ['transport-management.component.scss']
 })
 export class TransportManagementComponent implements OnInit, OnChanges {
     @Input() order: IOrder;
@@ -22,8 +21,7 @@ export class TransportManagementComponent implements OnInit, OnChanges {
         private principal: Principal,
         private transportService: TransportationMethodService,
         private router: Router,
-        private location: Location,
-        private orderSharedService: OrderSharedService
+        private location: Location
     ) {}
 
     ngOnInit() {
@@ -32,7 +30,6 @@ export class TransportManagementComponent implements OnInit, OnChanges {
             this.router.navigate(['/']);
         } else {
             this.idx = 0;
-            this.order = this.orderSharedService.retrieve();
             this.transportService.query().subscribe((res: HttpResponse<ITransportationMethod[]>) => this.bindBody(res.body));
         }
     }

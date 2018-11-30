@@ -19,6 +19,7 @@ export class AddressPageComponent implements OnInit, OnChanges {
     accountConnected: Account;
     newAddress: IAddress;
     idxAddress: number;
+    addNewAddress = false;
 
     constructor(
         private principal: Principal,
@@ -67,5 +68,10 @@ export class AddressPageComponent implements OnInit, OnChanges {
 
     onAddressSelectionChange(entry): void {
         this.idxAddress = entry;
+        if (entry === 0) {
+            this.addNewAddress = true;
+        } else {
+            this.addNewAddress = false;
+        }
     }
 }

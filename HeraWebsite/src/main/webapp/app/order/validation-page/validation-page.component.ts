@@ -16,7 +16,7 @@ import { ProductService } from 'app/shared';
 @Component({
     selector: 'jhi-validation-page',
     templateUrl: './validation-page.component.html',
-    styles: []
+    styleUrls: ['validation-page.component.scss']
 })
 export class ValidationPageComponent implements OnInit, OnChanges {
     @Input() order: IOrder;

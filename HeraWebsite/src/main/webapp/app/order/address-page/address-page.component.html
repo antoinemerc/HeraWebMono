@@ -1,28 +1,46 @@
-<div>
-    <h1> Choose one of your address</h1>
-    <div *ngFor="let address of user.allAddress; let i = index;">
-        <input type="radio" id="i+1" [checked]="idxAddress === i+1" (change)="onAddressSelectionChange(i+1)" name="address"
-            value={{i+1}}>
-        <label for="i">{{address.street1}} {{address.city}} {{address.country}}</label>
-    </div>
-    <div>
-        <h1> Use a new address for this order </h1>
-        <input type="radio" id="0" [checked]="idxAddress === 0" (change)="onAddressSelectionChange(0)" name="address"
-            value=0>
-        <div>
-            <label class="form-control-label" for="field_street1">Street 1</label>
-            <input type="text" class="form-control" name="street1" id="field_street1" [(ngModel)]="newAddress.street1"
-                required />
-            <label class="form-control-label" for="field_street2">Street 2</label>
-            <input type="text" class="form-control" name="street2" id="field_street2" [(ngModel)]="newAddress.street2" />
-            <label class="form-control-label" for="field_zipCode">Zip code</label>
-            <input type="text" class="form-control" name="zipCode" id="field_zipCode" [(ngModel)]="newAddress.zipCode"
-                required />
-            <label class="form-control-label" for="field_city">City</label>
-            <input type="text" class="form-control" name="city" id="field_city" [(ngModel)]="newAddress.city" required />
-            <label class="form-control-label" for="field_country">Country</label>
-            <input type="text" class="form-control" name="country" id="field_country" [(ngModel)]="newAddress.country"
-                required />
+<div class="row">
+    <div class="col-12">
+        <h5 style="padding-bottom: 10px"> Choose an address</h5>
+        <div *ngFor="let address of user.allAddress; let i = index;" class="col-12">
+            <input type="radio" id="i+1" [checked]="idxAddress === i+1" (change)="onAddressSelectionChange(i+1)" name="address"
+                value={{i+1}}>
+            <label for="i">{{address.street1}} {{address.city}} {{address.country}}</label>
+        </div>
+        <div class="col-12">
+            <input type="radio" id="0" [checked]="idxAddress === 0" (change)="onAddressSelectionChange(0)" name="address" value=0>
+            <label for="0">Add a new address</label>
+        </div>
+        <div class="col-12" *ngIf="addNewAddress">
+            <h5 style="padding-bottom: 10px"> </h5>
+            
+            <form>
+                <div class="form-group row">
+                    <label class="form-control-label col-2" for="field_street1">Street 1</label>
+                    <div class="col-10" style="padding: 5px">
+                        <input type="text" class="form-control" name="street1" id="field_street1" [(ngModel)]="newAddress.street1"
+                        required />
+                    </div>
+                    <label class="form-control-label col-2" for="field_street2">Street 2</label>
+                    <div class="col-10" style="padding: 5px">
+                        <input type="text" class="form-control" name="street2" id="field_street2" [(ngModel)]="newAddress.street2" />
+                    </div>
+                    <label class="form-control-label col-2" for="field_zipCode">Zip code</label>
+                    <div class="col-10" style="padding: 5px">
+                        <input type="text" class="form-control" name="zipCode" id="field_zipCode" [(ngModel)]="newAddress.zipCode"
+                        required />
+                    </div>
+
+                    <label class="form-control-label col-2" for="field_city">City</label>
+                    <div class="col-10" style="padding: 5px">
+                        <input type="text" class="form-control" name="city" id="field_city" [(ngModel)]="newAddress.city" required />
+                    </div>
+
+                    <label class="form-control-label col-2" for="field_country">Country</label>
+                    <div class="col-10" style="padding: 5px">
+                            <input type="text" class="form-control" name="country" id="field_country" [(ngModel)]="newAddress.country" required />
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
