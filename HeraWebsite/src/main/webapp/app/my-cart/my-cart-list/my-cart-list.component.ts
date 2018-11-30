@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, Input, AfterViewChecked, Output, EventEmitter } from '@angular/core';
 import { IProduct } from 'app/shared/model/product.model';
 import { Order } from 'app/shared/model/order.model';
 import { Principal, IUser, Account, UserService } from 'app/core';
@@ -6,6 +6,7 @@ import { HttpResponse } from '@angular/common/http';
 import { OrderSharedService } from 'app/shared/service/order-shared.service';
 import { Router } from '@angular/router';
 import { ChangeDetectorRef } from '@angular/core';
+import { IBasketItem } from '../../shared/model/basket_item.model';
 
 @Component({
     selector: 'jhi-my-cart-list',
@@ -14,7 +15,8 @@ import { ChangeDetectorRef } from '@angular/core';
 })
 export class MyCartListComponent implements OnInit, AfterViewChecked {
     @Input() cartProducts: IProduct[];
-    @Input() basket;
+    @Input() basket: IBasketItem[];
+    @Output() basketChange = new EventEmitter<IBasketItem[]>();
     modifiedItem: boolean[] = [];
     quantities: number[] = [];
     accountConnected: Account;
@@ -46,6 +48,16 @@ export class MyCartListComponent implements OnInit, AfterViewChecked {
             });
         });
         this.getTotalCost();
+    }
+
+    removeFromBasket(idx: number) {
+        this.quantities.splice(idx, 1);
+        this.modifiedItem.splice(idx, 1);
+        this.basket.splice(idx, 1);
+        this.cartProducts.splice(idx, 1);
+        this.userService.updateCartAfterRemove(this.basket).subscribe();
+        this.getTotalCost();
+        this.basketChange.emit(this.basket);
     }
 
     getInfoProduct(_id: String) {

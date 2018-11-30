@@ -11,6 +11,7 @@ import { IBasketItem } from 'app/shared/model/basket_item.model';
 export class UserService {
     private resourceUrl = SERVER_API_URL + 'api/users';
     private updateCartUrl = SERVER_API_URL + 'api/users-cart-update';
+    private updateAfterRemoveCartUrl = SERVER_API_URL + 'api/users-cart-update-after-remove';
 
     constructor(private http: HttpClient) {}
 
@@ -41,5 +42,9 @@ export class UserService {
 
     updateBasket(cartItem: IBasketItem): Observable<HttpResponse<IUser>> {
         return this.http.put<IUser>(this.updateCartUrl, cartItem, { observe: 'response' });
+    }
+
+    updateCartAfterRemove(cart: IBasketItem[]): Observable<HttpResponse<IUser>> {
+        return this.http.put<IUser>(this.updateAfterRemoveCartUrl, cart, { observe: 'response' });
     }
 }

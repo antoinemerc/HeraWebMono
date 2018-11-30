@@ -231,6 +231,19 @@ public class UserResource {
                 HeaderUtil.createAlert("userManagement.updated", userDTO.getLogin()));
     }
 
+    @PutMapping("/users-cart-update-after-remove")
+    @Timed
+    public ResponseEntity<UserDTO> updateUserCartAfterRemove(@Valid @RequestBody ArrayList<BasketItem> cart) {
+        log.debug("REST request to update current user cart after remove: {}");
+        User user = userService.getUserWithAuthoritiesByLogin(SecurityUtils.getCurrentUserLogin().get()).get();
+        UserDTO userDTO = new UserDTO(user);
+       userDTO.setBasket(cart);
+        Optional<UserDTO> updatedUser = userService.updateUser(userDTO);
+
+        return ResponseUtil.wrapOrNotFound(updatedUser,
+                HeaderUtil.createAlert("userManagement.updated", userDTO.getLogin()));
+    }
+
     /**
      * SEARCH /_search/users/:query : search for the User corresponding to the
      * query.

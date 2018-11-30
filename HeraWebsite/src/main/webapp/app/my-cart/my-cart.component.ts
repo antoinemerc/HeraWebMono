@@ -48,8 +48,14 @@ export class MyCartComponent implements OnInit {
         this.loading = true;
         this.userService.find(account.login).subscribe((res: HttpResponse<IUser>) => {
             this.currentUser = res.body;
+            this.basket = this.currentUser.basket;
             this.retrieveProducts(this.currentUser.basket);
         });
+    }
+
+    isCartEmpty() {
+        // Peu importe la valeur si le panier est indéfini, on retourne true pour éviter une erreur
+        return this.basket === undefined || this.basket.length === 0;
     }
 
     retrieveProducts(basket: BasketItem[]) {
