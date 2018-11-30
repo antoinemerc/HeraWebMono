@@ -218,7 +218,7 @@ public class UserResource {
         boolean found = false;
         for (int i = 0; !found && i < userDTO.getBasket().size(); i++) {
             if (userDTO.getBasket().get(i).getProd().equals(cartItem.getProd())) {
-                userDTO.getBasket().get(i).setQuantity(cartItem.getQuantity());
+                userDTO.getBasket().get(i).setQuantity( userDTO.getBasket().get(i).getQuantity() + cartItem.getQuantity());
                 found = true;
             }
         }

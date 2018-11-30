@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, AfterViewChecked } from '@angular/core';
 import { IProduct } from 'app/shared/model/product.model';
 import { Order } from 'app/shared/model/order.model';
 import { Principal, IUser, Account, UserService } from 'app/core';
@@ -12,7 +12,7 @@ import { ChangeDetectorRef } from '@angular/core';
     templateUrl: './my-cart-list.component.html',
     styles: []
 })
-export class MyCartListComponent implements OnInit {
+export class MyCartListComponent implements OnInit, AfterViewChecked {
     @Input() cartProducts: IProduct[];
     @Input() basket;
     modifiedItem: boolean[] = [];
@@ -21,7 +21,6 @@ export class MyCartListComponent implements OnInit {
     currentUser: IUser;
     totalCost = 0;
     stockErrors = false;
-    d = 0;
 
     constructor(
         public principal: Principal,
@@ -82,8 +81,9 @@ export class MyCartListComponent implements OnInit {
 
     buttonUpdate(idx: number) {
         this.modifiedItem[idx] = false;
-        this.basket[idx].quantity = this.quantities[idx];
+        this.basket[idx].quantity = this.quantities[idx] - this.basket[idx].quantity;
         this.userService.updateBasket(this.basket[idx]).subscribe();
+        this.basket[idx].quantity = this.quantities[idx];
         let cartValid = true;
         for (let i = 0; i < this.basket.length; i++) {
             cartValid = cartValid || this.verifyStock(this.basket[i]);
