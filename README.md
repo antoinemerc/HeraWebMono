@@ -53,7 +53,7 @@ Connection au compte avec:
 Pour déployer l'application, on utilisera docker et docker compose pour générer une image qu'on peut mettre sur n'importe quel environnement
 Pour générer l'application en mode production et en .war:
 
-    ./mvnw package -Pprod verify jib:dockerBuild
+    ./mvnw package -Pprod verify jib:dockerBuild -DskipTests
 
 Pour lancer l'image docker:
 
