@@ -17,6 +17,8 @@ export class MyCartListComponent implements OnInit, AfterViewChecked {
     @Input() cartProducts: IProduct[];
     @Input() basket: IBasketItem[];
     @Output() basketChange = new EventEmitter<IBasketItem[]>();
+    @Output() productChange = new EventEmitter<IProduct[]>();
+
     modifiedItem: boolean[] = [];
     quantities: number[] = [];
     accountConnected: Account;
@@ -58,6 +60,7 @@ export class MyCartListComponent implements OnInit, AfterViewChecked {
         this.userService.updateCartAfterRemove(this.basket).subscribe();
         this.getTotalCost();
         this.basketChange.emit(this.basket);
+        this.productChange.emit(this.cartProducts);
     }
 
     getInfoProduct(_id: String) {

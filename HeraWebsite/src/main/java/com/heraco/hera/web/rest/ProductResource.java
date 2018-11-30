@@ -41,6 +41,8 @@ public class ProductResource {
 
     private final ProductService productService;
 
+    private Object lock = new Object();
+
     public ProductResource(ProductService productService) {
         this.productService = productService;
     }
@@ -143,14 +145,17 @@ public class ProductResource {
      * @param pageable the pagination information
      * @return the result of the search
      *//*
-    @GetMapping("/_search/products")
-    @Timed
-    public ResponseEntity<List<ProductDTO>> searchProducts(@RequestParam String query, Pageable pageable) {
-        log.debug("REST request to search for a page of Products for query {}", query);
-        Page<ProductDTO> page = productService.search(query, pageable);
-        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/products");
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
-    }*/
+        * @GetMapping("/_search/products")
+        * 
+        * @Timed public ResponseEntity<List<ProductDTO>> searchProducts(@RequestParam
+        * String query, Pageable pageable) {
+        * log.debug("REST request to search for a page of Products for query {}",
+        * query); Page<ProductDTO> page = productService.search(query, pageable);
+        * HttpHeaders headers =
+        * PaginationUtil.generateSearchPaginationHttpHeaders(query, page,
+        * "/api/_search/products"); return new ResponseEntity<>(page.getContent(),
+        * headers, HttpStatus.OK); }
+        */
 
     /**
      * SEARCH /_search/products?query=:query : search for the product corresponding
@@ -203,12 +208,27 @@ public class ProductResource {
     @Timed
     public ResponseEntity<Void> updateByOrder(@Valid @RequestBody List<BasketItem> cart) {
         System.out.println("REST request to update products in database after payment");
-        for (int i = 0; i < cart.size(); i++) {
-            ProductDTO prod = productService.findOne(cart.get(i).getProd()).get();
-            prod.setQuantity(prod.getQuantity() - cart.get(i).getQuantity());
-            productService.save(prod);
+        boolean allProductsAvailable = true;
+        ArrayList<ProductDTO> productUpdated = new ArrayList<>();
+        ResponseEntity<Void> ret = new ResponseEntity<>(HttpStatus.OK);
+        synchronized (lock) {
+            for (int i = 0; i < cart.size() && allProductsAvailable; i++) {
+                ProductDTO prod = productService.findOne(cart.get(i).getProd()).get();
+                if (prod.getQuantity() < cart.get(i).getQuantity()) {
+                    allProductsAvailable = false;
+                    ret = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+                } else {
+                    prod.setQuantity(prod.getQuantity() - cart.get(i).getQuantity());
+                    productUpdated.add(prod);
+                }
+            }
+            if (allProductsAvailable) {
+                for (ProductDTO p : productUpdated) {
+                    productService.save(p);
+                }
+            }
         }
-        return new ResponseEntity<>(HttpStatus.OK);
+        return ret;
     }
 
 }

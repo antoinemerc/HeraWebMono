@@ -12,6 +12,8 @@ import { IProduct } from 'app/shared/model/product.model';
 import { OrderSharedService } from 'app/shared/service/order-shared.service';
 import { OrderService } from 'app/entities/order';
 import { ProductService } from 'app/shared';
+import { UserService } from '../../core/user/user.service';
+import { IBasketItem } from '../../shared/model/basket_item.model';
 
 @Component({
     selector: 'jhi-validation-page',
@@ -28,7 +30,8 @@ export class ValidationPageComponent implements OnInit, OnChanges {
         private location: Location,
         private orderService: OrderService,
         private productService: ProductService,
-        private imageUrlService: ImageUrlService
+        private imageUrlService: ImageUrlService,
+        private userService: UserService
     ) {}
 
     ngOnInit() {
@@ -45,8 +48,15 @@ export class ValidationPageComponent implements OnInit, OnChanges {
     }
 
     validate() {
-        this.productService.queryUpdateOrder(this.order.orderLine).subscribe();
-        this.orderService.create(this.order).subscribe((res: HttpResponse<IProduct>) => console.log('Order created'));
+        // Add navigation in data AND err
+        this.productService.queryUpdateOrder(this.order.orderLine).subscribe(
+            data => {
+                this.orderService.create(this.order).subscribe((res: HttpResponse<IProduct>) => console.log('Order created'));
+                const emptyBasket: IBasketItem[] = [];
+                this.userService.updateCartAfterRemove(emptyBasket).subscribe();
+            },
+            err => console.log('Error')
+        );
     }
 
     getImage(product: IProduct): SafeResourceUrl {
