@@ -58,6 +58,7 @@ export class MyCartListComponent implements OnInit, AfterViewChecked {
         this.basket.splice(idx, 1);
         this.cartProducts.splice(idx, 1);
         this.userService.updateCartAfterRemove(this.basket).subscribe();
+        this.verifyAllStock();
         this.getTotalCost();
         this.basketChange.emit(this.basket);
         this.productChange.emit(this.cartProducts);
@@ -99,12 +100,16 @@ export class MyCartListComponent implements OnInit, AfterViewChecked {
         this.basket[idx].quantity = this.quantities[idx] - this.basket[idx].quantity;
         this.userService.updateBasket(this.basket[idx]).subscribe();
         this.basket[idx].quantity = this.quantities[idx];
+        this.verifyAllStock();
+        this.getTotalCost();
+    }
+
+    verifyAllStock() {
         let cartValid = true;
         for (let i = 0; i < this.basket.length; i++) {
             cartValid = cartValid || this.verifyStock(this.basket[i]);
         }
         this.stockErrors = !cartValid;
-        this.getTotalCost();
     }
 
     updateQuantity(idx: number) {

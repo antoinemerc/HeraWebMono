@@ -21,7 +21,7 @@ export class ProductItemComponent implements OnInit {
     accountConnected: Account;
     newItem: IBasketItem;
     modalRef: NgbModalRef;
-    basketConfirmed: number = 0;
+    basketConfirmed = 0;
     finished: boolean;
     id: string;
     constructor(
