@@ -8,6 +8,7 @@ import { BasketItem, IBasketItem } from 'app/shared/model/basket_item.model';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from 'app/shared';
+import { CartCountService } from '../../shared/service/cart-count.service';
 
 @Component({
     selector: 'jhi-product-item',
@@ -21,18 +22,14 @@ export class ProductItemComponent implements OnInit {
     accountConnected: Account;
     newItem: IBasketItem;
     modalRef: NgbModalRef;
-    basketConfirmed = 0;
     finished: boolean;
     id: string;
     constructor(
         private imageUrlService: ImageUrlService,
-        private _sanitizer: DomSanitizer,
-        private route: ActivatedRoute,
         private userService: UserService,
         private principal: Principal,
         private loginModalService: LoginModalService,
-        private router: Router,
-        private productService: ProductService
+        private cartCountService: CartCountService
     ) {}
 
     ngOnInit() {
@@ -52,25 +49,12 @@ export class ProductItemComponent implements OnInit {
         return this.principal.isAuthenticated();
     }
     click() {
-        this.basketConfirmed = 1;
         if (this.principal.isAuthenticated()) {
-            this.principal.identity().then(account => {
-                this.accountConnected = account;
-                this.userService.find(this.accountConnected.login).subscribe((res: HttpResponse<IUser>) => {
-                    this.currentUser = res.body;
-                    this.currentUser.basket.push(this.newItem);
-                    this.userService.updateBasket(this.newItem).subscribe(response => {
-                        if (response.status === 200) {
-                            this.basketConfirmed = 2;
-                        } else {
-                            this.basketConfirmed = -1;
-                        }
-                    });
-                });
+            this.userService.updateBasket(this.newItem).subscribe(response => {
+                if (response.status === 200) {
+                    this.cartCountService.update(1);
+                }
             });
         }
-    }
-    login() {
-        this.modalRef = this.loginModalService.open();
     }
 }

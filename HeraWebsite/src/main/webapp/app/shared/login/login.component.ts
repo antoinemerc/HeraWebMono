@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { JhiEventManager } from 'ng-jhipster';
 
 import { LoginService } from 'app/core/login/login.service';
+import { CartCountService } from 'app/shared/service/cart-count.service';
 import { StateStorageService } from 'app/core/auth/state-storage.service';
 
 @Component({
@@ -24,7 +25,8 @@ export class JhiLoginModalComponent implements AfterViewInit {
         private elementRef: ElementRef,
         private renderer: Renderer,
         private router: Router,
-        public activeModal: NgbActiveModal
+        public activeModal: NgbActiveModal,
+        private cartCountService: CartCountService
     ) {
         this.credentials = {};
     }
@@ -56,7 +58,7 @@ export class JhiLoginModalComponent implements AfterViewInit {
                 if (this.router.url === '/register' || /^\/activate\//.test(this.router.url) || /^\/reset\//.test(this.router.url)) {
                     this.router.navigate(['']);
                 }
-
+                this.cartCountService.initWithCart();
                 this.eventManager.broadcast({
                     name: 'authenticationSuccess',
                     content: 'Sending Authentication Success'

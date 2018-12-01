@@ -10,6 +10,7 @@ import { SafeResourceUrl } from '@angular/platform-browser';
 import { ImageUrlService } from 'app/shared/service/imageUrl.service';
 
 import { BUCKET_NAME } from 'app/app.constants';
+import { CartCountService } from '../shared/service/cart-count.service';
 
 @Component({
     selector: 'jhi-product-page',
@@ -34,7 +35,8 @@ export class ProductPageComponent implements OnInit {
         private productService: ProductService,
         private imageUrlService: ImageUrlService,
         private principal: Principal,
-        private userService: UserService
+        private userService: UserService,
+        private cartCountService: CartCountService
     ) {}
 
     ngOnInit() {
@@ -62,19 +64,13 @@ export class ProductPageComponent implements OnInit {
     click() {
         this.basketConfirmed = 1;
         if (this.principal.isAuthenticated()) {
-            this.principal.identity().then(account => {
-                this.accountConnected = account;
-                this.userService.find(this.accountConnected.login).subscribe((res: HttpResponse<IUser>) => {
-                    this.currentUser = res.body;
-                    this.currentUser.basket.push(this.newItem);
-                    this.userService.updateBasket(this.newItem).subscribe(response => {
-                        if (response.status === 200) {
-                            this.basketConfirmed = 2;
-                        } else {
-                            this.basketConfirmed = -1;
-                        }
-                    });
-                });
+            this.userService.updateBasket(this.newItem).subscribe(response => {
+                if (response.status === 200) {
+                    this.cartCountService.update(this.newItem.quantity);
+                    this.basketConfirmed = 2;
+                } else {
+                    this.basketConfirmed = -1;
+                }
             });
         }
     }
