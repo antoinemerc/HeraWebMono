@@ -1,6 +1,7 @@
 package com.heraco.hera.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.heraco.hera.service.MailService;
 import com.heraco.hera.service.OrderService;
 import com.heraco.hera.web.rest.errors.BadRequestAlertException;
 import com.heraco.hera.web.rest.util.HeaderUtil;
@@ -36,8 +37,11 @@ public class OrderResource {
 
     private final OrderService orderService;
 
-    public OrderResource(OrderService orderService) {
+    private MailService mailService;
+
+    public OrderResource(OrderService orderService, MailService mailService) {
         this.orderService = orderService;
+        this.mailService = mailService;
     }
 
     /**
@@ -55,6 +59,7 @@ public class OrderResource {
             throw new BadRequestAlertException("A new order cannot already have an ID", ENTITY_NAME, "idexists");
         }
         OrderDTO result = orderService.save(orderDTO);
+        mailService.sendOrderConfirmationMail(result);
         return ResponseEntity.created(new URI("/api/orders/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);

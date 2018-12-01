@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title th:text="#{email.order.title}">JHipster activation</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="shortcut icon" th:href="@{|${baseUrl}/favicon.ico|}" />
+</head>
+
+<body>
+    <p th:text="#{email.order.greeting(${order.user.login})}">
+        Dear
+    </p>
+    <p th:text="#{email.order.text1}">
+        Your order was successfully created.
+    </p>
+    <p th:text="#{email.order.date(${order.date})}">
+        Date :
+    </p>
+    <p th:text="#{email.order.transportation(${order.transportationMethod.name})}">
+        Transportation :
+    </p>
+    <p th:text="#{email.order.address(${order.address.street1},${order.address.street2},${order.address.city},${order.address.country})}">
+        Transportation :
+    </p>
+
+    <table>
+        <th th:text="#{email.order.name}">NAME</th>
+        <th th:text="#{email.order.quantity}">QUANTITY</th>
+        <th th:text="#{email.order.unit}">UNIT PRICE</th>
+        <th th:text="#{email.order.total}">TOTAL PRICE</th>
+        <tr th:each="prod,iterStat : ${products}">
+            <td>
+                <a th:href="@{|${baseUrl}/#/displayProduct/${products[iterStat.index].id}|}" th:text="${products[iterStat.index].name}">Name</a>
+            </td>
+            <td th:text="${order.orderLine[iterStat.index].quantity}">Quantity</td>
+            <td th:text="${products[iterStat.index].price}">Onions</td>
+            <td th:with="result=${order.orderLine[iterStat.index].quantity * products[iterStat.index].price}" th:text="${result}">Onions</td>
+        </tr>
+    </table>
+
+    <p th:text="#{email.order.price(${order.totalPrice})}">
+        Price :
+    </p>
+
+    <p th:text="#{email.order.findmore}">Full</p>
+    <a th:href="@{|${baseUrl}/#/detailedOrder/${order.id}|}" th:text="@{|${baseUrl}/#/detailedOrder/${order.id}|}">Name</a>
+
+    <p>
+        <span th:text="#{email.activation.text2}">Regards, </span>
+        <br />
+        <em th:text="#{email.signature}">JHipster.</em>
+    </p>
+</body>
+
+</html>
