@@ -1,15 +1,47 @@
 /* ==========================================================================
+    Navbar New Design
+========================================================================== */
+.navbar-dark .navbar-nav .nav-link,
+.span-cart {
+    color: #fff;
+}
+
+.cart-icon::before {
+    vertical-align: middle;
+    color: #fff;
+}
+
+.span-cart {
+    display: block;
+    padding-top: 0.4em;
+}
+
+.span-cart:hover {
+    cursor: pointer;
+}
+
+.user-nav-icon {
+    display: block;
+}
+
+.nav-item-cart {
+    padding-top: 0.4em;
+}
+
+/* ==========================================================================
 Navbar
 ========================================================================== */
 
 .navbar-version {
-    font-size: 10px;
+    font-size: 2em;
     color: #ccc;
 }
 
 .jh-navbar {
-    background-color: #353d47;
-    padding: 0.2em 1em;
+    background-color: #ff3e33;
+    padding: 0em 1em;
+    font-size: 1.1em;
+    color: white;
     .profile-image {
         margin: -10px 0px;
         height: 40px;
@@ -34,7 +66,7 @@ Navbar
         font-weight: 400;
     }
     .jh-navbar-toggler {
-        color: #ccc;
+        color: #fff;
         font-size: 1.5em;
         padding: 10px;
         &:hover {
