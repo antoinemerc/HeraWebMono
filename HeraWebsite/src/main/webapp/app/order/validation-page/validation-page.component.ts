@@ -51,7 +51,10 @@ export class ValidationPageComponent implements OnInit, OnChanges {
         // Add navigation in data AND err
         this.productService.queryUpdateOrder(this.order.orderLine).subscribe(
             data => {
-                this.orderService.create(this.order).subscribe((res: HttpResponse<IProduct>) => console.log('Order created'));
+                this.orderService.create(this.order).subscribe((res: HttpResponse<IOrder>) => {
+                    console.log('Order created' + res.body.id);
+                    // this.orderService.getPDF(res.body.id).subscribe();
+                });
                 const emptyBasket: IBasketItem[] = [];
                 this.userService.updateCartAfterRemove(emptyBasket).subscribe();
             },
