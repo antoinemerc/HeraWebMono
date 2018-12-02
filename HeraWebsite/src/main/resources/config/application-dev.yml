@@ -43,8 +43,8 @@ spring:
         serialization.indent_output: true
     data:
         mongodb:
-            uri: mongodb://localhost:27017
-            database: hera
+            uri: mongodb://ben:2912Camille@ds121182.mlab.com:21182/noga
+            database: noga
     mail:
         host: localhost
         port: 25
@@ -65,7 +65,7 @@ spring:
                 enabled: true
 
 server:
-    port: 8080
+    port: 5000
 
 # ===================================================================
 # JHipster specific properties

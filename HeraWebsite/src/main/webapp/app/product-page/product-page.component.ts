@@ -14,7 +14,7 @@ import { BUCKET_NAME } from 'app/app.constants';
 @Component({
     selector: 'jhi-product-page',
     templateUrl: './product-page.component.html',
-    styles: []
+    styleUrls: ['product-page.scss']
 })
 export class ProductPageComponent implements OnInit {
     product: IProduct;
