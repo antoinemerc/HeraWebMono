@@ -55,10 +55,8 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Page<OrderDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Orders");
-        return orderRepository.findAll(pageable)
-            .map(orderMapper::toDto);
+        return orderRepository.findAll(pageable).map(orderMapper::toDto);
     }
-
 
     /**
      * Get one order by id.
@@ -69,8 +67,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Optional<OrderDTO> findOne(String id) {
         log.debug("Request to get Order : {}", id);
-        return orderRepository.findById(id)
-            .map(orderMapper::toDto);
+        return orderRepository.findById(id).map(orderMapper::toDto);
     }
 
     /**
@@ -87,14 +84,25 @@ public class OrderServiceImpl implements OrderService {
     /**
      * Search for the order corresponding to the query.
      *
-     * @param query the query of the search
+     * @param query    the query of the search
      * @param pageable the pagination information
      * @return the list of entities
      *//*
-    @Override
-    public Page<OrderDTO> search(String query, Pageable pageable) {
-        log.debug("Request to search for a page of Orders for query {}", query);
-        return orderSearchRepository.search(queryStringQuery(query), pageable)
-            .map(orderMapper::toDto);
-    }*/
+        * @Override public Page<OrderDTO> search(String query, Pageable pageable) {
+        * log.debug("Request to search for a page of Orders for query {}", query);
+        * return orderSearchRepository.search(queryStringQuery(query), pageable)
+        * .map(orderMapper::toDto); }
+        */
+
+    /**
+     * Search for the product corresponding to the query.
+     *
+     * @param query    the query of the search
+     * @param pageable the pagination information
+     * @return the list of entities
+     */
+    public Page<OrderDTO> findOrdersByUser(String user, Pageable pageable) {
+        log.debug("Request to search for a page of Order for query {}", user);
+        return orderRepository.findAllByUser(pageable, user).map(orderMapper::toDto);
+    }
 }

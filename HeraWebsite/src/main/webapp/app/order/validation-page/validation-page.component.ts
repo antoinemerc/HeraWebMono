@@ -9,7 +9,6 @@ import { ImageUrlService } from 'app/shared/service/imageUrl.service';
 
 import { BUCKET_NAME } from 'app/app.constants';
 import { IProduct } from 'app/shared/model/product.model';
-import { OrderSharedService } from 'app/shared/service/order-shared.service';
 import { OrderService } from 'app/entities/order';
 import { ProductService } from 'app/shared';
 import { UserService } from '../../core/user/user.service';

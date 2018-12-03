@@ -499,8 +499,8 @@ public class InitialSetupMigration151120181205 {
         o1.setAddress(adminUser.getAllAddress().get(0));
         o1.setTransportationMethod(t);
         o1.setPaymentMethod("Paypal");
-        o1.setDate("Dates are so boring");
-        o1.setState("In transit");
+        o1.setDate("03/12/2018");
+        o1.setState("Transit");
         o1.setTotalPrice(p.getPrice() * q1 + p2.getPrice() * q2);
 
         mongoTemplate.save(o1);

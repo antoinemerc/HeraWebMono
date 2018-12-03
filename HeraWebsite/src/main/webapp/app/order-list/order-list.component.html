@@ -1,0 +1,11 @@
+<h1>Your orders :</h1>
+<div [ngSwitch]="isAuthenticated()">
+    <div *ngSwitchCase="false">
+        You need to be logged in order to access to your orders.
+        <button class="btn" (click)="logIn()">Connect</button>
+    </div>
+    <div *ngSwitchCase="true">
+        <p *ngIf="!hasOrders()"> No orders to display !</p>
+        <jhi-order-item *ngFor="let order of orders" [order]=order></jhi-order-item>
+    </div>
+</div>

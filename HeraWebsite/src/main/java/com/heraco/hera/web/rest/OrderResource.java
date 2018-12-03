@@ -41,10 +41,12 @@ public class OrderResource {
     }
 
     /**
-     * POST  /orders : Create a new order.
+     * POST /orders : Create a new order.
      *
      * @param orderDTO the orderDTO to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new orderDTO, or with status 400 (Bad Request) if the order has already an ID
+     * @return the ResponseEntity with status 201 (Created) and with body the new
+     *         orderDTO, or with status 400 (Bad Request) if the order has already
+     *         an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/orders")
@@ -56,17 +58,17 @@ public class OrderResource {
         }
         OrderDTO result = orderService.save(orderDTO);
         return ResponseEntity.created(new URI("/api/orders/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
-            .body(result);
+                .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString())).body(result);
     }
 
     /**
-     * PUT  /orders : Updates an existing order.
+     * PUT /orders : Updates an existing order.
      *
      * @param orderDTO the orderDTO to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated orderDTO,
-     * or with status 400 (Bad Request) if the orderDTO is not valid,
-     * or with status 500 (Internal Server Error) if the orderDTO couldn't be updated
+     * @return the ResponseEntity with status 200 (OK) and with body the updated
+     *         orderDTO, or with status 400 (Bad Request) if the orderDTO is not
+     *         valid, or with status 500 (Internal Server Error) if the orderDTO
+     *         couldn't be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/orders")
@@ -77,16 +79,16 @@ public class OrderResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         OrderDTO result = orderService.save(orderDTO);
-        return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, orderDTO.getId().toString()))
-            .body(result);
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, orderDTO.getId().toString()))
+                .body(result);
     }
 
     /**
-     * GET  /orders : get all the orders.
+     * GET /orders : get all the orders.
      *
      * @param pageable the pagination information
-     * @return the ResponseEntity with status 200 (OK) and the list of orders in body
+     * @return the ResponseEntity with status 200 (OK) and the list of orders in
+     *         body
      */
     @GetMapping("/orders")
     @Timed
@@ -98,10 +100,11 @@ public class OrderResource {
     }
 
     /**
-     * GET  /orders/:id : get the "id" order.
+     * GET /orders/:id : get the "id" order.
      *
      * @param id the id of the orderDTO to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the orderDTO, or with status 404 (Not Found)
+     * @return the ResponseEntity with status 200 (OK) and with body the orderDTO,
+     *         or with status 404 (Not Found)
      */
     @GetMapping("/orders/{id}")
     @Timed
@@ -112,7 +115,7 @@ public class OrderResource {
     }
 
     /**
-     * DELETE  /orders/:id : delete the "id" order.
+     * DELETE /orders/:id : delete the "id" order.
      *
      * @param id the id of the orderDTO to delete
      * @return the ResponseEntity with status 200 (OK)
@@ -125,21 +128,32 @@ public class OrderResource {
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id)).build();
     }
 
+    @GetMapping("/orders/user/{user}")
+    @Timed
+    public ResponseEntity<List<OrderDTO>> getOrdersByUser(@PathVariable String user, Pageable pageable) {
+        log.debug("REST request to search for a page of Order for query {}", user);
+        Page<OrderDTO> page = orderService.findOrdersByUser(user, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/order");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
     /**
-     * SEARCH  /_search/orders?query=:query : search for the order corresponding
-     * to the query.
+     * SEARCH /_search/orders?query=:query : search for the order corresponding to
+     * the query.
      *
-     * @param query the query of the order search
+     * @param query    the query of the order search
      * @param pageable the pagination information
      * @return the result of the search
      *//*
-    @GetMapping("/_search/orders")
-    @Timed
-    public ResponseEntity<List<OrderDTO>> searchOrders(@RequestParam String query, Pageable pageable) {
-        log.debug("REST request to search for a page of Orders for query {}", query);
-        Page<OrderDTO> page = orderService.search(query, pageable);
-        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/orders");
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
-    }*/
+        * @GetMapping("/_search/orders")
+        * 
+        * @Timed public ResponseEntity<List<OrderDTO>> searchOrders(@RequestParam
+        * String query, Pageable pageable) {
+        * log.debug("REST request to search for a page of Orders for query {}", query);
+        * Page<OrderDTO> page = orderService.search(query, pageable); HttpHeaders
+        * headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page,
+        * "/api/_search/orders"); return new ResponseEntity<>(page.getContent(),
+        * headers, HttpStatus.OK); }
+        */
 
 }

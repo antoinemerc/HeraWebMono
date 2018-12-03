@@ -1,0 +1,12 @@
+<div class="card" style="margin-bottom : 10px ;">
+    <a [routerLink]="['/detailedOrder', order.id]" class="card-header">Command number : {{order.id}}</a>
+    <div class="card-body">
+        <p class="card-text">Command done the : {{order.date}}</p>
+        <p class="card-text">Deliver to : {{order.user.lastName}} {{order.user.firstName}}</p>
+        <p class="card-text">At : {{order.address.street1}} {{order.address.street2}} {{order.address.city}} {{order.address.zipCode}} {{order.address.country}}</p>
+        <p class="card-text">By : {{order.transportationMethod.name}}</p>
+        <p class="card-text">Status : {{order.state}}</p>
+        <p class="card-text">Total price : {{order.totalPrice}}</p>
+        <a [routerLink]="['/detailedOrder', order.id]" class="btn btn-primary" style="float:right">See detail</a>
+    </div>
+</div>

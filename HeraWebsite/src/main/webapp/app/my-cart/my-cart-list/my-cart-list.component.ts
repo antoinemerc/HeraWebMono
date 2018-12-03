@@ -79,6 +79,7 @@ export class MyCartListComponent implements OnInit, AfterViewChecked {
         const order = new Order();
         order.user = this.currentUser;
         order.orderLine = this.basket;
+        order.state = 'Transit';
         order.date = this.createDate();
         order.totalPrice = this.totalCost;
         this.orderSharedService.save(order);

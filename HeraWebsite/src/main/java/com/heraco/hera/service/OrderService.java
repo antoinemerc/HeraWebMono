@@ -53,4 +53,14 @@ public interface OrderService {
      * @return the list of entities
      */
     // Page<OrderDTO> search(String query, Pageable pageable);
+
+    /**
+     * Search for the orders who belongs to user.
+     *
+     * @param user the user from who we want to display the orders;
+     * 
+     * @param pageable the pagination information
+     * @return the list of entities
+     */
+    Page<OrderDTO> findOrdersByUser(String user, Pageable pageable);
 }
