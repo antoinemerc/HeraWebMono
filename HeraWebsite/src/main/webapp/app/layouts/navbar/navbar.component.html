@@ -9,9 +9,9 @@
             <span jhiTranslate="global.title" class="navbar-title">HeraShop</span>
         </a>
     </div>
-    <form class="form-inline waves-light" mdbWavesEffect>
-        <div class="md-form mt-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="Search">
+    <form class="form-inline waves-light w-40" mdbWavesEffect>
+        <div class="md-form mt-0 w-100">
+            <input class="form-control mr-sm-2 w-100" type="text" placeholder="Search">
         </div>
     </form>
 
@@ -36,7 +36,7 @@
                 [routerLinkActiveOptions]="{exact: true}">
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu">
                     <span>
-                        <fa-icon class="user-nav-icon fa-2x" [icon]="'th-list'"></fa-icon>
+                        <fa-icon class="user-nav-icon" [icon]="'th-list'"></fa-icon>
                         <span>
                             Entities
                         </span>
@@ -78,7 +78,7 @@
                 [routerLinkActiveOptions]="{exact: true}">
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="admin-menu">
                     <span>
-                        <fa-icon class="user-nav-icon fa-2x" [icon]="'user-plus'"></fa-icon>
+                        <fa-icon class="user-nav-icon" [icon]="'user-plus'"></fa-icon>
                         <span jhiTranslate="global.menu.admin.main">Administration</span>
                     </span>
                 </a>
@@ -132,7 +132,7 @@
             <li class="nav-item-cart nav-item dropdown pointer text-center" placement="bottom-right" routerLinkActive="active"
             [routerLinkActiveOptions]="{exact: true}">
                 <a class="nav-link" routerLink="/my-cart">
-                    <i class="fas fa-shopping-cart fa-2x"></i>
+                    <i class="fas fa-shopping-cart"></i>
                     <span class="span-cart">
                         My Cart
                     </span>
@@ -147,7 +147,7 @@
                 </span>
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="account-menu">
                     <span *ngIf="!getImageUrl()">
-                        <fa-icon class="user-nav-icon fa-2x" [icon]="'user'"></fa-icon>
+                        <fa-icon class="user-nav-icon" [icon]="'user'"></fa-icon>
                         <span jhiTranslate="global.menu.account.main">
                             Account
                         </span>
