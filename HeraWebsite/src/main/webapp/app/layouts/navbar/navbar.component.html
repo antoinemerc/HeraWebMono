@@ -1,4 +1,4 @@
-<nav class="navbar navbar-dark navbar-expand-md jh-navbar">
+<nav class="navbar navbar-dark navbar-expand-md jh-navbar position-relative">
     <div class="jh-logo-container float-left">
         <a class="jh-navbar-toggler d-lg-none float-right" href="javascript:void(0);" data-toggle="collapse"
             data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"
@@ -15,11 +15,11 @@
         </div>
     </form>
 
-    <div ngbDropdown class="dropdown " >
+    <div ngbDropdown class="dropdown position-absolute category-dropdown" >
         <a class="dropdown-toggle btn btn-outline-secondary" ngbDropdownToggle  id="account-menu" >
             <span class="whiteText">Category</span>
         </a>
-        <ul class="dropdown-menu" ngbDropdownMenu>
+        <ul class="dropdown-menu dropdown-category-ul" ngbDropdownMenu>
             <li>
                 <a class="dropdown-item" *ngFor="let category of allCategories" [routerLink]="['/displayCategory', category.id]" id={{category.id}} href="#" (click)="collapseNavbar()">
                     {{category.name}}
