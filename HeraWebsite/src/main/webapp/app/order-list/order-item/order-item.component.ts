@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { IOrder } from 'app/shared/model/order.model';
+import { IProduct } from '../../shared/model/product.model';
+import { ProductService } from '../../shared/service/product.service';
 
 @Component({
     selector: 'jhi-order-item',
@@ -8,7 +10,10 @@ import { IOrder } from 'app/shared/model/order.model';
 })
 export class OrderItemComponent implements OnInit {
     @Input() order: IOrder;
-    constructor() {}
+    products: IProduct;
+    constructor(private productService: ProductService) {}
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.productService.queryBasket(this.order.orderLine).subscribe((res: any) => (this.products = res.body));
+    }
 }

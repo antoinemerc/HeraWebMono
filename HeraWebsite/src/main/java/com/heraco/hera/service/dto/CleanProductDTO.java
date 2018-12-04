@@ -1,55 +1,54 @@
 package com.heraco.hera.service.dto;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import javax.validation.constraints.*;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.ArrayList;
 import com.heraco.hera.domain.User;
+import com.heraco.hera.service.dto.CleanCommentsDTO;
+import com.heraco.hera.service.dto.CleanUserDTO;
 import com.heraco.hera.domain.Category;
-
-import com.heraco.hera.domain.Comments;
 import com.heraco.hera.domain.ImageUrl;
+import com.heraco.hera.domain.Comments;
 
 /**
- * A DTO for the Product entity.
+ * A Product.
  */
-public class ProductDTO implements Serializable {
+public class CleanProductDTO implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private String id;
 
-    @NotNull
     private String name;
 
     private String description;
 
-    @NotNull
     private Integer quantity;
 
-    @NotNull
     private Double price;
-
-    private CleanUserDTO user;
 
     private ArrayList<ImageUrl> allImageUrl;
 
+    private CleanUserDTO user;
+
     private ArrayList<Category> categories;
 
-    private ArrayList<CleanCommentsDTO> comments;
-
-    public ProductDTO(){
+    public CleanProductDTO(){
         this.allImageUrl = new ArrayList<ImageUrl>();
         this.categories = new ArrayList<Category>();
-        this.comments = new ArrayList<CleanCommentsDTO>();
     }
 
-    public ArrayList<CleanCommentsDTO> getComments() {
-        return comments;
-    }
-
-    public void setComments(ArrayList<CleanCommentsDTO> c) {
-        this.comments = c;
-    }
-
+ 
     public CleanUserDTO getUser() {
         return user;
     }
@@ -74,6 +73,8 @@ public class ProductDTO implements Serializable {
         return allImageUrl;
     }
 
+    // jhipster-needle-entity-add-field - JHipster will add fields here, do not
+    // remove
     public String getId() {
         return id;
     }
@@ -94,6 +95,7 @@ public class ProductDTO implements Serializable {
         return description;
     }
 
+
     public void setDescription(String description) {
         this.description = description;
     }
@@ -101,6 +103,7 @@ public class ProductDTO implements Serializable {
     public Integer getQuantity() {
         return quantity;
     }
+
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
@@ -113,6 +116,8 @@ public class ProductDTO implements Serializable {
     public void setPrice(Double price) {
         this.price = price;
     }
+    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and
+    // setters here, do not remove
 
     @Override
     public boolean equals(Object o) {
@@ -122,12 +127,11 @@ public class ProductDTO implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-
-        ProductDTO productDTO = (ProductDTO) o;
-        if (productDTO.getId() == null || getId() == null) {
+        CleanProductDTO product = (CleanProductDTO) o;
+        if (product.getId() == null || getId() == null) {
             return false;
         }
-        return Objects.equals(getId(), productDTO.getId());
+        return Objects.equals(getId(), product.getId());
     }
 
     @Override
@@ -137,7 +141,7 @@ public class ProductDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "ProductDTO{" + "id=" + getId() + ", name='" + getName() + "'" + ", description='" + getDescription()
-                + "'" + ", quantity=" + getQuantity() + ", price=" + getPrice() + "}";
+        return "Product{" + "id=" + getId() + ", name='" + getName() + "'" + ", description='" + getDescription() + "'"
+                + ", quantity=" + getQuantity() + ", price=" + getPrice() + "}";
     }
 }

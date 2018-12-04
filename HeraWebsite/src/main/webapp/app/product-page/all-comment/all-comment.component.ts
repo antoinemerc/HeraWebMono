@@ -23,6 +23,7 @@ export class AllCommentComponent implements OnInit {
 
     ngOnInit() {
         this.allComments = this.product.comments;
+        console.log(this.allComments);
     }
 
     addComment(event) {

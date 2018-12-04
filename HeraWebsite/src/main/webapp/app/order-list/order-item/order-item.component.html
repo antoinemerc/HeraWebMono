@@ -6,6 +6,7 @@
         <p class="card-text">At : {{order.address.street1}} {{order.address.street2}} {{order.address.city}} {{order.address.zipCode}} {{order.address.country}}</p>
         <p class="card-text">By : {{order.transportationMethod.name}}</p>
         <p class="card-text">Status : {{order.state}}</p>
+        <p class="card-text" *ngFor="let p of products;let i = index;">{{p.name}} {{order.orderLine[i].quantity}} {{p.price}}</p>
         <p class="card-text">Total price : {{order.totalPrice}}</p>
         <a [routerLink]="['/detailedOrder', order.id]" class="btn btn-primary" style="float:right">See detail</a>
     </div>

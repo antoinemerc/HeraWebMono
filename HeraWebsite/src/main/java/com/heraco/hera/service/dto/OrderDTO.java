@@ -15,7 +15,7 @@ public class OrderDTO implements Serializable {
 
     private String id;
 
-    private User user;
+    private CleanUserDTO user;
 
     private ArrayList<BasketItem> orderLine;
 
@@ -43,11 +43,11 @@ public class OrderDTO implements Serializable {
         this.id = id;
     }
 
-    public User getUser() {
+    public CleanUserDTO getUser() {
         return user;
     }
 
-    public void setUser(User u) {
+    public void setUser(CleanUserDTO u) {
         this.user = u;
     }
 
