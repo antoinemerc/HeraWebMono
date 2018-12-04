@@ -7,6 +7,7 @@ import { createRequestOption } from 'app/shared';
 import { IProduct } from 'app/shared/model/product.model';
 import { IBasketItem } from '../model/basket_item.model';
 import { IUser } from 'app/core';
+import { IOrder } from '../model/order.model';
 
 type EntityResponseType = HttpResponse<IProduct>;
 type EntityArrayResponseType = HttpResponse<IProduct[]>;
@@ -55,7 +56,7 @@ export class ProductService {
         return this.http.post<IProduct[]>(this.resourceUrlBasket, basket, { observe: 'response' });
     }
 
-    queryUpdateOrder(basket: IBasketItem[]): Observable<HttpResponse<any>> {
+    queryUpdateOrder(basket: IOrder): Observable<HttpResponse<any>> {
         return this.http.post<any>(this.resourceUrlOrder, basket, { observe: 'response' });
     }
 }

@@ -3,10 +3,12 @@ package com.heraco.hera.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import com.heraco.hera.domain.BasketItem;
 import com.heraco.hera.security.SecurityUtils;
+import com.heraco.hera.service.OrderService;
 import com.heraco.hera.service.ProductService;
 import com.heraco.hera.web.rest.errors.BadRequestAlertException;
 import com.heraco.hera.web.rest.util.HeaderUtil;
 import com.heraco.hera.web.rest.util.PaginationUtil;
+import com.heraco.hera.service.dto.OrderDTO;
 import com.heraco.hera.service.dto.ProductDTO;
 import com.heraco.hera.service.dto.UserDTO;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -41,10 +43,13 @@ public class ProductResource {
 
     private final ProductService productService;
 
+    private final OrderService orderService;
+
     private Object lock = new Object();
 
-    public ProductResource(ProductService productService) {
+    public ProductResource(ProductService productService, OrderService orderService) {
         this.productService = productService;
+        this.orderService = orderService;
     }
 
     /**
@@ -206,11 +211,12 @@ public class ProductResource {
      */
     @PostMapping("/products/updateByOrder")
     @Timed
-    public ResponseEntity<Void> updateByOrder(@Valid @RequestBody List<BasketItem> cart) {
+    public ResponseEntity<OrderDTO> updateByOrder(@Valid @RequestBody OrderDTO order) {
         System.out.println("REST request to update products in database after payment");
+        List<BasketItem> cart = order.getOrderLine();
         boolean allProductsAvailable = true;
         ArrayList<ProductDTO> productUpdated = new ArrayList<>();
-        ResponseEntity<Void> ret = new ResponseEntity<>(HttpStatus.OK);
+        ResponseEntity<OrderDTO> ret = new ResponseEntity<>(HttpStatus.OK);
         synchronized (lock) {
             for (int i = 0; i < cart.size() && allProductsAvailable; i++) {
                 ProductDTO prod = productService.findOne(cart.get(i).getProd()).get();
@@ -226,6 +232,7 @@ public class ProductResource {
                 for (ProductDTO p : productUpdated) {
                     productService.save(p);
                 }
+                ret = new ResponseEntity<>(this.orderService.save(order), HttpStatus.OK);
             }
         }
         return ret;

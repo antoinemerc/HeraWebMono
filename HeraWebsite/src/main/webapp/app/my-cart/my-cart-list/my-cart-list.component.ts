@@ -123,6 +123,10 @@ export class MyCartListComponent implements OnInit, AfterViewChecked {
         this.modifiedItem[idx] = true;
     }
 
+    quantityModified(idx: number) {
+        return this.basket[idx].quantity === this.quantities[idx];
+    }
+
     preventKeyboard(e) {
         e.preventDefault();
     }

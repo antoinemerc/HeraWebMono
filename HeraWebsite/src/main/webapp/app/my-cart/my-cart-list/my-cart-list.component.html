@@ -19,7 +19,7 @@
       <td>
         <div class="row">
           <input type="number" (keypress)="preventKeyboard($event)" class="form-control col-2" value="{{ item.quantity }}" [(ngModel)]="this.quantities[i]" (change)="updateQuantity(i)" min="0" max="{{this.cartProducts[i].quantity}}"/>
-          <button class="btn btn-primary col-3" *ngIf="this.modifiedItem[i]" (click)="buttonUpdate(i)">Modify quantity</button>
+          <button class="btn btn-primary col-3" *ngIf="this.modifiedItem[i] && !quantityModified(i)" (click)="buttonUpdate(i)">Modify quantity</button>
           <button class="btn btn-danger col-2" (click)="removeFromBasket(i)">X</button>
           <div class="col-3" *ngIf="this.modifiedItem[i]"></div>
         </div>
