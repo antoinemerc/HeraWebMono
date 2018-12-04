@@ -91,6 +91,11 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @JsonIgnore
     private Set<Authority> authorities = new HashSet<>();
 
+    public User() {
+        this.basket = new ArrayList<>();
+        this.allAddress = new ArrayList<>();
+    }
+
     public String getId() {
         return id;
     }

@@ -1,11 +1,15 @@
 package com.heraco.hera.service;
 
+import com.heraco.hera.domain.Product;
 import com.heraco.hera.domain.User;
+import com.heraco.hera.service.dto.OrderDTO;
+import com.heraco.hera.service.dto.ProductDTO;
 
 import io.github.jhipster.config.JHipsterProperties;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
+import java.util.ArrayList;
 import javax.mail.internet.MimeMessage;
 
 import org.slf4j.Logger;
@@ -40,13 +44,16 @@ public class MailService {
 
     private final SpringTemplateEngine templateEngine;
 
+    private ProductService productService;
+
     public MailService(JHipsterProperties jHipsterProperties, JavaMailSender javaMailSender,
-            MessageSource messageSource, SpringTemplateEngine templateEngine) {
+            MessageSource messageSource, SpringTemplateEngine templateEngine, ProductService p) {
 
         this.jHipsterProperties = jHipsterProperties;
         this.javaMailSender = javaMailSender;
         this.messageSource = messageSource;
         this.templateEngine = templateEngine;
+        this.productService = p;
     }
 
     @Async
@@ -101,5 +108,29 @@ public class MailService {
     public void sendPasswordResetMail(User user) {
         log.debug("Sending password reset email to '{}'", user.getEmail());
         sendEmailFromTemplate(user, "mail/passwordResetEmail", "email.reset.title");
+    }
+
+    @Async
+    public void sendOrderConfirmationMail(OrderDTO order){
+        String templateName = "mail/orderCreated";
+        String titleKey = "email.order.title";
+        Locale locale = Locale.forLanguageTag(order.getUser().getLangKey());
+        Context context = new Context(locale);
+        context.setVariable("order", order);
+        context.setVariable("products", buildProductList(order));
+        context.setVariable(BASE_URL, jHipsterProperties.getMail().getBaseUrl());
+        String content = templateEngine.process(templateName, context);
+        String subject = messageSource.getMessage(titleKey, null, locale);
+        sendEmail(order.getUser().getEmail(), subject, content, false, true);
+    }
+
+    public ArrayList<ProductDTO> buildProductList(OrderDTO order){
+        ArrayList<ProductDTO> ret = new ArrayList<>();
+        for(int i = 0; i < order.getOrderLine().size();i++){
+            ProductDTO p = productService.findOne(order.getOrderLine().get(i).getProd()).get();
+            ret.add(p);
+        }
+
+        return ret;
     }
 }

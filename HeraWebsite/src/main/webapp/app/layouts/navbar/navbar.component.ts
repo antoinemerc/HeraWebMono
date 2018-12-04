@@ -10,6 +10,7 @@ import { HttpResponse } from '@angular/common/http';
 import { Category } from 'app/shared/model/category.model';
 import { CategoryService } from 'app/shared';
 import { SafeResourceUrl } from '@angular/platform-browser';
+import { JhiEventManager } from 'ng-jhipster';
 
 @Component({
     selector: 'jhi-navbar',
@@ -25,6 +26,7 @@ export class NavbarComponent implements OnInit {
     modalRef: NgbModalRef;
     version: string;
     allCategories: Category[];
+    itemInBasket = 0;
 
     constructor(
         private loginService: LoginService,
@@ -34,7 +36,8 @@ export class NavbarComponent implements OnInit {
         private loginModalService: LoginModalService,
         private profileService: ProfileService,
         private router: Router,
-        private categoryService: CategoryService
+        private categoryService: CategoryService,
+        private eventManager: JhiEventManager
     ) {
         this.version = VERSION ? 'v' + VERSION : '';
         this.isNavbarCollapsed = true;
@@ -51,6 +54,10 @@ export class NavbarComponent implements OnInit {
         });
 
         this.categoryService.query().subscribe((res: HttpResponse<Category[]>) => this.bindBody(res.body));
+
+        this.eventManager.subscribe('cartCountChange', message => {
+            this.itemInBasket = message.content;
+        });
     }
 
     changeLanguage(languageKey: string) {

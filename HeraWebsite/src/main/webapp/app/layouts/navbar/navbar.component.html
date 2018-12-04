@@ -15,13 +15,14 @@
         </div>
     </form>
 
-    <div ngbDropdown class="dropdown " >
-        <a class="dropdown-toggle btn btn-outline-secondary" ngbDropdownToggle  id="account-menu" >
+    <div ngbDropdown class="dropdown ">
+        <a class="dropdown-toggle btn btn-outline-secondary" ngbDropdownToggle id="account-menu">
             <span class="whiteText">Category</span>
         </a>
         <ul class="dropdown-menu" ngbDropdownMenu>
             <li>
-                <a class="dropdown-item" *ngFor="let category of allCategories" [routerLink]="['/displayCategory', category.id]" id={{category.id}} href="#" (click)="collapseNavbar()">
+                <a class="dropdown-item" *ngFor="let category of allCategories" [routerLink]="['/displayCategory', category.id]"
+                    id={{category.id}} href="#" (click)="collapseNavbar()">
                     {{category.name}}
                 </a>
             </li>
@@ -129,10 +130,12 @@
                 </ul>
             </li>
 
+            <li *ngIf="isAuthenticated()">
+                    <span class="dot">{{itemInBasket}}</span>
+            </li>
+
             <li>
-
                 <img class="images_petit" routerLink="/my-cart" [src]="mainImage">
-
             </li>
 
             <li ngbDropdown class="nav-item dropdown pointer" placement="bottom-right" routerLinkActive="active"

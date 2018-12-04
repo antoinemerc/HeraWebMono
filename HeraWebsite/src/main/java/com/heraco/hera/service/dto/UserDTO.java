@@ -63,6 +63,8 @@ public class UserDTO {
 
     public UserDTO() {
         // Empty constructor needed for Jackson.
+        this.basket = new ArrayList<>();
+        this.allAddress = new ArrayList<>();
     }
 
     public UserDTO(User user) {

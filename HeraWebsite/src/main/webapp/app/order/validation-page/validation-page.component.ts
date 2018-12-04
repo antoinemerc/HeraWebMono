@@ -13,6 +13,7 @@ import { OrderService } from 'app/entities/order';
 import { ProductService } from 'app/shared';
 import { UserService } from '../../core/user/user.service';
 import { IBasketItem } from '../../shared/model/basket_item.model';
+import { CartCountService } from '../../shared/service/cart-count.service';
 
 @Component({
     selector: 'jhi-validation-page',
@@ -30,7 +31,8 @@ export class ValidationPageComponent implements OnInit, OnChanges {
         private orderService: OrderService,
         private productService: ProductService,
         private imageUrlService: ImageUrlService,
-        private userService: UserService
+        private userService: UserService,
+        private cartCountService: CartCountService
     ) {}
 
     ngOnInit() {
@@ -52,6 +54,7 @@ export class ValidationPageComponent implements OnInit, OnChanges {
             data => {
                 this.orderService.create(this.order).subscribe((res: HttpResponse<IProduct>) => console.log('Order created'));
                 const emptyBasket: IBasketItem[] = [];
+                this.cartCountService.reset();
                 this.userService.updateCartAfterRemove(emptyBasket).subscribe();
             },
             err => console.log('Error')

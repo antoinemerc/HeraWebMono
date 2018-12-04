@@ -45,12 +45,14 @@ export class MyCartComponent implements OnInit {
     }
 
     loadUser(account: Account) {
-        this.loading = true;
-        this.userService.find(account.login).subscribe((res: HttpResponse<IUser>) => {
-            this.currentUser = res.body;
-            this.basket = this.currentUser.basket;
-            this.retrieveProducts(this.currentUser.basket);
-        });
+        if (this.principal.isAuthenticated()) {
+            this.loading = true;
+            this.userService.find(account.login).subscribe((res: HttpResponse<IUser>) => {
+                this.currentUser = res.body;
+                this.basket = this.currentUser.basket;
+                this.retrieveProducts(this.currentUser.basket);
+            });
+        }
     }
 
     isCartEmpty() {

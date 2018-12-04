@@ -7,6 +7,7 @@ import { OrderSharedService } from 'app/shared/service/order-shared.service';
 import { Router } from '@angular/router';
 import { ChangeDetectorRef } from '@angular/core';
 import { IBasketItem } from '../../shared/model/basket_item.model';
+import { CartCountService } from '../../shared/service/cart-count.service';
 
 @Component({
     selector: 'jhi-my-cart-list',
@@ -31,7 +32,8 @@ export class MyCartListComponent implements OnInit, AfterViewChecked {
         private router: Router,
         private orderSharedService: OrderSharedService,
         private userService: UserService,
-        private cdRef: ChangeDetectorRef
+        private cdRef: ChangeDetectorRef,
+        private cartCountService: CartCountService
     ) {}
 
     ngAfterViewChecked() {
@@ -43,16 +45,19 @@ export class MyCartListComponent implements OnInit, AfterViewChecked {
             this.modifiedItem.push(false);
             this.quantities.push(this.basket[i].quantity);
         }
-        this.principal.identity().then(account => {
-            this.accountConnected = account;
-            this.userService.find(this.accountConnected.login).subscribe((res: HttpResponse<IUser>) => {
-                this.currentUser = res.body;
+        if (this.principal.isAuthenticated()) {
+            this.principal.identity().then(account => {
+                this.accountConnected = account;
+                this.userService.find(this.accountConnected.login).subscribe((res: HttpResponse<IUser>) => {
+                    this.currentUser = res.body;
+                });
             });
-        });
-        this.getTotalCost();
+            this.getTotalCost();
+        }
     }
 
     removeFromBasket(idx: number) {
+        this.cartCountService.update(-this.basket[idx].quantity);
         this.quantities.splice(idx, 1);
         this.modifiedItem.splice(idx, 1);
         this.basket.splice(idx, 1);
@@ -99,6 +104,7 @@ export class MyCartListComponent implements OnInit, AfterViewChecked {
     buttonUpdate(idx: number) {
         this.modifiedItem[idx] = false;
         this.basket[idx].quantity = this.quantities[idx] - this.basket[idx].quantity;
+        this.cartCountService.update(this.basket[idx].quantity);
         this.userService.updateBasket(this.basket[idx]).subscribe();
         this.basket[idx].quantity = this.quantities[idx];
         this.verifyAllStock();
