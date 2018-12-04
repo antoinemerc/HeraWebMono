@@ -3,17 +3,22 @@ package com.heraco.hera.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import com.heraco.hera.service.MailService;
 import com.heraco.hera.service.OrderService;
+import com.heraco.hera.service.PDFService;
 import com.heraco.hera.web.rest.errors.BadRequestAlertException;
 import com.heraco.hera.web.rest.util.HeaderUtil;
 import com.heraco.hera.web.rest.util.PaginationUtil;
 import com.heraco.hera.service.dto.OrderDTO;
 import io.github.jhipster.web.util.ResponseUtil;
+
+import org.bson.internal.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ContentDisposition;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +27,6 @@ import java.net.URISyntaxException;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.StreamSupport;
 
 /**
  * REST controller for managing Order.
@@ -39,9 +43,13 @@ public class OrderResource {
 
     private MailService mailService;
 
-    public OrderResource(OrderService orderService, MailService mailService) {
+    private final PDFService pdfService;
+
+    public OrderResource(OrderService orderService, MailService mailService, PDFService pdfService) {
         this.orderService = orderService;
         this.mailService = mailService;
+        this.pdfService = pdfService;
+    
     }
 
     /**
@@ -120,7 +128,26 @@ public class OrderResource {
     }
 
     /**
-     * DELETE /orders/:id : delete the "id" order.
+     * GET  /orders/pdf/:id : get the pdf for "id" order.
+     *
+     * @param id the id of the orderDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the byte array pdf, or with status 404 (Not Found)
+     */
+    @GetMapping("/orders/pdf/{id}")
+    @Timed
+    public ResponseEntity<byte[]> getPDFOrder(@PathVariable String id) {
+        log.debug("REST request to get PDF for Order : {}", id);
+        Optional<OrderDTO> orderDTO = orderService.findOne(id);
+        byte[] result = pdfService.generatePDF(orderDTO.get());
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + orderDTO.get().getId() + ".pdf");
+        headers.setContentLength(result.length);
+        return new ResponseEntity<byte[]>(result, headers, HttpStatus.OK);
+    }
+
+    /**
+     * DELETE  /orders/:id : delete the "id" order.
      *
      * @param id the id of the orderDTO to delete
      * @return the ResponseEntity with status 200 (OK)

@@ -235,7 +235,7 @@ public class UserResource {
     @Timed
     public ResponseEntity<UserDTO> updateUserCartAfterRemove(@Valid @RequestBody ArrayList<BasketItem> cart) {
         log.debug("REST request to update current user cart after remove: {}");
-        User user = userService.getUserWithAuthoritiesByLogin(SecurityUtils.getCurrentUserLogin().get()).get();
+        User user = userService.getUserWithAuthorities().get();
         UserDTO userDTO = new UserDTO(user);
        userDTO.setBasket(cart);
         Optional<UserDTO> updatedUser = userService.updateUser(userDTO);
