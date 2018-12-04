@@ -4,7 +4,7 @@
         <div *ngFor="let address of user.allAddress; let i = index;" class="col-12">
             <input type="radio" id="i+1" [checked]="idxAddress === i+1" (change)="onAddressSelectionChange(i+1)" name="address"
                 value={{i+1}}>
-            <label for="i">{{address.street1}} {{address.city}} {{address.country}}</label>
+            <label for="i+1">{{address.street1}} {{address.city}} {{address.country}}</label>
         </div>
         <div class="col-12">
             <input type="radio" id="0" [checked]="idxAddress === 0" (change)="onAddressSelectionChange(0)" name="address" value=0>

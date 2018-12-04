@@ -35,7 +35,12 @@ export class AddressPageComponent implements OnInit, OnChanges {
             this.router.navigate(['/']);
         } else {
             this.newAddress = new Address();
-            this.idxAddress = 1;
+            if (this.user.allAddress.length > 0) {
+                this.idxAddress = 1;
+            } else {
+                this.idxAddress = 0;
+                this.addNewAddress = true;
+            }
         }
     }
 
