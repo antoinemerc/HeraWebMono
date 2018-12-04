@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { IOrder } from 'app/shared/model/order.model.ts';
 import { OrderService } from '../entities/order/order.service';
 import { LoginModalService, Principal } from 'app/core';
+import { IOrderAndProducts } from '../shared/model/order_and_products.model';
 
 @Component({
     selector: 'jhi-order-list',
@@ -10,7 +11,7 @@ import { LoginModalService, Principal } from 'app/core';
     styles: []
 })
 export class OrderListComponent implements OnInit {
-    orders: IOrder[];
+    orders: IOrderAndProducts[];
 
     constructor(
         private route: ActivatedRoute,

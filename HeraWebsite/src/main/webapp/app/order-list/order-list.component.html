@@ -6,6 +6,6 @@
     </div>
     <div *ngSwitchCase="true">
         <p *ngIf="!hasOrders()"> No orders to display !</p>
-        <jhi-order-item *ngFor="let order of orders" [order]=order></jhi-order-item>
+        <jhi-order-item *ngFor="let order of orders; let i = index;" [order]=order.order [products]= order.products></jhi-order-item>
     </div>
 </div>

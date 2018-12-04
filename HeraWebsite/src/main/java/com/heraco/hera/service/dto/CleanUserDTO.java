@@ -36,6 +36,12 @@ public class CleanUserDTO implements Serializable{
     @Size(max = 50)
     private String lastName;
 
+    @Email
+    @Size(min = 5, max = 254)
+    private String email;
+
+    @Size(min = 2, max = 6)
+    private String langKey;
 
     public CleanUserDTO() {
         // Empty constructor needed for Jackson.
@@ -79,6 +85,22 @@ public class CleanUserDTO implements Serializable{
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getLangKey() {
+        return langKey;
+    }
+
+    public void setLangKey(String langKey) {
+        this.langKey = langKey;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
 

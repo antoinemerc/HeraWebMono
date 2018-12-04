@@ -1,13 +1,18 @@
 package com.heraco.hera.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.heraco.hera.domain.BasketItem;
 import com.heraco.hera.service.MailService;
 import com.heraco.hera.service.OrderService;
 import com.heraco.hera.service.PDFService;
+import com.heraco.hera.service.ProductService;
 import com.heraco.hera.web.rest.errors.BadRequestAlertException;
 import com.heraco.hera.web.rest.util.HeaderUtil;
 import com.heraco.hera.web.rest.util.PaginationUtil;
+import com.heraco.hera.service.dto.OrderAndProductsDTO;
 import com.heraco.hera.service.dto.OrderDTO;
+import com.heraco.hera.service.dto.ProductDTO;
+
 import io.github.jhipster.web.util.ResponseUtil;
 
 import org.bson.internal.Base64;
@@ -24,8 +29,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
+import java.util.ArrayList;
 import java.util.List;
+import java.util.HashMap;
 import java.util.Optional;
 
 /**
@@ -45,11 +51,14 @@ public class OrderResource {
 
     private final PDFService pdfService;
 
-    public OrderResource(OrderService orderService, MailService mailService, PDFService pdfService) {
+    private final ProductService productService;
+
+    public OrderResource(OrderService orderService, MailService mailService, PDFService pdfService, ProductService p) {
         this.orderService = orderService;
         this.mailService = mailService;
         this.pdfService = pdfService;
-    
+        this.productService = p;
+
     }
 
     /**
@@ -128,10 +137,11 @@ public class OrderResource {
     }
 
     /**
-     * GET  /orders/pdf/:id : get the pdf for "id" order.
+     * GET /orders/pdf/:id : get the pdf for "id" order.
      *
      * @param id the id of the orderDTO to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the byte array pdf, or with status 404 (Not Found)
+     * @return the ResponseEntity with status 200 (OK) and with body the byte array
+     *         pdf, or with status 404 (Not Found)
      */
     @GetMapping("/orders/pdf/{id}")
     @Timed
@@ -147,7 +157,7 @@ public class OrderResource {
     }
 
     /**
-     * DELETE  /orders/:id : delete the "id" order.
+     * DELETE /orders/:id : delete the "id" order.
      *
      * @param id the id of the orderDTO to delete
      * @return the ResponseEntity with status 200 (OK)
@@ -162,11 +172,26 @@ public class OrderResource {
 
     @GetMapping("/orders/user/{user}")
     @Timed
-    public ResponseEntity<List<OrderDTO>> getOrdersByUser(@PathVariable String user, Pageable pageable) {
+    public ResponseEntity<List<OrderAndProductsDTO>> getOrdersByUser(@PathVariable String user, Pageable pageable) {
         log.debug("REST request to search for a page of Order for query {}", user);
+        HashMap<String, ProductDTO> map = new HashMap<>();
         Page<OrderDTO> page = orderService.findOrdersByUser(user, pageable);
+        ArrayList<OrderAndProductsDTO> ret = new ArrayList<>();
+        for (OrderDTO order : page.getContent()) {
+            ArrayList<ProductDTO> prods = new ArrayList<>();
+            for (BasketItem item : order.getOrderLine()) {
+                if (map.get(item.getProd()) == null){
+                    map.put(item.getProd(),this.productService.findOne(item.getProd()).get());
+                }
+                    prods.add(map.get(item.getProd()));
+            }
+            OrderAndProductsDTO newItem = new OrderAndProductsDTO();
+            newItem.setOrder(order);
+            newItem.setProducts(prods);
+            ret.add(newItem);
+        }
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/order");
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+        return new ResponseEntity<>(ret, headers, HttpStatus.OK);
     }
 
     /**

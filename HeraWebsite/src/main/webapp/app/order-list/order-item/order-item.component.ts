@@ -10,10 +10,8 @@ import { ProductService } from '../../shared/service/product.service';
 })
 export class OrderItemComponent implements OnInit {
     @Input() order: IOrder;
-    products: IProduct;
+    @Input() products: IProduct;
     constructor(private productService: ProductService) {}
 
-    ngOnInit() {
-        this.productService.queryBasket(this.order.orderLine).subscribe((res: any) => (this.products = res.body));
-    }
+    ngOnInit() {}
 }
