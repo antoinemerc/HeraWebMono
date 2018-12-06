@@ -1,6 +1,8 @@
 package com.heraco.hera.repository;
 
 
+import java.util.List;
+
 import com.heraco.hera.domain.Product;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.domain.Page;
@@ -16,5 +18,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProductRepository extends MongoRepository<Product, String> {
     Page<Product> findAllByCategories(Pageable pageable, String categories);
+    Page<Product> findAllByIdIn(Pageable pageable, List<String> id);
 
 }

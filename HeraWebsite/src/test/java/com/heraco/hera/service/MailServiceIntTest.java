@@ -50,11 +50,14 @@ public class MailServiceIntTest {
 
     private MailService mailService;
 
+    @Autowired
+    private ProductService productService;
+
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
         doNothing().when(javaMailSender).send(any(MimeMessage.class));
-        mailService = new MailService(jHipsterProperties, javaMailSender, messageSource, templateEngine);
+        mailService = new MailService(jHipsterProperties, javaMailSender, messageSource, templateEngine, productService);
     }
 
     @Test

@@ -8,6 +8,7 @@ import io.github.jhipster.config.JHipsterProperties;
 
 import java.util.Locale;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,34 +57,32 @@ public class PDFService {
     public byte[] generatePDF(OrderDTO order) {
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        String templateName = "mail/creationEmail";
+        String templateName = "mail/orderCreated";
         Locale locale = Locale.forLanguageTag(order.getUser().getLangKey());
         Context context = new Context(locale);
         context.setVariable("order", order);
         context.setVariable("products", buildProductList(order));
         context.setVariable(BASE_URL, jHipsterProperties.getMail().getBaseUrl());
         String content = templateEngine.process(templateName, context);
-        try{
-        Document document = new Document();
-        PdfWriter writer = PdfWriter.getInstance(document, baos);
-        document.open();
-        InputStream is = new ByteArrayInputStream(content.getBytes());
-        XMLWorkerHelper.getInstance().parseXHtml(writer, document, is);
-        document.close();
-        }
-        catch(Exception e){
+        try {
+            Document document = new Document();
+            PdfWriter writer = PdfWriter.getInstance(document, baos);
+            document.open();
+            InputStream is = new ByteArrayInputStream(content.getBytes());
+            XMLWorkerHelper.getInstance().parseXHtml(writer, document, is);
+            document.close();
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         return baos.toByteArray();
     }
 
-    public ArrayList<ProductDTO> buildProductList(OrderDTO order) {
-        ArrayList<ProductDTO> ret = new ArrayList<>();
+    public List<ProductDTO> buildProductList(OrderDTO order) {
+        ArrayList<String> ids = new ArrayList<>();
         for (int i = 0; i < order.getOrderLine().size(); i++) {
-            ProductDTO p = productService.findOne(order.getOrderLine().get(i).getProd()).get();
-            ret.add(p);
+            ids.add(order.getOrderLine().get(i).getProd());
         }
-        return ret;
+        return productService.findByBasket(ids, null).getContent();
     }
 }

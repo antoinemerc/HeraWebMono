@@ -43,7 +43,7 @@ public class ProductResource {
 
     private final ProductService productService;
 
-    private final OrderService orderService;
+    private  OrderService orderService;
 
     private Object lock = new Object();
 
@@ -195,11 +195,17 @@ public class ProductResource {
     public ResponseEntity<List<ProductDTO>> getProductsFromBasket(@Valid @RequestBody List<BasketItem> basket,
             Pageable pageable) {
         System.out.println("REST request to get products present in current user basket");
-        ArrayList<ProductDTO> basketProduct = new ArrayList<>();
+        return new ResponseEntity<>(getProductsFromBasketAsArray(basket), HttpStatus.OK);
+    }
+
+    private List<ProductDTO> getProductsFromBasketAsArray(List<BasketItem> basket){
+        ArrayList<String> ids = new ArrayList<>();
         for (int i = 0; i < basket.size(); i++) {
-            basketProduct.add(productService.findOne(basket.get(i).getProd()).get());
+            ids.add(basket.get(i).getProd());
         }
-        return new ResponseEntity<>(basketProduct, HttpStatus.OK);
+        Page<ProductDTO> page = productService.findByBasket(ids,null);
+        List<ProductDTO> ret = page.getContent();
+        return ret;
     }
 
     /**
@@ -218,8 +224,9 @@ public class ProductResource {
         ArrayList<ProductDTO> productUpdated = new ArrayList<>();
         ResponseEntity<OrderDTO> ret = new ResponseEntity<>(HttpStatus.OK);
         synchronized (lock) {
+            List<ProductDTO> originalProducts = getProductsFromBasketAsArray(cart); 
             for (int i = 0; i < cart.size() && allProductsAvailable; i++) {
-                ProductDTO prod = productService.findOne(cart.get(i).getProd()).get();
+                ProductDTO prod = originalProducts.get(i);
                 if (prod.getQuantity() < cart.get(i).getQuantity()) {
                     allProductsAvailable = false;
                     ret = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

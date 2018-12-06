@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -111,6 +112,12 @@ public class ProductServiceImpl implements ProductService {
     public Page<ProductDTO> findCategory(String categories, Pageable pageable) {
         log.debug("Request to search for a page of Products for query {}", categories);
         return productRepository.findAllByCategories(pageable, categories)
+            .map(productMapper::toDto);
+    }
+
+
+    public Page<ProductDTO> findByBasket(List<String> id, Pageable pageable){
+        return productRepository.findAllByIdIn(pageable, id)
             .map(productMapper::toDto);
     }
 }

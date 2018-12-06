@@ -10,6 +10,7 @@ import io.github.jhipster.config.JHipsterProperties;
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 import java.util.ArrayList;
+import java.util.List;
 import javax.mail.internet.MimeMessage;
 
 import org.slf4j.Logger;
@@ -45,6 +46,7 @@ public class MailService {
     private final SpringTemplateEngine templateEngine;
 
     private ProductService productService;
+    
 
     public MailService(JHipsterProperties jHipsterProperties, JavaMailSender javaMailSender,
             MessageSource messageSource, SpringTemplateEngine templateEngine, ProductService p) {
@@ -124,13 +126,11 @@ public class MailService {
         sendEmail(order.getUser().getEmail(), subject, content, false, true);
     }
 
-    public ArrayList<ProductDTO> buildProductList(OrderDTO order){
-        ArrayList<ProductDTO> ret = new ArrayList<>();
+    public List<ProductDTO> buildProductList(OrderDTO order){
+        ArrayList<String> ids = new ArrayList<>();
         for(int i = 0; i < order.getOrderLine().size();i++){
-            ProductDTO p = productService.findOne(order.getOrderLine().get(i).getProd()).get();
-            ret.add(p);
+            ids.add(order.getOrderLine().get(i).getProd());
         }
-
-        return ret;
+        return productService.findByBasket(ids, null).getContent();
     }
 }

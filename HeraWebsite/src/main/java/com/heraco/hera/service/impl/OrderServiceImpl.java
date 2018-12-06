@@ -1,5 +1,6 @@
 package com.heraco.hera.service.impl;
 
+import com.heraco.hera.service.MailService;
 import com.heraco.hera.service.OrderService;
 import com.heraco.hera.domain.Order;
 import com.heraco.hera.repository.OrderRepository;
@@ -26,9 +27,12 @@ public class OrderServiceImpl implements OrderService {
 
     private final OrderMapper orderMapper;
 
-    public OrderServiceImpl(OrderRepository orderRepository, OrderMapper orderMapper) {
+    private final MailService mailService;
+
+    public OrderServiceImpl(OrderRepository orderRepository, OrderMapper orderMapper, MailService mailService) {
         this.orderRepository = orderRepository;
         this.orderMapper = orderMapper;
+        this.mailService = mailService;
     }
 
     /**
@@ -43,6 +47,7 @@ public class OrderServiceImpl implements OrderService {
         Order order = orderMapper.toEntity(orderDTO);
         order = orderRepository.save(order);
         OrderDTO result = orderMapper.toDto(order);
+        this.mailService.sendOrderConfirmationMail(result);
         return result;
     }
 

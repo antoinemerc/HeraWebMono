@@ -4,7 +4,11 @@ import com.heraco.hera.HeraShopApp;
 
 import com.heraco.hera.domain.Order;
 import com.heraco.hera.repository.OrderRepository;
+import com.heraco.hera.service.MailService;
+import com.heraco.hera.service.MailService;
 import com.heraco.hera.service.OrderService;
+import com.heraco.hera.service.PDFService;
+import com.heraco.hera.service.ProductService;
 import com.heraco.hera.service.dto.OrderDTO;
 import com.heraco.hera.service.mapper.OrderMapper;
 import com.heraco.hera.web.rest.errors.ExceptionTranslator;
@@ -63,6 +67,15 @@ public class OrderResourceIntTest {
     private OrderService orderService;
 
     @Autowired
+    private MailService mailService;
+
+    @Autowired
+    private PDFService pdfService;
+
+    @Autowired
+    private ProductService productService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -78,7 +91,7 @@ public class OrderResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final OrderResource orderResource = new OrderResource(orderService);
+        final OrderResource orderResource = new OrderResource(orderService,mailService,pdfService,productService);
         this.restOrderMockMvc = MockMvcBuilders.standaloneSetup(orderResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

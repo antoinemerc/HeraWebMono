@@ -2,6 +2,7 @@ package com.heraco.hera.service;
 
 import com.heraco.hera.service.dto.ProductDTO;
 
+import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -47,7 +48,7 @@ public interface ProductService {
     /**
      * Search for the product corresponding to the query.
      *
-     * @param query the query of the search
+     * @param query    the query of the search
      * 
      * @param pageable the pagination information
      * @return the list of entities
@@ -63,4 +64,6 @@ public interface ProductService {
      * @return the list of entities
      */
     Page<ProductDTO> findCategory(String categories, Pageable pageable);
+
+    public Page<ProductDTO> findByBasket(List<String> id, Pageable pageable);
 }

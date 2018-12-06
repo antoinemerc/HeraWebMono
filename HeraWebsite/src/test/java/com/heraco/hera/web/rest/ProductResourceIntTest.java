@@ -4,6 +4,7 @@ import com.heraco.hera.HeraShopApp;
 
 import com.heraco.hera.domain.Product;
 import com.heraco.hera.repository.ProductRepository;
+import com.heraco.hera.service.OrderService;
 import com.heraco.hera.service.ProductService;
 import com.heraco.hera.service.dto.ProductDTO;
 import com.heraco.hera.service.mapper.ProductMapper;
@@ -66,6 +67,9 @@ public class ProductResourceIntTest {
     private ProductService productService;
 
     @Autowired
+    private OrderService orderService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -81,7 +85,7 @@ public class ProductResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final ProductResource productResource = new ProductResource(productService);
+        final ProductResource productResource = new ProductResource(productService,orderService);
         this.restProductMockMvc = MockMvcBuilders.standaloneSetup(productResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
