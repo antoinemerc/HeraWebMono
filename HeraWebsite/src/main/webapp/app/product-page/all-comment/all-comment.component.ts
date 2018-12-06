@@ -23,7 +23,6 @@ export class AllCommentComponent implements OnInit {
 
     ngOnInit() {
         this.allComments = this.product.comments;
-        console.log(this.allComments);
     }
 
     addComment(event) {
@@ -32,9 +31,7 @@ export class AllCommentComponent implements OnInit {
                 this.accountConnected = account;
                 this.userService.find(this.accountConnected.login).subscribe((res: HttpResponse<IUser>) => {
                     this.currentUser = res.body;
-                    console.log(this.currentUser);
                     this.newComment = new Comments(this.currentUser, this.title, this.body, 5, '15/11/2018');
-                    console.log(this.newComment);
                     this.product.comments.push(this.newComment);
                     this.productService.update(this.product).subscribe(response => {
                         if (response.status === 200) {
@@ -44,7 +41,5 @@ export class AllCommentComponent implements OnInit {
                 });
             });
         }
-        console.log(this.title);
-        console.log(this.body);
     }
 }
