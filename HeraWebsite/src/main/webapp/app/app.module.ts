@@ -33,6 +33,7 @@ import { McBreadcrumbsModule } from 'ngx-breadcrumbs';
 import { ProductPageModule } from './product-page/product-page.module';
 import { MyCartModule } from './my-cart/my-cart.module';
 import { OrderModule } from './order/order.module';
+import { OrderDetailModule } from './order-detail/order-detail.module';
 
 @NgModule({
     imports: [
@@ -47,7 +48,8 @@ import { OrderModule } from './order/order.module';
         HeraShopEntityModule,
         ProductPageModule,
         MyCartModule,
-        OrderModule
+        OrderModule,
+        OrderDetailModule
         // jhipster-needle-angular-add-module JHipster will add new module here
     ],
     declarations: [

@@ -1,13 +1,9 @@
 package com.heraco.hera.service.dto;
 
 import java.io.Serializable;
-import java.util.Objects;
-import java.util.ArrayList;
-import com.heraco.hera.domain.User;
+import java.util.List;
+
 import com.heraco.hera.service.dto.ProductDTO;
-import com.heraco.hera.domain.Address;
-import com.heraco.hera.domain.BasketItem;
-import com.heraco.hera.domain.TransportationMethod;
 
 /**
  * A DTO for the Order entity.
@@ -16,7 +12,7 @@ public class OrderAndProductsDTO implements Serializable {
 
     private OrderDTO order;
 
-    private ArrayList<ProductDTO> products;
+    private List<ProductDTO> products;
 
     public OrderAndProductsDTO() {
     }
@@ -29,11 +25,11 @@ public class OrderAndProductsDTO implements Serializable {
         this.order = order;
     }
 
-    public ArrayList<ProductDTO> getProducts() {
+    public List<ProductDTO> getProducts() {
         return this.products;
     }
 
-    public void setProducts(ArrayList<ProductDTO> products) {
+    public void setProducts(List<ProductDTO> products) {
         this.products = products;
     }
 
