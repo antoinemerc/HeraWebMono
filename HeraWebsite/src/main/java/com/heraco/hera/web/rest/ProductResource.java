@@ -181,6 +181,24 @@ public class ProductResource {
     }
 
     /**
+     * SEARCH /products/search/{name} : search for the product corresponding
+     * to the name.
+     *
+     * @param query    the query of the product search
+     * @param pageable the pagination information
+     * @return the result of the search
+     */
+    @GetMapping("/products/search/{name}")
+    @Timed
+    public ResponseEntity<List<ProductDTO>> getProductsByNameIgnoreCaseContaining(@PathVariable String name,
+            Pageable pageable) {
+        log.debug("REST request to search for a page of Products for query {}", name);
+        Page<ProductDTO> page = productService.findByNameIgnoreCaseContaining(name, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/products");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+    
+    /**
      * POST /products/basket : get all the products present in the connected user
      * basket. .
      *

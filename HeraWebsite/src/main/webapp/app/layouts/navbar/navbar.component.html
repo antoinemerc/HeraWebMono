@@ -9,9 +9,12 @@
             <span jhiTranslate="global.title" class="navbar-title">HeraShop</span>
         </a>
     </div>
-    <form class="form-inline waves-light" mdbWavesEffect>
-        <div class="md-form mt-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="Search">
+    <form class="form-inline waves-light mr-sm-2" mdbWavesEffect>
+        <div class="md-form mt-0 input-group">
+            <input class="form-control" type="text" [(ngModel)]="this.searchField" name="searchField" placeholder="Search">
+            <span class="input-group-btn">
+                <button class="btn btn-outline-secondary whiteText" (click)="navigateSearch()">Search</button>
+            </span>
         </div>
     </form>
 

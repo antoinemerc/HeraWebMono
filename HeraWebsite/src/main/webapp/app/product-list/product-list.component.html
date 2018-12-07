@@ -1,6 +1,11 @@
 <div class="row" *ngIf="category == true && currentCategory != undefined">
-    <h1 style="margin-bottom: 15px">{{currentCategory.name}}</h1>
+    <h2 style="margin-bottom: 15px">{{currentCategory.name}}</h2>
 </div>
+
+<div class="row" *ngIf="category == false && productSearchName != undefined">
+    <h2 style="margin-bottom: 15px">Search corresponding to "{{productSearchName}}"</h2>
+</div>
+
 
 <div class="row">
     <jhi-product-item    class="col-3" *ngFor="let product of allProducts" style="margin-bottom: 10px"

@@ -26,6 +26,7 @@ export class NavbarComponent implements OnInit {
     modalRef: NgbModalRef;
     version: string;
     allCategories: Category[];
+    searchField: string;
     itemInBasket = 0;
 
     constructor(
@@ -92,5 +93,9 @@ export class NavbarComponent implements OnInit {
 
     private bindBody(data: Category[]) {
         this.allCategories = data;
+    }
+
+    navigateSearch() {
+        this.router.navigate(['displaySearch', this.searchField]);
     }
 }

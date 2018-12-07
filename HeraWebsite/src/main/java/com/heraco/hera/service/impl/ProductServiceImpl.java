@@ -120,4 +120,9 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findAllByIdIn(pageable, id)
             .map(productMapper::toDto);
     }
+
+    public Page<ProductDTO> findByNameIgnoreCaseContaining(String name, Pageable pageable){
+        return productRepository.findByNameIgnoreCaseContaining(pageable, name)
+            .map(productMapper::toDto);
+    }
 }

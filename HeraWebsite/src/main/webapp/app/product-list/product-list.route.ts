@@ -9,5 +9,9 @@ export const ALL_PRODUCT_LIST_ROUTE: Routes = [
         data: {
             breadcrumbs: 'Category'
         }
+    },
+    {
+        path: 'displaySearch/:likeName',
+        component: ProductListComponent
     }
 ];

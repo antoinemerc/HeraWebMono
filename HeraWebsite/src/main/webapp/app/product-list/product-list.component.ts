@@ -17,25 +17,37 @@ import { ImageUrlService } from 'app/shared/service/imageUrl.service';
 export class ProductListComponent implements OnInit {
     allProducts: Product[];
     category = false;
+    productSearchName: string;
     currentCategory: Category = null;
 
     constructor(private productService: ProductService, private route: ActivatedRoute, private categoryService: CategoryService) {}
 
     ngOnInit() {
         this.route.params.subscribe(params => {
-            this.loadCategory(params['idCategory']);
+            if (params['idCategory'] != undefined) {
+                this.loadCategory(params['idCategory']);
+            } else if (params['likeName'] != undefined) {
+                this.loadSearch(params['likeName']);
+            } else {
+                this.loadProduct();
+            }
         });
     }
 
     private loadCategory(categoryId: string) {
-        if (categoryId == null) {
-            this.category = false;
-            this.productService.query().subscribe((res: HttpResponse<Product[]>) => this.bindBody(res.body));
-        } else {
-            this.category = true;
-            this.categoryService.find(categoryId).subscribe((res: HttpResponse<Category>) => this.bindCategory(res.body));
-            this.productService.queryCategory(categoryId).subscribe((res: HttpResponse<Product[]>) => this.bindBody(res.body));
-        }
+        this.category = true;
+        this.categoryService.find(categoryId).subscribe((res: HttpResponse<Category>) => this.bindCategory(res.body));
+        this.productService.queryCategory(categoryId).subscribe((res: HttpResponse<Product[]>) => this.bindBody(res.body));
+    }
+
+    private loadSearch(likeName: string) {
+        this.productSearchName = likeName;
+        this.productService.queryLikeName(likeName).subscribe((res: HttpResponse<Product[]>) => this.bindProduct(res.body));
+    }
+
+    private loadProduct() {
+        this.category = false;
+        this.productService.query().subscribe((res: HttpResponse<Product[]>) => this.bindBody(res.body));
     }
 
     private bindCategory(data: Category) {
@@ -43,6 +55,10 @@ export class ProductListComponent implements OnInit {
     }
 
     private bindBody(data: Product[]) {
+        this.allProducts = data;
+    }
+
+    private bindProduct(data: Product[]) {
         this.allProducts = data;
     }
 }
