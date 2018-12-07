@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
     selector: 'jhi-payment',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['payment.scss']
 })
 export class PaymentComponent implements OnInit {
+    @Input() order;
+
     constructor() {}
 
     ngOnInit() {}

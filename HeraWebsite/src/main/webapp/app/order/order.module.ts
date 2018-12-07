@@ -10,6 +10,7 @@ import { TransportManagementComponent } from './transport-management/transport-m
 import { ValidationPageComponent } from './validation-page/validation-page.component';
 import { UserRouteAccessService } from 'app/core';
 import { OrderSummaryComponent } from './order-summary/order-summary.component';
+import { PaymentComponent } from './payment/payment.component';
 
 @NgModule({
     imports: [CommonModule, RouterModule.forChild(ORDER_ROUTE), FormsModule],
@@ -19,7 +20,8 @@ import { OrderSummaryComponent } from './order-summary/order-summary.component';
         AddressModalComponent,
         TransportManagementComponent,
         ValidationPageComponent,
-        OrderSummaryComponent
+        OrderSummaryComponent,
+        PaymentComponent
     ],
     entryComponents: [AddressModalComponent],
     providers: [UserRouteAccessService]

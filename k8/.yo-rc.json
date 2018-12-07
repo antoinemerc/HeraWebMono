@@ -1,0 +1,18 @@
+{
+  "generator-jhipster": {
+    "appsFolders": [
+      "HeraWebsite"
+    ],
+    "directoryPath": "../",
+    "clusteredDbApps": [],
+    "serviceDiscoveryType": "eureka",
+    "jwtSecretKey": "MTRmMGRhMTI0NTFkMDYwZmFmMzExNDYwNzIwNjVmZGEwNjkxODZlZjMyMzUxOWQ5M2JkYzdjZWVmZWI4NzBiZWFjMTFmNjVlM2ZjYjZmZTM3NjRjMTRmMWEzOGMxNGQ3ZGI3Ng==",
+    "dockerRepositoryName": "gcr.io/herashop-224221",
+    "dockerPushCommand": "docker push",
+    "kubernetesNamespace": "default",
+    "kubernetesServiceType": "LoadBalancer",
+    "monitoring": "no",
+    "istio": "no",
+    "istioRoute": false
+  }
+}
