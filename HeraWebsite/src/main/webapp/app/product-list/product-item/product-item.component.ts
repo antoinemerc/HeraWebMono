@@ -1,14 +1,12 @@
-import { Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/core';
-import { IProduct, Product } from 'app/shared/model/product.model';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Component, OnInit, Input, SimpleChanges, OnChanges, NgZone } from '@angular/core';
+import { Product } from 'app/shared/model/product.model';
+import { SafeResourceUrl } from '@angular/platform-browser';
 import { ImageUrlService } from 'app/shared/service/imageUrl.service';
-import { Account, IUser, LoginModalService, Principal, UserService } from 'app/core';
-import { HttpResponse } from '@angular/common/http';
+import { Account, IUser, Principal, UserService } from 'app/core';
 import { BasketItem, IBasketItem } from 'app/shared/model/basket_item.model';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ProductService } from 'app/shared';
 import { CartCountService } from '../../shared/service/cart-count.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
     selector: 'jhi-product-item',
@@ -28,8 +26,9 @@ export class ProductItemComponent implements OnInit {
         private imageUrlService: ImageUrlService,
         private userService: UserService,
         private principal: Principal,
-        private loginModalService: LoginModalService,
-        private cartCountService: CartCountService
+        private cartCountService: CartCountService,
+        private mysnack: MatSnackBar,
+        private zone: NgZone
     ) {}
 
     ngOnInit() {
@@ -53,6 +52,9 @@ export class ProductItemComponent implements OnInit {
             this.userService.updateBasket(this.newItem).subscribe(response => {
                 if (response.status === 200) {
                     this.cartCountService.update(1);
+                    this.zone.run(() => {
+                        this.mysnack.open('WORKING ! ^^');
+                    });
                 }
             });
         }
