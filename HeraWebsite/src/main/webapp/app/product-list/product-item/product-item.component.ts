@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChanges, OnChanges, NgZone } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/core';
 import { Product } from 'app/shared/model/product.model';
 import { SafeResourceUrl } from '@angular/platform-browser';
 import { ImageUrlService } from 'app/shared/service/imageUrl.service';
@@ -27,8 +27,7 @@ export class ProductItemComponent implements OnInit {
         private userService: UserService,
         private principal: Principal,
         private cartCountService: CartCountService,
-        private mysnack: MatSnackBar,
-        private zone: NgZone
+        private mysnack: MatSnackBar
     ) {}
 
     ngOnInit() {
@@ -52,9 +51,7 @@ export class ProductItemComponent implements OnInit {
             this.userService.updateBasket(this.newItem).subscribe(response => {
                 if (response.status === 200) {
                     this.cartCountService.update(1);
-                    this.zone.run(() => {
-                        this.mysnack.open('WORKING ! ^^');
-                    });
+                    this.mysnack.open(this.product.name + ' add to cart !');
                 }
             });
         }
