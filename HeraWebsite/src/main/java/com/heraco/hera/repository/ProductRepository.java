@@ -19,5 +19,6 @@ import org.springframework.stereotype.Repository;
 public interface ProductRepository extends MongoRepository<Product, String> {
     Page<Product> findAllByCategories(Pageable pageable, String categories);
     Page<Product> findAllByIdIn(Pageable pageable, List<String> id);
+    Page<Product> findByNameIgnoreCaseContaining(Pageable pageable, String name);
 
 }

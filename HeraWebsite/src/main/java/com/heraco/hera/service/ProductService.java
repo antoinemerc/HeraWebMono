@@ -66,4 +66,7 @@ public interface ProductService {
     Page<ProductDTO> findCategory(String categories, Pageable pageable);
 
     public Page<ProductDTO> findByBasket(List<String> id, Pageable pageable);
+
+    public Page<ProductDTO> findByNameIgnoreCaseContaining(String name, Pageable pageable);
+
 }
