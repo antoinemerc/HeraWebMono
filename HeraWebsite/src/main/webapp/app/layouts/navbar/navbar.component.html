@@ -1,4 +1,4 @@
-<nav class="navbar navbar-dark navbar-expand-md jh-navbar">
+<nav class="navbar navbar-dark navbar-expand-md jh-navbar position-relative">
     <div class="jh-logo-container float-left">
         <a class="jh-navbar-toggler d-lg-none float-right" href="javascript:void(0);" data-toggle="collapse"
             data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"
@@ -9,17 +9,17 @@
             <span jhiTranslate="global.title" class="navbar-title">HeraShop</span>
         </a>
     </div>
-    <form class="form-inline waves-light" mdbWavesEffect>
-        <div class="md-form mt-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="Search">
+    <form class="form-inline waves-light w-40" mdbWavesEffect>
+        <div class="md-form mt-0 w-100">
+            <input class="form-control mr-sm-2 w-100" type="text" placeholder="Search">
         </div>
     </form>
 
-    <div ngbDropdown class="dropdown ">
-        <a class="dropdown-toggle btn btn-outline-secondary" ngbDropdownToggle id="account-menu">
+    <div ngbDropdown class="dropdown position-absolute category-dropdown" >
+        <a class="dropdown-toggle btn btn-outline-secondary" ngbDropdownToggle  id="account-menu" >
             <span class="whiteText">Category</span>
         </a>
-        <ul class="dropdown-menu" ngbDropdownMenu>
+        <ul class="dropdown-menu dropdown-category-ul" ngbDropdownMenu>
             <li>
                 <a class="dropdown-item" *ngFor="let category of allCategories" [routerLink]="['/displayCategory', category.id]"
                     id={{category.id}} href="#" (click)="collapseNavbar()">
@@ -33,12 +33,12 @@
     <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed" [ngSwitch]="isAuthenticated()">
         <ul class="navbar-nav ml-auto">
             <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
-            <li *ngSwitchCase="true" ngbDropdown class="nav-item dropdown pointer" routerLinkActive="active"
+            <li *ngSwitchCase="true" ngbDropdown class="nav-item dropdown pointer text-center" routerLinkActive="active"
                 [routerLinkActiveOptions]="{exact: true}">
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu">
                     <span>
-                        <fa-icon [icon]="'th-list'"></fa-icon>
-                        <span jhiTranslate="global.menu.entities.main">
+                        <fa-icon class="user-nav-icon" [icon]="'th-list'"></fa-icon>
+                        <span>
                             Entities
                         </span>
                     </span>
@@ -75,11 +75,11 @@
                     <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
                 </ul>
             </li>
-            <li *jhiHasAnyAuthority="'ROLE_ADMIN'" ngbDropdown class="nav-item dropdown pointer" routerLinkActive="active"
+            <li *jhiHasAnyAuthority="'ROLE_ADMIN'" ngbDropdown class="nav-item dropdown pointer text-center" routerLinkActive="active"
                 [routerLinkActiveOptions]="{exact: true}">
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="admin-menu">
                     <span>
-                        <fa-icon [icon]="'user-plus'"></fa-icon>
+                        <fa-icon class="user-nav-icon" [icon]="'user-plus'"></fa-icon>
                         <span jhiTranslate="global.menu.admin.main">Administration</span>
                     </span>
                 </a>
@@ -130,25 +130,28 @@
                 </ul>
             </li>
 
-            <li *ngIf="isAuthenticated()">
-                    <span class="dot">{{itemInBasket}}</span>
+            <li class="nav-item-cart nav-item dropdown pointer text-center position-relative" placement="bottom-right" routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact: true}">
+                <a class="nav-link" routerLink="/my-cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="span-cart">
+                        My Cart
+                    </span>
+                </a>
+                <span *ngIf="isAuthenticated()" routerLink="/my-cart" class="dot count-items-cart">{{itemInBasket}}</span>
             </li>
 
-            <li>
-                <img class="images_petit" routerLink="/my-cart" [src]="mainImage">
-            </li>
-
-            <li ngbDropdown class="nav-item dropdown pointer" placement="bottom-right" routerLinkActive="active"
+            <li ngbDropdown class="nav-item dropdown pointer text-center" placement="bottom-right" routerLinkActive="active"
                 [routerLinkActiveOptions]="{exact: true}">
+                <span *ngIf="getImageUrl()">
+                    <img [src]="getImageUrl()" class="profile-image img-circle" alt="Avatar">
+                </span>
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="account-menu">
                     <span *ngIf="!getImageUrl()">
-                        <fa-icon [icon]="'user'"></fa-icon>
+                        <fa-icon class="user-nav-icon" [icon]="'user'"></fa-icon>
                         <span jhiTranslate="global.menu.account.main">
                             Account
                         </span>
-                    </span>
-                    <span *ngIf="getImageUrl()">
-                        <img [src]="getImageUrl()" class="profile-image img-circle" alt="Avatar">
                     </span>
                 </a>
                 <ul class="dropdown-menu" ngbDropdownMenu>

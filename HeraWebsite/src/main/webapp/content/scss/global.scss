@@ -13,7 +13,7 @@ h4 {
 }
 
 a {
-    color: #533f03;
+    color: #ff9366;
     font-weight: bold;
 }
 
@@ -224,3 +224,42 @@ ui bootstrap tweaks
 }
 
 /* jhipster-needle-scss-add-main JHipster will add new css style */
+
+/* ==========================================================================
+    NEW DESIGN
+========================================================================== */
+body {
+    background: #f7f7f7 !important;
+}
+
+.card-body {
+    margin-top: 2em;
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.card-body a {
+    color: #000;
+}
+
+.card-body h6 {
+    color: grey;
+}
+
+.btn-primary {
+    background: #ff9366 !important;
+    border-color: #fff !important;
+}
+
+.btn-primary:hover {
+    background: #ff7f4c !important;
+    border-color: #ff7f4c !important;
+}
+
+.img-container {
+    width: 100%;
+    height: 140px;
+}
+
+.img-container img {
+    width: 100% !important;
+}

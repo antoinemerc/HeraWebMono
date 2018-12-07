@@ -1,15 +1,81 @@
 /* ==========================================================================
+    Navbar New Design
+========================================================================== */
+
+.count-items-cart {
+    position: absolute;
+    top: 0px;
+    right: 8px;
+    text-align: center;
+    line-height: 22px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.navbar-dark .navbar-nav .nav-link,
+.span-cart {
+    color: #fff;
+}
+
+.cart-icon::before {
+    vertical-align: middle;
+    color: #fff;
+}
+
+.span-cart {
+    display: block;
+}
+
+.span-cart:hover {
+    cursor: pointer;
+}
+
+.user-nav-icon {
+    display: block;
+}
+
+.category-dropdown {
+    height: 30px;
+    width: 100%;
+    bottom: -30px;
+    left: 0;
+    z-index: 1;
+    background: #888888;
+    color: #fff;
+}
+
+.category-dropdown a {
+    width: 100%;
+    height: 100%;
+    border-style: none;
+    font-size: 1em;
+    padding: 0%;
+    transition: all 0.1s linear;
+}
+
+.dropdown-category-ul {
+    width: 100%;
+    text-align: center;
+}
+
+.fa-icon {
+    font-weight: 1.5em;
+}
+
+/* ==========================================================================
 Navbar
 ========================================================================== */
 
 .navbar-version {
-    font-size: 10px;
+    font-size: 2em;
     color: #ccc;
 }
 
 .jh-navbar {
-    background-color: #353d47;
-    padding: 0.2em 1em;
+    background-color: #ff3e33;
+    padding: 0em 1em;
+    font-size: 1.1em;
+    color: white;
     .profile-image {
         margin: -10px 0px;
         height: 40px;
@@ -34,7 +100,7 @@ Navbar
         font-weight: 400;
     }
     .jh-navbar-toggler {
-        color: #ccc;
+        color: #fff;
         font-size: 1.5em;
         padding: 10px;
         &:hover {
@@ -83,6 +149,8 @@ Logo styles
             background-size: contain;
         }
     }
+    font-size: 1.2em;
+    vertical-align: middle;
 }
 .images_petit {
     width: 34px;
@@ -92,7 +160,7 @@ Logo styles
 .dot {
     height: 25px;
     width: 25px;
-    background-color: rgb(201, 0, 0);
+    background-color: #33adff;
     border-radius: 50%;
     display: inline-block;
 }
