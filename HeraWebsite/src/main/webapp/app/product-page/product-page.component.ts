@@ -11,6 +11,7 @@ import { ImageUrlService } from 'app/shared/service/imageUrl.service';
 
 import { BUCKET_NAME } from 'app/app.constants';
 import { CartCountService } from '../shared/service/cart-count.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
     selector: 'jhi-product-page',
@@ -36,7 +37,8 @@ export class ProductPageComponent implements OnInit {
         private imageUrlService: ImageUrlService,
         private principal: Principal,
         private userService: UserService,
-        private cartCountService: CartCountService
+        private cartCountService: CartCountService,
+        private mySnackbar: MatSnackBar
     ) {}
 
     ngOnInit() {
@@ -67,6 +69,11 @@ export class ProductPageComponent implements OnInit {
             this.userService.updateBasket(this.newItem).subscribe(response => {
                 if (response.status === 200) {
                     this.cartCountService.update(this.newItem.quantity);
+                    this.mySnackbar.open(this.newItem.quantity + ' X ' + this.product.name + ' added to cart !', null, {
+                        duration: 2500,
+                        verticalPosition: 'bottom',
+                        horizontalPosition: 'end'
+                    });
                     this.basketConfirmed = 2;
                 } else {
                     this.basketConfirmed = -1;
