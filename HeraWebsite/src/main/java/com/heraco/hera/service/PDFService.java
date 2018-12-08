@@ -23,6 +23,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -68,13 +69,12 @@ public class PDFService {
             Document document = new Document();
             PdfWriter writer = PdfWriter.getInstance(document, baos);
             document.open();
-            InputStream is = new ByteArrayInputStream(content.getBytes());
-            XMLWorkerHelper.getInstance().parseXHtml(writer, document, is);
+            InputStream is = new ByteArrayInputStream(content.getBytes(StandardCharsets.UTF_8));
+            XMLWorkerHelper.getInstance().parseXHtml(writer, document, is, StandardCharsets.UTF_8);
             document.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return baos.toByteArray();
     }
 

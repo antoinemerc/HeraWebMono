@@ -30,7 +30,11 @@ export class OrderService {
 
     findByUser(user: string, req?: any): Observable<EntityArrayResponseType> {
         const options = createRequestOption(req);
-        return this.http.get<IOrder[]>(`${this.resourceUrl}/user/${user}`, { params: options, observe: 'response' });
+        return this.http.get<any>(`${this.resourceUrl}/user/${user}`, { params: options, observe: 'response' });
+    }
+
+    findById(id: string) {
+        return this.http.get<any>(`${this.resourceUrl}/id/${id}`, { observe: 'response' });
     }
 
     getPDF(id: string): Observable<HttpResponse<any>> {
