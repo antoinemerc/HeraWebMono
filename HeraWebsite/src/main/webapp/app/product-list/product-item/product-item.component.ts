@@ -20,8 +20,9 @@ export class ProductItemComponent implements OnInit {
     accountConnected: Account;
     newItem: IBasketItem;
     modalRef: NgbModalRef;
-    finished: boolean;
     id: string;
+    requestStatus: number;
+
     constructor(
         private imageUrlService: ImageUrlService,
         private userService: UserService,
@@ -38,20 +39,34 @@ export class ProductItemComponent implements OnInit {
                 });
             }
         }
+        this.requestStatus = 1;
         this.newItem = new BasketItem(this.product.id, 1);
     }
+
     private bindUrl(data: SafeResourceUrl) {
         this.mainImage = data;
     }
+
     isAuthenticated() {
         return this.principal.isAuthenticated();
     }
+
+    canPressButton() {
+        return this.requestStatus === 1;
+    }
+
     click() {
-        if (this.principal.isAuthenticated()) {
+        if (this.principal.isAuthenticated() && this.requestStatus === 1) {
+            this.requestStatus = 2;
             this.userService.updateBasket(this.newItem).subscribe(response => {
                 if (response.status === 200) {
                     this.cartCountService.update(1);
-                    this.mysnack.open(this.product.name + ' add to cart !');
+                    this.requestStatus = 1;
+                    this.mysnack.open(this.product.name + ' add to cart !', null, {
+                        duration: 2500,
+                        verticalPosition: 'bottom',
+                        horizontalPosition: 'end'
+                    });
                 }
             });
         }

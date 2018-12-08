@@ -56,11 +56,19 @@ export class ValidationPageComponent implements OnInit, OnChanges {
                 console.log('Order created' + this.order.id);
                 const emptyBasket: IBasketItem[] = [];
                 this.cartCountService.reset();
-                this.mySnack.open('Your order was successfully created !');
+                this.mySnack.open('Your order was successfully created !', null, {
+                    duration: 2500,
+                    verticalPosition: 'bottom',
+                    horizontalPosition: 'end'
+                });
                 this.userService.updateCartAfterRemove(emptyBasket).subscribe();
             },
             err => {
-                this.mySnack.open('An error occured when creating the order, one or several products are no longer available !');
+                this.mySnack.open('An error occured when creating the order, one or several products are no longer available !', null, {
+                    duration: 2500,
+                    verticalPosition: 'bottom',
+                    horizontalPosition: 'end'
+                });
             }
         );
     }

@@ -1,10 +1,9 @@
-<div class="card card-cascade narrower"  style="width: 300px ; height: 300px">
+<div class="card card-cascade narrower" style="width: 300px ; height: 300px">
 
     <!--Card image-->
     <a [routerLink]="['/displayProduct', product.id]">
         <div class="view view-cascade overlay">
-            <img  [src]="mainImage" class="card-img-top"   class="rounded mx-auto d-block"
-                  style="width: 150px">
+            <img [src]="mainImage" class="card-img-top" class="rounded mx-auto d-block" style="width: 150px">
         </div>
     </a>
     <!--/Card image-->
@@ -16,13 +15,14 @@
             <h5 class="card-title"><strong>{{product.name}}</strong></h5>
         </a>
         <h6 class="indigo-text"><strong>{{product.price}} Euros</strong></h6>
-
-        <a>
-            <button (click)="click()" type="button" class="btn btn-mg btn-primary">Add to Cart </button>
-        </a>
+        <button *ngIf="canPressButton()" (click)="click()" type="button" class="btn btn-mg btn-primary">Add to Cart
+        </button>
+        <p *ngIf="!canPressButton()">
+            <mat-progress-spinner  style="margin:0 auto;" [diameter]="40" [color]="'blue'" [mode]="'indeterminate'">
+            </mat-progress-spinner>
+        </p>
     </div>
     <!--/.Card content-->
 
 </div>
 <!--/.Card Wider-->
-
