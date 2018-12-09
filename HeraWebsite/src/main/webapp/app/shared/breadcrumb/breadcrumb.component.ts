@@ -1,12 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
     selector: 'jhi-breadcrumb',
     templateUrl: './breadcrumb.component.html',
-    styles: []
+    styleUrls: ['./breadcrumb.scss']
 })
 export class BreadcrumbComponent implements OnInit {
+    @Input() breads: string[];
+    @Input() routes: string[];
     constructor() {}
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.routes = ['/', '/'];
+        console.log(this.routes);
+    }
 }
