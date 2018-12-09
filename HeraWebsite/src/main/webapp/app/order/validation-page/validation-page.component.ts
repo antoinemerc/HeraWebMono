@@ -23,6 +23,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class ValidationPageComponent implements OnInit, OnChanges {
     @Input() order: IOrder;
     cartProducts: IProduct[];
+    hasValidate = false;
 
     constructor(
         private principal: Principal,
@@ -50,27 +51,29 @@ export class ValidationPageComponent implements OnInit, OnChanges {
 
     validate() {
         // Add navigation in data AND err
-        this.productService.queryUpdateOrder(this.order).subscribe(
-            data => {
-                this.order = data.body;
-                console.log('Order created' + this.order.id);
-                const emptyBasket: IBasketItem[] = [];
-                this.cartCountService.reset();
-                this.mySnack.open('Your order was successfully created !', null, {
-                    duration: 2500,
-                    verticalPosition: 'bottom',
-                    horizontalPosition: 'end'
-                });
-                this.userService.updateCartAfterRemove(emptyBasket).subscribe();
-            },
-            err => {
-                this.mySnack.open('An error occured when creating the order, one or several products are no longer available !', null, {
-                    duration: 2500,
-                    verticalPosition: 'bottom',
-                    horizontalPosition: 'end'
-                });
-            }
-        );
+        if (!this.hasValidate) {
+            this.hasValidate = true;
+            this.productService.queryUpdateOrder(this.order).subscribe(
+                data => {
+                    this.order = data.body;
+                    console.log('Order created' + this.order.id);
+                    const emptyBasket: IBasketItem[] = [];
+                    this.cartCountService.reset();
+                    this.mySnack.open('Your order was successfully created !', null, {
+                        duration: 2500,
+                        verticalPosition: 'bottom',
+                        horizontalPosition: 'end'
+                    });
+                },
+                err => {
+                    this.mySnack.open('An error occured when creating the order, one or several products are no longer available !', null, {
+                        duration: 2500,
+                        verticalPosition: 'bottom',
+                        horizontalPosition: 'end'
+                    });
+                }
+            );
+        }
     }
 
     getImage(product: IProduct): SafeResourceUrl {

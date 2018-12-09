@@ -11,9 +11,10 @@ import { ValidationPageComponent } from './validation-page/validation-page.compo
 import { UserRouteAccessService } from 'app/core';
 import { OrderSummaryComponent } from './order-summary/order-summary.component';
 import { PaymentComponent } from './payment/payment.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
-    imports: [CommonModule, RouterModule.forChild(ORDER_ROUTE), FormsModule],
+    imports: [CommonModule, RouterModule.forChild(ORDER_ROUTE), FormsModule, MatProgressSpinnerModule],
     declarations: [
         OrderComponent,
         AddressPageComponent,

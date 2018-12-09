@@ -4,6 +4,7 @@ import { Params, ActivatedRoute } from '@angular/router';
 import { IOrder } from 'app/shared/model/order.model';
 import { IProduct } from 'app/shared/model/product.model';
 import { saveAs } from 'file-saver';
+import { ImageUrlService } from 'app/shared/service/imageUrl.service';
 
 @Component({
     selector: 'jhi-order-detail',
@@ -15,8 +16,9 @@ export class OrderDetailComponent implements OnInit {
     products: IProduct;
     id: string;
     loadingDone = false;
+    downloading = false;
 
-    constructor(private orderService: OrderService, private route: ActivatedRoute) {}
+    constructor(private orderService: OrderService, private route: ActivatedRoute, private imageUrlService: ImageUrlService) {}
 
     ngOnInit() {
         this.route.params.subscribe((params: Params) => {
@@ -30,6 +32,12 @@ export class OrderDetailComponent implements OnInit {
     }
 
     generatePDF() {
-        this.orderService.getPDF(this.order.id).subscribe((res: any) => saveAs(res.body, 'Order_' + this.order.id + '.pdf'));
+        if (!this.downloading) {
+            this.downloading = true;
+            this.orderService.getPDF(this.order.id).subscribe((res: any) => {
+                saveAs(res.body, 'Order_' + this.order.id + '.pdf');
+                this.downloading = false;
+            });
+        }
     }
 }

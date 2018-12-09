@@ -17,10 +17,9 @@
         <h6 class="indigo-text"><strong>{{product.price}} Euros</strong></h6>
         <button *ngIf="canPressButton()" (click)="click()" type="button" class="btn btn-mg btn-primary">Add to Cart
         </button>
-        <p *ngIf="!canPressButton()">
-            <mat-progress-spinner style="margin:0 auto;" [diameter]="40" [color]="'blue'" [mode]="'indeterminate'">
-            </mat-progress-spinner>
-        </p>
+        <mat-progress-spinner *ngIf="!canPressButton()" style="margin:0 auto;" [diameter]="40" [color]="'blue'" [mode]="'indeterminate'">
+        </mat-progress-spinner>
+
     </div>
     <!--/.Card content-->
 
