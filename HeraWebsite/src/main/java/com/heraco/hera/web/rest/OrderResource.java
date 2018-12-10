@@ -176,11 +176,11 @@ public class OrderResource {
     public ResponseEntity<OrderAndProductsDTO> getOrderById(@PathVariable String id) {
         log.debug("REST request to get the order and products for query {}", id);
         OrderDTO orderDTO = orderService.findOne(id).get();
-        ArrayList<String> ids = new ArrayList<>();
+        ArrayList<ProductDTO> products = new ArrayList<>();
         for (BasketItem b : orderDTO.getOrderLine()) {
-            ids.add(b.getProd());
+            products.add(productService.findOne(b.getProd()).get());
         }
-        List<ProductDTO> cart = productService.findByBasket(ids, null).getContent();
+        List<ProductDTO> cart = products;
         OrderAndProductsDTO ret = new OrderAndProductsDTO();
         ret.setOrder(orderDTO);
         ret.setProducts(cart);

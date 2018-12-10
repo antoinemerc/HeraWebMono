@@ -58,10 +58,10 @@ export class MyCartListComponent implements OnInit, AfterViewChecked {
 
     removeFromBasket(idx: number) {
         this.cartCountService.update(-this.basket[idx].quantity);
-        this.quantities.splice(idx, 1);
-        this.modifiedItem.splice(idx, 1);
         this.basket.splice(idx, 1);
         this.cartProducts.splice(idx, 1);
+        this.quantities.splice(idx, 1);
+        this.modifiedItem.splice(idx, 1);
         this.userService.updateCartAfterRemove(this.basket).subscribe();
         this.verifyAllStock();
         this.getTotalCost();

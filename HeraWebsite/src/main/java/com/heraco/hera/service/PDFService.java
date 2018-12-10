@@ -79,10 +79,10 @@ public class PDFService {
     }
 
     public List<ProductDTO> buildProductList(OrderDTO order) {
-        ArrayList<String> ids = new ArrayList<>();
-        for (int i = 0; i < order.getOrderLine().size(); i++) {
-            ids.add(order.getOrderLine().get(i).getProd());
+        ArrayList<ProductDTO> products = new ArrayList<>();
+        for(int i = 0; i < order.getOrderLine().size();i++){
+            products.add(productService.findOne(order.getOrderLine().get(i).getProd()).get());
         }
-        return productService.findByBasket(ids, null).getContent();
+        return products;
     }
 }

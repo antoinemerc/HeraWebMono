@@ -223,11 +223,11 @@ public class ProductResource {
 
     private List<ProductDTO> getProductsFromBasketAsArray(List<BasketItem> basket) {
         ArrayList<String> ids = new ArrayList<>();
+        List<ProductDTO> ret = new ArrayList<>();
         for (int i = 0; i < basket.size(); i++) {
             ids.add(basket.get(i).getProd());
+            ret.add(productService.findOne(basket.get(i).getProd()).get());
         }
-        Page<ProductDTO> page = productService.findByBasket(ids, null);
-        List<ProductDTO> ret = page.getContent();
         return ret;
     }
 
