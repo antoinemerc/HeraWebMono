@@ -43,6 +43,18 @@
     width: 33%;
 }
 
+.product-description {
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 5px;
+    clear: both;
+}
+
+.nopadding {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
 .productName {
     width: 100%;
     background-color: white;

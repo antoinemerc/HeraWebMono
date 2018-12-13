@@ -1,46 +1,42 @@
-<p>
-    <h2>Comments</h2>
-    <div [ngSwitch]="this.principal.isAuthenticated()">
-        <div *ngSwitchCase="true">
-            <form (submit)="addComment($event)">
-                <div class="form-group">
-                    <label for="commentTitle">Write a title for your comment (This helps other users to summarize what
-                        you want to say)</label>
-                    <input required ngModel class="form-control" name="commentTitle" #commentTitle="ngModel" id="commentTitle"
-                        type="text"   [(ngModel)]="title">
-                    <div class="alert alert-danger" *ngIf="commentTitle.touched && !commentTitle.valid">
-                        Enter your comment title please.
-                    </div>
+<h2 style="margin-bottom: 10px;">Comments</h2>
+<div [ngSwitch]="this.principal.isAuthenticated()">
+    <div *ngSwitchCase="true">
+        <form (submit)="addComment($event)">
+            <div class="form-group">
+                <label for="commentTitle">Write a title for your comment (This helps other users to summarize what
+                    you want to say)</label>
+                <input required ngModel class="form-control" name="commentTitle" #commentTitle="ngModel" id="commentTitle"
+                    type="text" [(ngModel)]="title">
+                <div class="alert alert-danger" *ngIf="commentTitle.touched && !commentTitle.valid">
+                    Enter your comment title please.
                 </div>
-                <div class="form-group">
-                    <label for="commentBody">Tell us more about what do you think:</label>
-                    <textarea required minlength="25" maxlength="250" ngModel #commentBody="ngModel" class="form-control"
-                        name="commentBody" id="commentBody" cols="30" rows="10"  [(ngModel)]="body"></textarea>
-                    <div class="alert alert-danger" *ngIf="commentBody.touched && !commentBody.valid">
-                        <div *ngIf="commentBody.errors.required">Write a comment please.</div>
-                        <div *ngIf="commentBody.errors.minlength">Your comment should be longer than
-                            {{commentBody.errors.minlength.requiredLength}} characters</div>
-                    </div>
+            </div>
+            <div class="form-group">
+                <label for="commentBody">Tell us more about what do you think:</label>
+                <textarea required minlength="25" maxlength="250" ngModel #commentBody="ngModel" class="form-control"
+                    name="commentBody" id="commentBody" cols="30" rows="10" [(ngModel)]="body"></textarea>
+                <div class="alert alert-danger" *ngIf="commentBody.touched && !commentBody.valid">
+                    <div *ngIf="commentBody.errors.required">Write a comment please.</div>
+                    <div *ngIf="commentBody.errors.minlength">Your comment should be longer than
+                        {{commentBody.errors.minlength.requiredLength}} characters</div>
                 </div>
-                <button class="btn btn-primary">Send</button>
-            </form>
+            </div>
+            <button class="btn btn-primary">Send</button>
+        </form>
 
-        </div>
-        <div *ngSwitchCase="false">
-            You need to log in if you want to leave a comment for this product.
-        </div>
     </div>
-    <ul>
-        <li *ngFor="let comment of allComments">
-            <div>Comment by {{comment.user.login}}:</div>
-            <table class="table">
-                <tr>
-                    <th>{{comment.title}}</th>
-                </tr>
-                <tr>
-                    <th>{{comment.body}}</th>
-                </tr>
-            </table>
-        </li>
-    </ul>
-</p>
+    <div style="margin-bottom: 20px;" *ngSwitchCase="false">
+        You need to log in if you want to leave a comment for this product.
+    </div>
+</div>
+<div *ngFor="let comment of allComments" class="card" style="margin-bottom : 10px;">
+    <div class="card-header">
+        <strong>{{comment.title}}</strong>
+    </div>
+    <div class="card-body">
+        <p class="card-text">{{comment.body}}</p>
+    </div>
+    <div class="card-footer">
+        <p style="float:right;">Comment by {{comment.user.login}}</p>
+    </div>
+</div>
