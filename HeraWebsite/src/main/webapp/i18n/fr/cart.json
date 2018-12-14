@@ -1,7 +1,7 @@
 {
     "cart" : {
         "connectMsg": "Connectez-vous pour accéder à votre panier.",
-        "connect": "Connection",
+        "connect": "Connexion",
         "yourOrder": "Votre commande:",
         "loading": "Chargement...",
         "noProd": "Vous n'avez aucun produit dans votre panier !",

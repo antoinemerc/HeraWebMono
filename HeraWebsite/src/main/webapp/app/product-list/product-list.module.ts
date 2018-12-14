@@ -7,6 +7,7 @@ import { ALL_PRODUCT_LIST_ROUTE } from './product-list.route';
 import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { HeraShopSharedModule } from 'app/shared';
 
 @NgModule({
     imports: [
@@ -14,7 +15,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
         RouterModule.forChild(ALL_PRODUCT_LIST_ROUTE),
         MatSnackBarModule,
         BrowserAnimationsModule,
-        MatProgressSpinnerModule
+        MatProgressSpinnerModule,
+        HeraShopSharedModule
     ],
     declarations: [ProductListComponent, ProductItemComponent],
     exports: [ProductListComponent, ProductItemComponent],

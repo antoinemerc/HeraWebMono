@@ -1,6 +1,20 @@
 {
     "order-trad": {
+        "title-list": "Your orders :",
         "title": "Order detail",
-        "date": "Ordered the : {0} |"
+        "date": "Ordered the : {{date}} |",
+        "id": "Order id : {{id}}",
+        "deliver":"Deliver to : {{value}}",
+        "at":"At : {{value}}",
+        "by":"By: {{value}}",
+        "product" : "Product",
+        "quantity" : "Quantity",
+        "unit" : "Price per unit",
+        "total" : "Total",
+        "pdf": "Generate pdf",
+        "logMsg": "You need to be logged in order to access to your orders.",
+        "connect": "Connect",
+        "noOrder": "No orders to display !",
+        "seeDetail": "See details"
     }
 }

@@ -1,0 +1,6 @@
+{
+    "catalog": {
+        "search": "Résultats pour \"{{value}}\"",
+        "add" : "Ajouter au panier"
+    }
+}
