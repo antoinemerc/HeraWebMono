@@ -1,101 +1,99 @@
 <div *ngIf="finished">
   <html>
-    <div class=".container">
+  <div class=".container">
 
-      <div class="name1">
-        <div class="row">
-          <div class="col-md-12">
-              <a href="" style="height: 40px;width: 40px;"><img src="./images/Home-512.png" style="height: 40px;width: 40px;">Home</a>
-          </div>
+    <div class="name1">
+      <div class="row">
+        <div class="col-md-12">
+          <a href="" style="height: 40px;width: 40px;"><img src="./images/Home-512.png" style="height: 40px;width: 40px;">Home</a>
         </div>
       </div>
+    </div>
 
-      <div class="name2">
-        <div class="row">
-          <div class="col-md-5">
-            <div class="product-img">
-              <img class="img-fluid" src={{product.allImageUrl[0].url}} alt="Grapefruit slice atop a pile of other slices" />
+    <div class="name2">
+      <div class="row">
+        <div class="col-md-5">
+          <div class="product-img">
+            <img class="img-fluid" [src]=mainImage alt="Grapefruit slice atop a pile of other slices" />
+          </div>
+        </div>
+        <div class="col-md-6 offset-md-1" style="display: flex;flex-direction: column;">
+          <div class="product-name">
+            <div class="text-left">
+              <h2>{{product.name}}</h2>
             </div>
           </div>
-          <div class="col-md-5 offset-md-1">
-              <div class="product-name">
-                  <div class="text-left">
-                      <h2>{{product.name}}</h2>
-                  </div>
-              </div>
-              <div class="text-left">Prix standard : <span class="product-prix">{{product.price}}€</span></div>
-              <div class="product-detail">
-                <p> technical detail</p>
-                <div class="text-left">{{product.description}}</div>
-              </div>
-              <div class="link-to-detail">
-                <a href="">See more product details</a>
-              </div>
-              <div class=""></div>
+          <h4> Technical details</h4>
+          <div class="product-description text-left" style="flex-grow: 1">
+            <p>Vendu par {{product.user.login}}</p>
+            <p>Prix standard : <span class="product-prix">{{product.price}}€</span></p>
+            <p>{{product.description}}</p>
+            <p *ngIf="product.quantity > 0">En stock : {{product.quantity}}</p>
+            <p *ngIf="product.quantity <= 0">Pas en stock !</p>
           </div>
         </div>
       </div>
-      <div class="name3">
-          <div class="product-description">
-              <h3>Description:</h3>
-              <div class="row">
-                  <div class="col-md-8">
-                      {{product.description}}
-                  </div>
-                  <div class="col-md-2">
-                    <div [ngSwitch]="isAuthenticated()">
-                      <div *ngSwitchCase="true">
-                        <div *ngIf="productAvailable()">
-                            <form name="addBasketForm" role="form" novalidate (ngSubmit)="click()" #editForm="ngForm">
-                              <div class="form-group">
-                                <div class="row">
-                                  <div class="col-md-6">
-                                    <input type="number" class="form-control" name="quantity" min="1" max={{product.quantity}} id="field_quantity"
-                                      [(ngModel)]="newItem.quantity" required style="height: 80px;"/>
-                                      <div [hidden]="!(editForm.controls.quantity?.dirty && editForm.controls.quantity?.invalid) && quantityValid()">
-                                          <small class="form-text text-danger" [hidden]="!editForm.controls.quantity?.errors?.required"
-                                          jhiTranslate="entity.validation.required">
-                                            This field is required.
-                                          </small>
-                                          <small class="form-text text-danger" [hidden]="!editForm.controls.quantity?.errors?.number" jhiTranslate="entity.validation.number">
-                                              This field should be a number.
-                                          </small>
-                                          <small class="form-text text-danger" [hidden]="quantityValid()" jhiTranslate="entity.validation.minMax">
-                                              This field should be between 0 and {{ product.quantity}}
-                                          </small>
-                                      </div>
-                                  </div>
-                                  <div class="col-md-6">
-                                      <div *ngIf="basketConfirmed == 0">
-                                          <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || !quantityValid()" class="btn btn-primary">
-                                              <img src="./images/add-to-cart.png" style="height: 70px; width: 70px;" jhiTranslate="entity.action.save"  >
-                                          </button>
-                                      </div>
-                                      <div *ngIf="basketConfirmed == 1">
-                                            <p>Adding your product to your basket...</p>
-                                      </div>
-                                      <div *ngIf="basketConfirmed == 2">
-                                            <p>Product add to basket !</p>
-                                      </div>
-                                      <div *ngIf="basketConfirmed == -1">
-                                            <p>Error when trying to put in basket !</p>
-                                      </div>     
-                                  </div>
-                                </div>
-                              </div>
-                            </form>
+    </div>
+    <div class="name3">
+      <div>
+        <h3>Description:</h3>
+        <div class="container row">
+          <div class="col-md-8 product-description nopadding">
+            {{product.description}}
+          </div>
+          <div class="col-md-4">
+            <div [ngSwitch]="isAuthenticated()">
+              <div *ngSwitchCase="true">
+                <div *ngIf="productAvailable()">
+                  <form name="addBasketForm" role="form" novalidate (ngSubmit)="click()" #editForm="ngForm">
+                    <div class="form-group">
+                      <div *ngIf="basketConfirmed == 0">
+                        <div class="btn-group">
+                          <input type="number" class="form-control" name="quantity" min="1" max={{product.quantity}} id="field_quantity"
+                            [(ngModel)]="newItem.quantity" required style="height: 80px;width: 100px;" />
+                          <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || !quantityValid()"
+                            class="btn btn-primary">
+                            <img src="./images/add-to-cart.png" style="height: 70px; width: 70px;" jhiTranslate="entity.action.save">
+                          </button>
+                        </div>
+                        <div [hidden]="!(editForm.controls.quantity?.dirty && editForm.controls.quantity?.invalid) && quantityValid()">
+                          <small class="form-text text-danger" [hidden]="!editForm.controls.quantity?.errors?.required"
+                            jhiTranslate="entity.validation.required">
+                            This field is required.
+                          </small>
+                          <small class="form-text text-danger" [hidden]="!editForm.controls.quantity?.errors?.number"
+                            jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                          </small>
+                          <small class="form-text text-danger" [hidden]="quantityValid()" jhiTranslate="entity.validation.minMax">
+                            This field should be between 0 and {{ product.quantity}}
+                          </small>
                         </div>
                       </div>
-                      <div *ngSwitchCase="false">
-                        <a (click)="login()" class="myButton">Connect yourself</a>
+                      <div *ngIf="basketConfirmed == 1">
+                        <p>Adding your product to your basket...</p>
+                      </div>
+                      <div *ngIf="basketConfirmed == 2">
+                        <p>Product add to basket !</p>
+                      </div>
+                      <div *ngIf="basketConfirmed == -1">
+                        <p>Error when trying to put in basket !</p>
                       </div>
                     </div>
-                  </div>
+                  </form>
+                </div>
+              </div>
+              <div *ngSwitchCase="false">
+                <a (click)="login()" class="myButton">Connect yourself</a>
               </div>
             </div>
+          </div>
+        </div>
       </div>
-      <jhi-comment [product]=product> </jhi-comment>
-      <a routerLink = "/payment">payment</a>
     </div>
+    <jhi-comment [product]=product> </jhi-comment>
+    <a routerLink="/payment">payment</a>
+  </div>
+
   </html>
 </div>
