@@ -33,11 +33,11 @@
           </div>
           <h4> Technical details</h4>
           <div class="product-description text-left" style="flex-grow: 1">
-            <p>Vendu par {{product.user.login}}</p>
-            <p>Prix standard : <span class="product-prix">{{product.price}}€</span></p>
+            <p>Sold by {{product.user.login}}</p>
+            <p>Unit price : <span class="product-prix">{{product.price}}€</span></p>
             <p>{{product.description}}</p>
-            <p *ngIf="product.quantity > 0">En stock : {{product.quantity}}</p>
-            <p *ngIf="product.quantity <= 0">Pas en stock !</p>
+            <p *ngIf="product.quantity > 0">In stock : {{product.quantity}}</p>
+            <p *ngIf="product.quantity <= 0">Not in stock !</p>
           </div>
         </div>
       </div>

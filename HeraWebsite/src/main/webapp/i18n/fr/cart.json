@@ -1,0 +1,17 @@
+{
+    "cart" : {
+        "connectMsg": "Connectez-vous pour accéder à votre panier.",
+        "connect": "Connection",
+        "yourOrder": "Votre commande:",
+        "loading": "Chargement...",
+        "noProd": "Vous n'avez aucun produit dans votre panier !",
+        "back": "Retourner vers la liste des produits",
+        "product": "Produit",
+        "quantity": "Quantité",
+        "unit": "Prix unitaire",
+        "total": "Total",
+        "noStock": "La quantité désirée pour ce produit n'est pas disponible.",
+        "errorQuantity":"Un ou plusieurs produits ne sont pas disponibles en quantité suffisante dans nos stocks.",
+        "initiate": "Procéder au paiement"
+    }
+}

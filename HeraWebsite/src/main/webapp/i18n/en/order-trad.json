@@ -1,0 +1,6 @@
+{
+    "order-trad": {
+        "title": "Order detail",
+        "date": "Ordered the : {0} |"
+    }
+}

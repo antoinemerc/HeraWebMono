@@ -1,0 +1,7 @@
+{
+    "order-trad": {
+        "title": "Détail de la commande",
+        "date": "Commande passée le : {{0}} |"
+
+    }
+}

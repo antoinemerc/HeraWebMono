@@ -1,10 +1,10 @@
 <table class="table">
   <thead class="thead-dark">
     <tr>
-      <th scope="col">Product</th>
-      <th scope="col">Quantity</th>
-      <th scope="col">Price per unit</th>
-      <th scope="col">Total</th>
+      <th scope="col" jhiTranslate="cart.product">Product</th>
+      <th scope="col" jhiTranslate="cart.quantity">Quantity</th>
+      <th scope="col" jhiTranslate="cart.unit">Price per unit</th>
+      <th scope="col" jhiTranslate="cart.total">Total</th>
     </tr>
   <tbody>
     <tr *ngFor="let item of this.basket;let i = index; ">
@@ -12,7 +12,7 @@
         <img class="img-thumbnail" style="max-width: 150px;" src="{{ this.getInfoProduct( item.prod ).allImageUrl[0].url }}"
           alt="">
         <a class="alert-link" [routerLink]="['/displayProduct', item.prod]">{{ this.getInfoProduct( item.prod ).name }}</a>
-        <div *ngIf="!this.verifyStock( item )" class="alert alert-warning">
+        <div *ngIf="!this.verifyStock( item )" class="alert alert-warning" jhiTranslate="cart.noStock">
           The product is no more available in our stocks, please change the quantity or delete de product to proceed.
         </div>
       </td>
@@ -28,26 +28,23 @@
       <td>{{ this.getInfoProduct( item.prod ).price * item.quantity }}</td>
     </tr>
     <tr *ngIf="this.stockErrors" class="alert alert-warning">
-        <td colspan="4">
+        <td colspan="4" jhiTranslate="cart.errorQuantity">
             One or multiple products are not available in our stocks, please change the quantity or delete them to proceed the checkout.
         </td>
     </tr>
     <tr class="separator">
-      <td colspan="3">Total</td>
+      <td colspan="3" jhiTranslate="cart.total">Total</td>
       <td>{{ this.totalCost }} EUR</td>
     </tr>
     
     <tr>
         <td colspan="3"></td>
         <td>
-          <button [disabled]="this.stockErrors" (click)="pay()" class="btn btn-primary">Initiate the order</button>
+          <button [disabled]="this.stockErrors" (click)="pay()" class="btn btn-primary" jhiTranslate="cart.initiate">Initiate the order</button>
         </td>
     </tr>
   </tbody>
 </table>
 <div class="row justify-content-end">
-  
-    
-  
 </div>
 

@@ -5,9 +5,10 @@ import { MyCartComponent } from './my-cart.component';
 import { RouterModule } from '@angular/router';
 import { MY_CART_ROUTE } from './my-cart.route';
 import { MyCartListComponent } from './my-cart-list/my-cart-list.component';
+import { HeraShopSharedModule } from 'app/shared';
 
 @NgModule({
-    imports: [CommonModule, RouterModule.forChild(MY_CART_ROUTE), FormsModule],
+    imports: [CommonModule, RouterModule.forChild(MY_CART_ROUTE), FormsModule, HeraShopSharedModule],
     declarations: [MyCartComponent, MyCartListComponent],
     entryComponents: [],
     providers: []
