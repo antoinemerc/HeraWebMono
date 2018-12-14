@@ -149,6 +149,6 @@ export class MyCartListComponent implements OnInit, AfterViewChecked {
         const dd = today.getDate();
         const mm = today.getMonth() + 1;
         const yyyy = today.getFullYear();
-        return dd + '/' + mm + '/' + yyyy;
+        return yyyy + '-' + mm + '-' + dd;
     }
 }
