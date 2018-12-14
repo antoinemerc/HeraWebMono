@@ -5,6 +5,7 @@ import com.heraco.hera.service.OrderService;
 import com.heraco.hera.domain.Order;
 import com.heraco.hera.repository.OrderRepository;
 import com.heraco.hera.service.dto.OrderDTO;
+import com.heraco.hera.service.error.InvalidOrderException;
 import com.heraco.hera.service.mapper.OrderMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,9 +46,14 @@ public class OrderServiceImpl implements OrderService {
     public OrderDTO save(OrderDTO orderDTO) {
         log.debug("Request to save Order : {}", orderDTO);
         Order order = orderMapper.toEntity(orderDTO);
-        order = orderRepository.save(order);
-        OrderDTO result = orderMapper.toDto(order);
-        this.mailService.sendOrderConfirmationMail(result);
+        OrderDTO result = null;
+        if(this.checkOrderValidity(orderDTO)) {
+            order = orderRepository.save(order);
+            result = orderMapper.toDto(order);
+            this.mailService.sendOrderConfirmationMail(result);
+        } else {
+            throw new InvalidOrderException();
+        }     
         return result;
     }
 
@@ -109,5 +115,19 @@ public class OrderServiceImpl implements OrderService {
     public Page<OrderDTO> findOrdersByUser(String user, Pageable pageable) {
         log.debug("Request to search for a page of Order for query {}", user);
         return orderRepository.findAllByUser(pageable, user).map(orderMapper::toDto);
+    }
+
+    public boolean checkOrderValidity(OrderDTO order){
+        boolean valid = true;
+        if(order.getAddress() == null)
+            valid = false;
+        else if(order.getPaymentMethod() == null)
+            valid = false;
+        else if(order.getTransportationMethod() == null)
+            valid = false;
+        else if(order.getOrderLine() == null)
+            valid = false;
+
+        return valid;
     }
 }

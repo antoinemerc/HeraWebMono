@@ -59,8 +59,10 @@ export class OrderComponent implements OnInit {
                         this.step++;
                     },
                     reason => {
-                        this.order = this.adressComponent.order;
-                        this.step++;
+                        if (reason !== 'cancelNextStep') {
+                            this.order = this.adressComponent.order;
+                            this.step++;
+                        }
                     }
                 );
             }
@@ -68,6 +70,5 @@ export class OrderComponent implements OnInit {
             this.paymentComponent.save();
             this.step++;
         }
-        console.log(this.order);
     }
 }

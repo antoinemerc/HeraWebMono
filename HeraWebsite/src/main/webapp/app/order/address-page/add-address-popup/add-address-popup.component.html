@@ -5,9 +5,11 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <p> Do you want to remember this address for the future ? </p>
-            <div>
-                <button (click)="cancel()" class="myButton">Proceed without saving</button>
-                <button (click)="confirm()" class="myButton">Save and proceed</button>
+            <div class="row">
+                <button (click)="cancel()" class="btn col-12 btnPadding">Proceed without saving</button>
+                <button (click)="confirm()" class="btn col-12 btnPadding">Save and proceed</button>
+                <button (click)="cancelNextStep()" class="btn col-12 btnPadding">Cancel</button>
+
             </div>
         </div>
     </div>

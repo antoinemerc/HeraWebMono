@@ -7,11 +7,11 @@ import { saveAs } from 'file-saver';
 import { ImageUrlService } from 'app/shared/service/imageUrl.service';
 
 @Component({
-    selector: 'jhi-order-detail',
-    templateUrl: './order-detail.component.html',
+    selector: 'jhi-order-page',
+    templateUrl: './order-page.component.html',
     styles: []
 })
-export class OrderDetailComponent implements OnInit {
+export class OrderPageComponent implements OnInit {
     order: IOrder;
     products: IProduct;
     id: string;

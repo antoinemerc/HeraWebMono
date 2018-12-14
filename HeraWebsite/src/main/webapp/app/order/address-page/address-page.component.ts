@@ -1,17 +1,16 @@
 import { Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpResponse } from '@angular/common/http';
 import { Principal, IUser, UserService, Account } from 'app/core';
 import { Location } from '@angular/common';
 import { AddressModalService } from './add-address-popup/address-modal.service';
 import { IAddress, Address } from 'app/shared/model/address.model';
 import { IOrder } from 'app/shared/model/order.model';
-import { OrderSharedService } from 'app/shared/service/order-shared.service';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
     selector: 'jhi-address-page',
     templateUrl: './address-page.component.html',
-    styles: []
+    styleUrls: ['address-page.component.scss']
 })
 export class AddressPageComponent implements OnInit, OnChanges {
     @Input() order: IOrder;
@@ -20,6 +19,7 @@ export class AddressPageComponent implements OnInit, OnChanges {
     newAddress: IAddress;
     idxAddress: number;
     addNewAddress = false;
+    addressForm: FormGroup;
 
     constructor(
         private principal: Principal,
@@ -60,7 +60,9 @@ export class AddressPageComponent implements OnInit, OnChanges {
                     this.order.address = orderAddress;
                 },
                 reason => {
-                    this.order.address = orderAddress;
+                    if (reason !== 'cancelNextStep') {
+                        this.order.address = orderAddress;
+                    }
                 }
             );
             return ret;
