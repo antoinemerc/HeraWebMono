@@ -236,6 +236,7 @@ public class InitialSetupMigration151120181205 {
         p2.setComments(comments1);
         images.clear();
         images.add(new ImageUrl("gtx1080.jpg", "A GTX 1080 picture"));
+        images.add(new ImageUrl("gtx1070.jpg", "A GTX 1070 picture"));
         p2.setAllImageUrl(images);
         p2.setUser(adminUser);
         p2.setCategories(allCategories1);

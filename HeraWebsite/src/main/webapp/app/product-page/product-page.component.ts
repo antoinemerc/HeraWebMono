@@ -28,6 +28,8 @@ export class ProductPageComponent implements OnInit {
     currentUser: IUser;
     accountConnected: Account;
     mainImage: SafeResourceUrl = 'content/images/placeHolder.png';
+    allImages: SafeResourceUrl[] = [];
+    idxImageToDisplay = 0;
 
     constructor(
         private route: ActivatedRoute,
@@ -134,6 +136,14 @@ export class ProductPageComponent implements OnInit {
     }
 
     /**
+     * Change the main image
+     */
+    changeMainImage(idx: number) {
+        this.mainImage = this.allImages[idx];
+        this.idxImageToDisplay = idx;
+    }
+
+    /**
      * @param data The body get from the HTTP
      *
      * Bind the data get from an HTTP query to the variable product
@@ -142,15 +152,17 @@ export class ProductPageComponent implements OnInit {
         this.product = data;
         this.newItem = new BasketItem(this.id, 1);
         this.finished = true;
-
-        if (this.product.allImageUrl.length !== 0) {
-            this.imageUrlService.getOneImageFrom(BUCKET_NAME, this.product.allImageUrl[0].url).subscribe(value => {
-                this.bindUrl(value);
+        let index = 0;
+        while (index < this.product.allImageUrl.length) {
+            this.allImages.push();
+            const tmp = index;
+            this.imageUrlService.getOneImageFrom(BUCKET_NAME, this.product.allImageUrl[tmp].url).subscribe(value => {
+                this.allImages[tmp] = value;
+                if (tmp === 0) {
+                    this.mainImage = value;
+                }
             });
+            index++;
         }
-    }
-
-    private bindUrl(data: SafeResourceUrl) {
-        this.mainImage = data;
     }
 }

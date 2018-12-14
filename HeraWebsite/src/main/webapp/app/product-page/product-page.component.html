@@ -13,11 +13,19 @@
     <div class="name2">
       <div class="row">
         <div class="col-md-5">
-          <div class="product-img">
-            <img class="img-fluid" [src]=mainImage alt="Grapefruit slice atop a pile of other slices" />
+          <div class="row">
+            <div class="col-md-2">
+              <label *ngFor="let img  of allImages;let i = index">
+                <input type="radio" name="img" value="i" [checked]="idxImageToDisplay === i">
+                <img class="img-fluid image-border" (mouseenter)="changeMainImage(i)" [src]=allImages[i] alt="Grapefruit slice atop a pile of other slices" />
+              </label>
+            </div>
+            <div class="col-md-8 product-img">
+              <img class="img-fluid" [src]=mainImage alt="Grapefruit slice atop a pile of other slices" />
+            </div>
           </div>
         </div>
-        <div class="col-md-6 offset-md-1" style="display: flex;flex-direction: column;">
+        <div class="col-md-5 off" style="display: flex;flex-direction: column;">
           <div class="product-name">
             <div class="text-left">
               <h2>{{product.name}}</h2>
@@ -92,8 +100,6 @@
       </div>
     </div>
     <jhi-comment [product]=product> </jhi-comment>
-    <a routerLink="/payment">payment</a>
   </div>
-
   </html>
 </div>
