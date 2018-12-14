@@ -23,7 +23,7 @@ export class PaymentMethodsComponent implements OnInit, OnChanges {
 
     ngOnChanges(changes: SimpleChanges): void {}
 
-    public selectedLink: string = '';
+    public selectedLink: string = 'Card VISA';
 
     public setradio(e: string): void {
         this.selectedLink = e;
