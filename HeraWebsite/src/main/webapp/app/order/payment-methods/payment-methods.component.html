@@ -1,0 +1,28 @@
+<div>
+    <h5 class="title"> Select your method of payment </h5>
+    <div class="radio">
+        <label>
+            <input type="radio" name="pay" value="Card VISA" (click)="setradio('Card VISA')"  [checked]='true' required>
+            Card VISA
+        </label>
+    </div>
+    <div class="radio">
+        <label>
+            <input type="radio" name="pay" value="Paypal" (click)="setradio('Paypal')" ngModel>
+            Paypal
+        </label>
+    </div>
+    <div class="radio">
+        <label>
+            <input type="radio" name="pay" value="Mastercard" (click)="setradio('Mastercard')" ngModel>
+            Mastercard
+        </label>
+    </div>
+    <div class="radio">
+        <label>
+            <input type="radio" name="pay" value="American Express" (click)="setradio('American Express')" ngModel>
+            American Express
+        </label>
+    </div>
+
+</div>

@@ -12,6 +12,7 @@ import { UserRouteAccessService } from 'app/core';
 import { OrderSummaryComponent } from './order-summary/order-summary.component';
 import { PaymentComponent } from './payment/payment.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { PaymentMethodsComponent } from 'app/order/payment-methods/payment-methods.component';
 
 @NgModule({
     imports: [CommonModule, RouterModule.forChild(ORDER_ROUTE), FormsModule, MatProgressSpinnerModule],
@@ -21,6 +22,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
         AddressModalComponent,
         TransportManagementComponent,
         ValidationPageComponent,
+        PaymentMethodsComponent,
         OrderSummaryComponent,
         PaymentComponent
     ],

@@ -4,6 +4,7 @@ import { TransportManagementComponent } from './transport-management/transport-m
 import { ValidationPageComponent } from './validation-page/validation-page.component';
 import { OrderComponent } from './order.component';
 import { UserRouteAccessService } from 'app/core';
+import { PaymentMethodsComponent } from 'app/order/payment-methods/payment-methods.component';
 
 export const ORDER_ROUTE: Routes = [
     {
@@ -19,6 +20,11 @@ export const ORDER_ROUTE: Routes = [
     {
         path: 'transportManagement',
         component: TransportManagementComponent,
+        canActivateChild: [UserRouteAccessService]
+    },
+    {
+        path: 'paymentMethod',
+        component: PaymentMethodsComponent,
         canActivateChild: [UserRouteAccessService]
     },
     {
