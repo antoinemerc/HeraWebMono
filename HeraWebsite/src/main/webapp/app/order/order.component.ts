@@ -65,8 +65,11 @@ export class OrderComponent implements OnInit {
                 );
             }
         } else if (this.step === 3) {
-            this.paymentComponent.save();
-            this.step++;
+            if (this.paymentComponent.save() == false) alert('You need to validate Correct Information');
+            else {
+                this.paymentComponent.save();
+                this.step++;
+            }
         }
         console.log(this.order);
     }
