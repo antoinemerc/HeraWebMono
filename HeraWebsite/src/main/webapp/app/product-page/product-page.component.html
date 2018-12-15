@@ -1,60 +1,63 @@
 <div *ngIf="finished">
-  <html>
   <div class=".container">
-
     <div class="name1">
       <div class="row">
-        <div class="col-md-12">
-          <a href="" style="height: 40px;width: 40px;"><img src="./images/Home-512.png" style="height: 40px;width: 40px;">Home</a>
+        <div class="col-12 back-to-home-div">
+          <img routerLink="/" src="./images/Home-512.png" style="height: 40px;width: 40px;">
+          <a routerLink="/" style="height: 40px;width: 40px;">Retouner à la page d'accueil</a>
         </div>
       </div>
     </div>
 
+    <jhi-breadcrumb [breads]="[ 'Home', '>', this.product.name]"></jhi-breadcrumb>
+
     <div class="name2">
       <div class="row">
-        <div class="col-md-5">
-          <div class="row">
-            <div class="col-md-2">
-              <label *ngFor="let img  of allImages;let i = index">
-                <input type="radio" name="img" value="i" [checked]="idxImageToDisplay === i">
-                <img class="img-fluid image-border" (mouseenter)="changeMainImage(i)" [src]=allImages[i] alt="Grapefruit slice atop a pile of other slices" />
-              </label>
-            </div>
-            <div class="col-md-8 product-img">
-              <img class="img-fluid" [src]=mainImage alt="Grapefruit slice atop a pile of other slices" />
-            </div>
+        <div class="col-5 product-img-div">
+          <div class="w-100 product-img">
+            <img class="img-fluid" [src]=mainImage alt="Grapefruit slice atop a pile of other slices" />
+          </div>
+          <div class="w-100">
+            <label *ngFor="let img  of allImages;let i = index" style="max-width: 75px;">
+              <input type="radio" name="img" value="i" [checked]="idxImageToDisplay === i">
+              <img class="img-fluid image-border" (mouseenter)="changeMainImage(i)" [src]=allImages[i] alt="Grapefruit slice atop a pile of other slices" />
+            </label>
           </div>
         </div>
-        <div class="col-md-5" style="display: flex; flex-direction: column;">
+        <div class="col-6 offset-md-1" style="display: flex; flex-direction: column;">
           <div class="product-name">
             <div class="text-left">
               <h2>{{product.name}}</h2>
             </div>
           </div>
-          <h4 jhiTranslate="product-page.technical"> Technical details</h4>
-          <div class="product-description text-left" style="flex-grow: 1">
-            <p jhiTranslate="product-page.sold-by" translateValues="{value: '{{product.user.login}}'}">Sold by
-              {{product.user.login}}</p>
+          <h4 jhiTranslate="product-page.technical">Technical details</h4>
+          <div class="p-2 product-description text-left" style="flex-grow: 1">
+            <p jhiTranslate="product-page.sold-by" translateValues="{value: '<b>{{product.user.login}}</b>'}">
+              Sold by <b>{{product.user.login}}</b></p>
             <div>
               <p style="display: inline-block;" jhiTranslate="product-page.price">Unit price : </p>
-              <span style="display: inline-block;" class="product-prix">{{product.price}}€</span>
+              <span style="display: inline-block;" class="product-prix"><b>{{product.price}}€</b></span>
             </div>
             <p>{{product.description}}</p>
             <p *ngIf="product.quantity > 0" jhiTranslate="product-page.in-stock" translateValues="{value: '{{product.quantity}}'}">In
               stock : {{product.quantity}}</p>
             <p *ngIf="product.quantity <= 0" jhiTranslate="product-page.no-stock">Not in stock !</p>
           </div>
+          <div class="link-to-detail">
+            <a href="#">See more product details</a>
+          </div>
+          <div class=""></div>
         </div>
       </div>
     </div>
     <div class="name3">
-      <div>
-        <h3 jhiTranslate="product-page.description">Description:</h3>
-        <div class="container row">
-          <div class="col-md-8 product-description nopadding">
+      <div class="product-description mt-5 p-2">
+        <h3>Description:</h3>
+        <div class="row">
+          <div class="col-md-8">
             {{product.description}}
           </div>
-          <div class="col-md-4">
+          <div class="col-md-2">
             <div [ngSwitch]="isAuthenticated()">
               <div *ngSwitchCase="true">
                 <div *ngIf="productAvailable()">
@@ -63,10 +66,10 @@
                       <div *ngIf="basketConfirmed == 0">
                         <div class="btn-group">
                           <input type="number" class="form-control" name="quantity" min="1" max={{product.quantity}} id="field_quantity"
-                            [(ngModel)]="newItem.quantity" required style="height: 80px;width: 100px;" />
+                            [(ngModel)]="newItem.quantity" required style="min-width: 125px;" />
                           <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || !quantityValid()"
-                            class="btn btn-primary">
-                            <img src="./images/add-to-cart.png" style="height: 70px; width: 70px;" jhiTranslate="entity.action.save">
+                            class="btn btn-primary" jhiTranslate="entity.action.save">
+                            Add to cart
                           </button>
                         </div>
                         <div [hidden]="!(editForm.controls.quantity?.dirty && editForm.controls.quantity?.invalid) && quantityValid()">
@@ -84,7 +87,8 @@
                           </small>
                         </div>
                       </div>
-                      <div *ngIf="basketConfirmed==1">
+                      <div *ngIf="
+                            basketConfirmed==1">
                             <mat-progress-spinner style="margin:0 auto;" [diameter]="40" [color]="'blue'" [mode]="'indeterminate'">
                             </mat-progress-spinner>
                         </div>
@@ -99,15 +103,16 @@
                 </div>
               </div>
               <div *ngSwitchCase="false">
-                <a (click)="login()" class="myButton" jhiTranslate="product-page.connect">Connect yourself</a>
+                <button class="btn btn-primary w-100" (click)="login()">Log in</button>
+                <a (click)="login()" class="a-not-connected myButton">Log into your account if you want to add this
+                  item to your cart.</a>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <jhi-comment [product]=product> </jhi-comment>
+    <jhi-comment [product]=product></jhi-comment>
+    <!-- <a routerLink="/payment">payment</a> -->
   </div>
-
-  </html>
 </div>

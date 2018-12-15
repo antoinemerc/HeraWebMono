@@ -6,7 +6,7 @@
     <h2 style="margin-bottom: 15px" jhiTranslate="catalog.search" translateValues="{value: '{{productSearchName}}'}">Search corresponding to "{{productSearchName}}"</h2>
 </div>
 
-
+<jhi-breadcrumb [breads]="['Home']"></jhi-breadcrumb>
 <div class="row">
     <jhi-product-item    class="col-3" *ngFor="let product of allProducts" style="margin-bottom: 45px"
                          [product]=product>

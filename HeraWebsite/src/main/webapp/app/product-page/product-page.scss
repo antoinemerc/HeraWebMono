@@ -1,3 +1,21 @@
+.back-to-home-div img:hover {
+    cursor: pointer;
+}
+
+.back-to-home-div a {
+    vertical-align: middle;
+}
+
+.product-img-div img {
+    width: 100%;
+}
+
+.a-not-connected {
+    font-size: 0.8em;
+    color: grey !important;
+    width: 100%;
+}
+
 .product-prix {
     color: red;
 }
@@ -72,7 +90,7 @@
 
 .product-description {
     border-style: solid;
-    border-width: 2px;
+    border-width: 1px;
     border-radius: 5px;
     border-color: lightgrey;
     clear: both;

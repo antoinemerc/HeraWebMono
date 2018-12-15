@@ -1,0 +1,24 @@
+.breadcrumb-div {
+    width: 100%;
+    margin-top: 1.1em;
+    margin-bottom: 1.4em;
+}
+
+.breadcrumb-div ul {
+    padding: 0em;
+}
+
+.breadcrumb-div li {
+    list-style: none;
+    display: inline;
+    font-weight: 500;
+    margin-left: 0em;
+    padding: 0.5em;
+    font-size: 0.8em;
+    cursor: default;
+}
+
+.breadcrumb-div li:nth-child(odd) {
+    background: #ffcc99;
+    border-radius: 5px;
+}

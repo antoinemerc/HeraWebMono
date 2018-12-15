@@ -8,6 +8,7 @@ import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/mater
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { HeraShopSharedModule } from 'app/shared';
+import { BreadcrumbModule } from 'app/shared/breadcrumb/breadcrumb.module';
 
 @NgModule({
     imports: [
@@ -16,7 +17,8 @@ import { HeraShopSharedModule } from 'app/shared';
         MatSnackBarModule,
         BrowserAnimationsModule,
         MatProgressSpinnerModule,
-        HeraShopSharedModule
+        HeraShopSharedModule,
+        BreadcrumbModule
     ],
     declarations: [ProductListComponent, ProductItemComponent],
     exports: [ProductListComponent, ProductItemComponent],

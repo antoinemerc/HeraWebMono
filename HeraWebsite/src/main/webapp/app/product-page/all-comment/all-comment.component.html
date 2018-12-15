@@ -1,7 +1,7 @@
-<h2 style="margin-bottom: 10px;" jhiTranslate="product-page.comment-title">Comments</h2>
+<h2 class="mt-5" style="margin-bottom: 10px;" jhiTranslate="product-page.comment-title">Comments</h2>
 <div [ngSwitch]="this.principal.isAuthenticated()">
     <div *ngSwitchCase="true">
-        <form (submit)="addComment($event)">
+        <form (submit)="addComment($event)" class="mb-4">
             <div class="form-group">
                 <label for="commentTitle" jhiTranslate="product-page.add-comment-title">Write a title for your comment (This helps other users to summarize what
                     you want to say)</label>

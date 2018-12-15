@@ -1,6 +1,6 @@
 {
     "product-page":{
-        "technical": "Détails technique",
+        "technical": "Détails techniques",
         "sold-by":"Vendu par : {{value}}",
         "price": "Prix unitaire : ",
         "in-stock": "En stock : {{value}}",
