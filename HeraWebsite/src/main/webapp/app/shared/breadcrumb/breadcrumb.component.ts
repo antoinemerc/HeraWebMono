@@ -10,8 +10,5 @@ export class BreadcrumbComponent implements OnInit {
     @Input() routes: string[];
     constructor() {}
 
-    ngOnInit() {
-        this.routes = ['/', '/'];
-        console.log(this.routes);
-    }
+    ngOnInit() {}
 }
