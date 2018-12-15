@@ -16,7 +16,7 @@
     <div class="radio">
         <label>
             <input type="radio" name="payy" value="Credit card" (click)="setradio('Credit card')"(click)="toggle(true)"  >
-            Card VISA <img [src]= mainImage width="50" height="50" /> <img [src]= mainImage1 width="50" height="50" /> <img [src]= mainImage2 width="50" height="50" />
+            Credit Card  <img [src]= mainImage width="50" height="50" /> <img [src]= mainImage1 width="50" height="50" /> <img [src]= mainImage2 width="50" height="50" />
         </label>
     </div>
 
@@ -29,7 +29,7 @@
         </head>
 
         <body>
-        <form class="credit-card">
+        <form class="credit-card" (ngSubmit)="onFormSubmit(signupForm)" #signupForm="ngForm">
             <div class="form-header">
                 <h4 class="title">Credit card detail</h4>
             </div>
@@ -106,7 +106,12 @@
                         </div>
                     </div>
                 </div>
-            </div>
+                <div class="form-group ">
+
+                    <button type="submit" class="proceed-btn" [disabled]="!signupForm.form.valid" ><a href="#">Validate Informations</a></button>
+
+                    </div>
+                </div>
         </form>
         </body>
         </html>

@@ -30,6 +30,11 @@ export class PaymentMethodsComponent implements OnInit, OnChanges {
             this.router.navigate(['/']);
         }
     }
+    onFormSubmit({ value, valid }: { value: Card; valid: boolean }) {
+        this.card = value;
+        console.log(this.card);
+        console.log('valid: ' + valid);
+    }
 
     ngOnChanges(changes: SimpleChanges): void {}
 
@@ -39,8 +44,13 @@ export class PaymentMethodsComponent implements OnInit, OnChanges {
         this.selectedLink = e;
     }
 
-    public save() {
-        this.order.paymentMethod = this.selectedLink;
+    public save(): boolean {
+        if (this.selectedLink == 'Credit card') {
+            if (this.card.numberCard == null || this.card.cvv == null) return false;
+        } else {
+            this.order.paymentMethod = this.selectedLink;
+            return true;
+        }
     }
     toggle(a: boolean) {
         this.show = a;
