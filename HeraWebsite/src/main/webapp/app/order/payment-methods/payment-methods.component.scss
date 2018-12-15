@@ -1,3 +1,132 @@
+/* Global */
+
+* {
+    box-sizing: border-box;
+}
+body,
+html {
+    height: 50%;
+    min-height: 50%;
+    background-color: #ffffff;
+}
+
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Credit Card */
+
+.credit-card {
+    width: 900px;
+    height: 250px;
+    margin: 60px auto 0;
+    border: 1px solid #ffffff;
+    border-radius: 6px;
+    background-color: #fff;
+    box-shadow: 1px 2px 3px 0px rgba(0, 0, 0, 0.1);
+}
+
+.form-header {
+    height: 60px;
+    padding: 20px 30px 0;
+    border-bottom: 1px solid #e1e8ee;
+}
+
+.form-body {
+    height: 340px;
+    padding: 30px 30px 20px;
+}
+
+/* Title */
+
 .title {
-    padding-bottom: 10px;
+    margin: 0;
+    color: #5e6977;
+    font-size: 18px;
+}
+
+/* Common */
+
+.card-number,
+.cvv-input input,
+.year select,
+.proceed-btn,
+.mouth select {
+    height: 42px;
+}
+
+.card-number,
+.year select,
+.mouth select {
+    font-size: 14px;
+    font-weight: 100;
+    line-height: 14px;
+}
+
+.card-number,
+.cvv-input input,
+.year select,
+.mouth select {
+    color: #86939e;
+    opacity: 0.7;
+}
+
+/* Card Number */
+
+.card-number {
+    width: 50%;
+    margin-bottom: 20px;
+    padding-left: 20px;
+    border: 2px solid #e1e8ee;
+    border-radius: 6px;
+}
+
+/* Date Field */
+
+.year select {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    width: 145px;
+    margin-bottom: 20px;
+    padding-left: 20px;
+    border: 2px solid #e1e8ee;
+    border-radius: 6px;
+}
+
+.month select {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    width: 145px;
+    margin-bottom: 20px;
+    padding-left: 20px;
+    border: 2px solid #e1e8ee;
+    border-radius: 6px;
+}
+
+.month select {
+    float: right;
+}
+
+.year select {
+    float: right;
+}
+
+/* Card Verification Field */
+
+.cvv-input input {
+    width: 145px;
+    float: right;
+    padding-left: 20px;
+    border: 2px solid #e1e8ee;
+    border-radius: 6px;
+    border: 2px solid #e1e8ee;
+    background: #fff;
+}
+
+.ng-valid {
+    border-color: green;
+}
+.ng-invalid {
+    border-color: #e1e8ee;
 }
