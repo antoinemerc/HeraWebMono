@@ -1,0 +1,22 @@
+{
+    "product-page":{
+        "technical": "Détails technique",
+        "sold-by":"Vendu par : {{value}}",
+        "price": "Prix unitaire : ",
+        "in-stock": "En stock : {{value}}",
+        "no-stock": "Pas en stock",
+        "description": "Description",
+        "error-quantity" :  "Ce champ doit être entre 0 et {{value}}",
+        "added" : "Produit ajouté au panier !",
+        "connect": "Connectez vous",
+        "comment-title":"Commentaires",
+        "add-comment-title":"Donnez un titre à votre commentaire pour résumer votre message.",
+        "enter-title":"Donnez le titre de votre commentaire.",
+        "resume":"Dites nous ce à quoi vous pensez:",
+        "write-comment":"Ecrivez un commentaire, s'il vous plait.",
+        "comment-length":"Votre commentaire doit contenir au moins {{value}} caractères.",
+        "post": "Poster",
+        "connect-msg":"Connectez-vous pour laisser un commentaire sur le produit.",
+        "written-by":"Ecrit par {{value}}"     
+    }
+}

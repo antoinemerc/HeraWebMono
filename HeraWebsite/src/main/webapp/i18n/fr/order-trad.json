@@ -1,0 +1,21 @@
+{
+    "order-trad": {
+        "title-list": "Vos commandes :",
+        "title": "Détail de la commande",
+        "date": "Commande passée le : {{date}} |",
+        "id": "Numéro de commande: {{id}}",
+        "deliver":"Livrer à : {{value}}",
+        "at":"Au : {{value}}",
+        "by":"Par : {{value}}",
+        "product" : "Produit",
+        "quantity" : "Quantité",
+        "unit" : "Prix unitaire",
+        "total" : "Total",
+        "pdf": "Générer pdf",
+        "logMsg": "Vous devez être connecté pour voir vos commandes.",
+        "connect": "Connexion",
+        "noOrder": "Pas de commandes à afficher !",
+        "seeDetail": "Voir details"
+
+    }
+}

@@ -2,6 +2,7 @@ package com.heraco.hera.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.heraco.hera.domain.BasketItem;
+import com.heraco.hera.domain.Product;
 import com.heraco.hera.service.MailService;
 import com.heraco.hera.service.OrderService;
 import com.heraco.hera.service.PDFService;
@@ -170,6 +171,23 @@ public class OrderResource {
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id)).build();
     }
 
+    @GetMapping("/orders/id/{id}")
+    @Timed
+    public ResponseEntity<OrderAndProductsDTO> getOrderById(@PathVariable String id) {
+        log.debug("REST request to get the order and products for query {}", id);
+        OrderDTO orderDTO = orderService.findOne(id).get();
+        ArrayList<ProductDTO> products = new ArrayList<>();
+        for (BasketItem b : orderDTO.getOrderLine()) {
+            products.add(productService.findOne(b.getProd()).get());
+        }
+        List<ProductDTO> cart = products;
+        OrderAndProductsDTO ret = new OrderAndProductsDTO();
+        ret.setOrder(orderDTO);
+        ret.setProducts(cart);
+        return new ResponseEntity<>(ret, HttpStatus.OK);
+
+    }
+
     @GetMapping("/orders/user/{user}")
     @Timed
     public ResponseEntity<List<OrderAndProductsDTO>> getOrdersByUser(@PathVariable String user, Pageable pageable) {
@@ -180,10 +198,10 @@ public class OrderResource {
         for (OrderDTO order : page.getContent()) {
             ArrayList<ProductDTO> prods = new ArrayList<>();
             for (BasketItem item : order.getOrderLine()) {
-                if (map.get(item.getProd()) == null){
-                    map.put(item.getProd(),this.productService.findOne(item.getProd()).get());
+                if (map.get(item.getProd()) == null) {
+                    map.put(item.getProd(), this.productService.findOne(item.getProd()).get());
                 }
-                    prods.add(map.get(item.getProd()));
+                prods.add(map.get(item.getProd()));
             }
             OrderAndProductsDTO newItem = new OrderAndProductsDTO();
             newItem.setOrder(order);

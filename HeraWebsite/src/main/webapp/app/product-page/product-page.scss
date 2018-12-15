@@ -6,6 +6,33 @@
     list-style: none;
 }
 
+.image-border {
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 1px;
+    border-color: lightgrey;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+/* HIDE RADIO */
+[type='radio'] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* IMAGE STYLES */
+[type='radio'] + img {
+    cursor: pointer;
+}
+
+/* CHECKED STYLES */
+[type='radio']:checked + img {
+    box-shadow: 0px 0px 1px 1px #dba632;
+}
+
 .name1 ul li {
     float: left;
     list-style: none;
@@ -41,6 +68,19 @@
 .myNavBar ul li {
     float: left;
     width: 33%;
+}
+
+.product-description {
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 5px;
+    border-color: lightgrey;
+    clear: both;
+}
+
+.nopadding {
+    padding: 0 !important;
+    margin: 0 !important;
 }
 
 .productName {

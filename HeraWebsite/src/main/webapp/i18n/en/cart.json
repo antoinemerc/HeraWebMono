@@ -1,0 +1,19 @@
+{
+    "cart" : {
+        "connectMsg": "Connect yourself to access to your cart.",
+        "connect": "Connect",
+        "yourOrder": "Your order:",
+        "loading": "Loading...",
+        "noProd": "You haven't added any products yet !",
+        "back": "Go back to shopping",
+        "product": "Product",
+        "quantity": "Quantity",
+        "unit": "Price per unit",
+        "total": "Total",
+        "noStock": "The product is no more available in our stocks, please change the quantity or delete de product to proceed.",
+        "errorQuantity":"One or multiple products are not available in our stocks, please change the quantity or delete them to proceed the checkout.",
+        "initiate": "Initiate the order"
+
+
+    }
+}

@@ -2,9 +2,11 @@ package com.heraco.hera.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.heraco.hera.domain.BasketItem;
+import com.heraco.hera.domain.User;
 import com.heraco.hera.security.SecurityUtils;
 import com.heraco.hera.service.OrderService;
 import com.heraco.hera.service.ProductService;
+import com.heraco.hera.service.UserService;
 import com.heraco.hera.web.rest.errors.BadRequestAlertException;
 import com.heraco.hera.web.rest.util.HeaderUtil;
 import com.heraco.hera.web.rest.util.PaginationUtil;
@@ -43,13 +45,16 @@ public class ProductResource {
 
     private final ProductService productService;
 
-    private  OrderService orderService;
+    private OrderService orderService;
+
+    private UserService userService;
 
     private Object lock = new Object();
 
-    public ProductResource(ProductService productService, OrderService orderService) {
+    public ProductResource(ProductService productService, OrderService orderService, UserService userService) {
         this.productService = productService;
         this.orderService = orderService;
+        this.userService = userService;
     }
 
     /**
@@ -181,8 +186,8 @@ public class ProductResource {
     }
 
     /**
-     * SEARCH /products/search/{name} : search for the product corresponding
-     * to the name.
+     * SEARCH /products/search/{name} : search for the product corresponding to the
+     * name.
      *
      * @param query    the query of the product search
      * @param pageable the pagination information
@@ -197,7 +202,7 @@ public class ProductResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/products");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
-    
+
     /**
      * POST /products/basket : get all the products present in the connected user
      * basket. .
@@ -216,13 +221,13 @@ public class ProductResource {
         return new ResponseEntity<>(getProductsFromBasketAsArray(basket), HttpStatus.OK);
     }
 
-    private List<ProductDTO> getProductsFromBasketAsArray(List<BasketItem> basket){
+    private List<ProductDTO> getProductsFromBasketAsArray(List<BasketItem> basket) {
         ArrayList<String> ids = new ArrayList<>();
+        List<ProductDTO> ret = new ArrayList<>();
         for (int i = 0; i < basket.size(); i++) {
             ids.add(basket.get(i).getProd());
+            ret.add(productService.findOne(basket.get(i).getProd()).get());
         }
-        Page<ProductDTO> page = productService.findByBasket(ids,null);
-        List<ProductDTO> ret = page.getContent();
         return ret;
     }
 
@@ -242,7 +247,7 @@ public class ProductResource {
         ArrayList<ProductDTO> productUpdated = new ArrayList<>();
         ResponseEntity<OrderDTO> ret = new ResponseEntity<>(HttpStatus.OK);
         synchronized (lock) {
-            List<ProductDTO> originalProducts = getProductsFromBasketAsArray(cart); 
+            List<ProductDTO> originalProducts = getProductsFromBasketAsArray(cart);
             for (int i = 0; i < cart.size() && allProductsAvailable; i++) {
                 ProductDTO prod = originalProducts.get(i);
                 if (prod.getQuantity() < cart.get(i).getQuantity()) {
@@ -258,6 +263,9 @@ public class ProductResource {
                     productService.save(p);
                 }
                 ret = new ResponseEntity<>(this.orderService.save(order), HttpStatus.OK);
+                User user = userService.getUserWithAuthorities().get();
+                user.setBasket(new ArrayList<>());
+                userService.updateUser(new UserDTO(user));
             }
         }
         return ret;

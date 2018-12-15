@@ -24,9 +24,9 @@ export class ProductListComponent implements OnInit {
 
     ngOnInit() {
         this.route.params.subscribe(params => {
-            if (params['idCategory'] != undefined) {
+            if (params['idCategory'] !== undefined) {
                 this.loadCategory(params['idCategory']);
-            } else if (params['likeName'] != undefined) {
+            } else if (params['likeName'] !== undefined) {
                 this.loadSearch(params['likeName']);
             } else {
                 this.loadProduct();

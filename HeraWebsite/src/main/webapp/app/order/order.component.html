@@ -6,13 +6,13 @@
         <div [ngSwitch]="step" class="row">
             <jhi-transport-management *ngSwitchCase=1 [order]=order class="col-12"></jhi-transport-management>
             <jhi-address-page *ngSwitchCase=2 [order]=order class="col-12"></jhi-address-page>
-            <jhi-validation-page *ngSwitchCase=3 [order]=order class="col-12"></jhi-validation-page>
-            <jhi-payment *ngSwitchCase=4 [order]=order></jhi-payment>
+            <jhi-payment-methods *ngSwitchCase=3 [order]=order class="col-12"></jhi-payment-methods>
+            <jhi-validation-page *ngSwitchCase=4 [order]=order class="col-12"></jhi-validation-page>
         </div>
         <div class="row">
             <div class="col-12">
                 <button *ngIf="step != 1" (click)="previousStep()" class="btn btn-primary">Previous step</button>
-                <button *ngIf="step != 3" (click)="nextStep()" class="btn btn-primary float-right" >Next step</button>
+                <button *ngIf="step != 4" (click)="nextStep()" class="btn btn-primary float-right" >Next step</button>
             </div>
         </div>
         

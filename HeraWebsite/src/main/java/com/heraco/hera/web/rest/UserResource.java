@@ -213,7 +213,7 @@ public class UserResource {
     @Timed
     public ResponseEntity<UserDTO> updateUserCart(@Valid @RequestBody BasketItem cartItem) {
         log.debug("REST request to update current user cart : {}");
-        User user = userService.getUserWithAuthoritiesByLogin(SecurityUtils.getCurrentUserLogin().get()).get();
+        User user = userService.getUserWithAuthorities().get();
         UserDTO userDTO = new UserDTO(user);
         boolean found = false;
         for (int i = 0; !found && i < userDTO.getBasket().size(); i++) {

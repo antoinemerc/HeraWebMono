@@ -1,14 +1,12 @@
 import { Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/core';
-import { IProduct, Product } from 'app/shared/model/product.model';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Product } from 'app/shared/model/product.model';
+import { SafeResourceUrl } from '@angular/platform-browser';
 import { ImageUrlService } from 'app/shared/service/imageUrl.service';
-import { Account, IUser, LoginModalService, Principal, UserService } from 'app/core';
-import { HttpResponse } from '@angular/common/http';
+import { Account, IUser, Principal, UserService } from 'app/core';
 import { BasketItem, IBasketItem } from 'app/shared/model/basket_item.model';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ProductService } from 'app/shared';
 import { CartCountService } from '../../shared/service/cart-count.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
     selector: 'jhi-product-item',
@@ -22,14 +20,15 @@ export class ProductItemComponent implements OnInit {
     accountConnected: Account;
     newItem: IBasketItem;
     modalRef: NgbModalRef;
-    finished: boolean;
     id: string;
+    requestStatus: number;
+
     constructor(
         private imageUrlService: ImageUrlService,
         private userService: UserService,
         private principal: Principal,
-        private loginModalService: LoginModalService,
-        private cartCountService: CartCountService
+        private cartCountService: CartCountService,
+        private mysnack: MatSnackBar
     ) {}
 
     ngOnInit() {
@@ -40,19 +39,34 @@ export class ProductItemComponent implements OnInit {
                 });
             }
         }
+        this.requestStatus = 1;
         this.newItem = new BasketItem(this.product.id, 1);
     }
+
     private bindUrl(data: SafeResourceUrl) {
         this.mainImage = data;
     }
+
     isAuthenticated() {
         return this.principal.isAuthenticated();
     }
+
+    canPressButton() {
+        return this.requestStatus === 1;
+    }
+
     click() {
-        if (this.principal.isAuthenticated()) {
+        if (this.principal.isAuthenticated() && this.requestStatus === 1) {
+            this.requestStatus = 2;
             this.userService.updateBasket(this.newItem).subscribe(response => {
                 if (response.status === 200) {
                     this.cartCountService.update(1);
+                    this.requestStatus = 1;
+                    this.mysnack.open(this.product.name + ' add to cart !', null, {
+                        duration: 2500,
+                        verticalPosition: 'bottom',
+                        horizontalPosition: 'end'
+                    });
                 }
             });
         }

@@ -28,7 +28,9 @@
             <tr>
                 <td colspan="3"></td>
                 <td>
-                    <button (click)="validate()" class="btn btn-primary">Pass command</button>
+                    <button *ngIf="!hasValidate" (click)="validate()" class="btn btn-primary">Pass command</button>
+                    <mat-progress-spinner *ngIf="hasValidate" [diameter]="40" [color]="'blue'" [mode]="'indeterminate'">
+                    </mat-progress-spinner>
                 </td>
             </tr>
         </tbody>

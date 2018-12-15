@@ -43,8 +43,8 @@ spring:
         serialization.indent_output: true
     data:
         mongodb:
-            uri: mongodb://localhost:27017
-            database: hera
+            uri: mongodb://ben:2912Camille@ds121182.mlab.com:21182/noga
+            database: noga
     mail:
         host: smtp.gmail.com
         port: 587
@@ -108,7 +108,7 @@ jhipster:
                 token-validity-in-seconds-for-remember-me: 2592000
     mail: # specific JHipster mail property, for standard properties see MailProperties
         from: HeraShop@localhost
-        base-url: http://127.0.0.1:8080
+        base-url: http://127.0.0.1:9000
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
         jmx:
             enabled: true

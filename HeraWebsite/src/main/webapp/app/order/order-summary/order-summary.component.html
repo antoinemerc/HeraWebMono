@@ -23,6 +23,16 @@
                     <li>{{order.address.country}} {{order.address.zipCode}}</li>
                 </ul>
             </div>
+            <div class="list-group-item">
+                <h5>Payment Method</h5>
+                <ul *ngIf="order.paymentMethod == null">
+                    <li >To be selected</li>
+                </ul>
+                <ul *ngIf="order.paymentMethod != null">
+                    <li>{{order.paymentMethod}}</li>
+
+                </ul>
+            </div>
         </div>
     </div>
 </div>

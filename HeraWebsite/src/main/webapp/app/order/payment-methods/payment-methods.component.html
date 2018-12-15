@@ -1,0 +1,119 @@
+<div>
+    <h5 class="title"> Select your method of payment </h5>
+
+    <div class="radio">
+        <label>
+            <input type="radio" name="payy" value="Pay the transporter" (click)="setradio('Pay the transporter')"(click)="toggle(false)"  [checked]='true' required>
+            Pay the transporter <img [src]= mainImage4 width="50" height="50" />
+        </label>
+    </div>
+    <div class="radio">
+        <label>
+            <input type="radio" name="payy" value="Paypal" (click)="setradio('Paypal')"(click)="toggle(false)"  >
+            Paypal <img [src]= mainImage3 width="50" height="50"  />
+        </label>
+    </div>
+    <div class="radio">
+        <label>
+            <input type="radio" name="payy" value="Credit card" (click)="setradio('Credit card')"(click)="toggle(true)"  >
+            Card VISA <img [src]= mainImage width="50" height="50" /> <img [src]= mainImage1 width="50" height="50" /> <img [src]= mainImage2 width="50" height="50" />
+        </label>
+    </div>
+
+    <div *ngIf="show">
+        <html>
+        <head>
+            <title>Credit Card</title>
+
+            <!-- Styles -->
+        </head>
+
+        <body>
+        <form class="credit-card">
+            <div class="form-header">
+                <h4 class="title">Credit card detail</h4>
+            </div>
+
+            <div class="form-body">
+                <!-- Card Number -->
+                <div class="form-group">
+                    <div class="row">
+                        <input  id = "numberCard" type="text" class="card-number" placeholder="Card Number" [ngModel] = "card.numberCard"
+                                name="numberCard" #numberCard = "ngModel" pattern="[0-9]{13,16}" required>
+
+                        <div *ngIf="numberCard.invalid && (numberCard.dirty || numberCard.touched)"
+                             class="col-md-4 text-danger">
+                            <div *ngIf = "numberCard.errors?.required">
+                                Credit Card Number field can't be blank
+                            </div>
+                            <div *ngIf = "numberCard.errors?.pattern && numberCard.touched">
+                                Credit Card Number doesn't seem right
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Date Field -->
+                <div class="date-field">
+                    <div class="year">
+                        <select name="Year">
+                            <option value="2019">2019</option>
+                            <option value="2020">2020</option>
+                            <option value="2021">2021</option>
+                            <option value="2022">2022</option>
+                            <option value="2023">2023</option>
+                            <option value="2024">2024</option>
+                        </select>
+                    </div>
+                    <div class="year">
+                        <select name="Month">
+                            <option value="january">January</option>
+                            <option value="february">February</option>
+                            <option value="march">March</option>
+                            <option value="april">April</option>
+                            <option value="may">May</option>
+                            <option value="june">June</option>
+                            <option value="july">July</option>
+                            <option value="august">August</option>
+                            <option value="september">September</option>
+                            <option value="october">October</option>
+                            <option value="november">November</option>
+                            <option value="december">December</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Card Verification Field -->
+                <div class="row">
+                    <div class="form-group">
+
+                        <div class="card-verification">
+                            <div class="row">
+                                <div class="cvv-input">
+                                    <input class=".col-md-3" id="cvv" type="text" placeholder="cvv"  [ngModel] = "card.cvv" name="cvv" #cvv = "ngModel" pattern="[0-9]{3,4}" required>
+                                </div>
+                            </div>
+
+                            <div  *ngIf="cvv.invalid && (cvv.dirty || cvv.touched)"
+                                  class=".col-md-3  text-danger">
+                                <div *ngIf = "cvv.errors?.required">
+                                    CVV field can't be blank
+                                </div>
+                                <div *ngIf = "cvv.errors?.pattern && cvv.touched">
+                                    CVV doesn't seem right
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        </body>
+        </html>
+
+    </div>
+
+
+
+
+</div>

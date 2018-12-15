@@ -4,6 +4,7 @@ import { AddressPageComponent } from './address-page/address-page.component';
 import { ValidationPageComponent } from './validation-page/validation-page.component';
 import { IOrder } from 'app/shared/model/order.model';
 import { OrderSharedService } from 'app/shared/service/order-shared.service';
+import { PaymentMethodsComponent } from 'app/order/payment-methods/payment-methods.component';
 
 @Component({
     selector: 'jhi-order',
@@ -18,6 +19,7 @@ export class OrderComponent implements OnInit {
     @ViewChild(AddressPageComponent) private adressComponent: AddressPageComponent;
 
     @ViewChild(ValidationPageComponent) private validationComponent: ValidationPageComponent;
+    @ViewChild(PaymentMethodsComponent) private paymentComponent: PaymentMethodsComponent;
 
     step = 1;
 
@@ -33,6 +35,9 @@ export class OrderComponent implements OnInit {
             this.step--;
         } else if (this.step === 3) {
             this.order.address = null;
+            this.step--;
+        } else if (this.step === 4) {
+            this.order.paymentMethod = null;
             this.step--;
         }
     }
@@ -59,6 +64,9 @@ export class OrderComponent implements OnInit {
                     }
                 );
             }
+        } else if (this.step === 3) {
+            this.paymentComponent.save();
+            this.step++;
         }
         console.log(this.order);
     }

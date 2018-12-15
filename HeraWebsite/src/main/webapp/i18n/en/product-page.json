@@ -1,0 +1,22 @@
+{
+    "product-page":{
+        "technical": "Technical details",
+        "sold-by":"Sold by : {{value}}",
+        "price": "Unit price : ",
+        "in-stock": "In stock : {{value}}",
+        "no-stock": "Not in stock",
+        "description": "Description",
+        "error-quantity" :  "This field should be between 0 and {{value}}",
+        "added" : "Product added to cart !",
+        "connect": "Connect yourself",
+        "comment-title":"Comments",
+        "add-comment-title":"Write a title for your comment (This helps other users to summarize what you want to say)",
+        "enter-title":"Enter your comment title please.",
+        "resume":"Tell us more about what do you think:",
+        "write-comment":"Write a comment please.",
+        "comment-length":"Your comment should be longer than {{value}} characters",
+        "post": "Post",
+        "connect-msg":"You need to log in if you want to leave a comment for this product.",
+        "written-by":"Written by {{value}}"
+    }
+}

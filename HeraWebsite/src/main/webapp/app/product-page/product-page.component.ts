@@ -11,6 +11,7 @@ import { ImageUrlService } from 'app/shared/service/imageUrl.service';
 
 import { BUCKET_NAME } from 'app/app.constants';
 import { CartCountService } from '../shared/service/cart-count.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
     selector: 'jhi-product-page',
@@ -27,6 +28,8 @@ export class ProductPageComponent implements OnInit {
     currentUser: IUser;
     accountConnected: Account;
     mainImage: SafeResourceUrl = 'content/images/placeHolder.png';
+    allImages: SafeResourceUrl[] = [];
+    idxImageToDisplay = 0;
 
     constructor(
         private route: ActivatedRoute,
@@ -36,7 +39,8 @@ export class ProductPageComponent implements OnInit {
         private imageUrlService: ImageUrlService,
         private principal: Principal,
         private userService: UserService,
-        private cartCountService: CartCountService
+        private cartCountService: CartCountService,
+        private mySnackbar: MatSnackBar
     ) {}
 
     ngOnInit() {
@@ -67,6 +71,11 @@ export class ProductPageComponent implements OnInit {
             this.userService.updateBasket(this.newItem).subscribe(response => {
                 if (response.status === 200) {
                     this.cartCountService.update(this.newItem.quantity);
+                    this.mySnackbar.open(this.newItem.quantity + ' X ' + this.product.name + ' added to cart !', null, {
+                        duration: 2500,
+                        verticalPosition: 'bottom',
+                        horizontalPosition: 'end'
+                    });
                     this.basketConfirmed = 2;
                 } else {
                     this.basketConfirmed = -1;
@@ -127,6 +136,14 @@ export class ProductPageComponent implements OnInit {
     }
 
     /**
+     * Change the main image
+     */
+    changeMainImage(idx: number) {
+        this.mainImage = this.allImages[idx];
+        this.idxImageToDisplay = idx;
+    }
+
+    /**
      * @param data The body get from the HTTP
      *
      * Bind the data get from an HTTP query to the variable product
@@ -135,15 +152,17 @@ export class ProductPageComponent implements OnInit {
         this.product = data;
         this.newItem = new BasketItem(this.id, 1);
         this.finished = true;
-
-        if (this.product.allImageUrl.length !== 0) {
-            this.imageUrlService.getOneImageFrom(BUCKET_NAME, this.product.allImageUrl[0].url).subscribe(value => {
-                this.bindUrl(value);
+        let index = 0;
+        while (index < this.product.allImageUrl.length) {
+            this.allImages.push();
+            const tmp = index;
+            this.imageUrlService.getOneImageFrom(BUCKET_NAME, this.product.allImageUrl[tmp].url).subscribe(value => {
+                this.allImages[tmp] = value;
+                if (tmp === 0) {
+                    this.mainImage = value;
+                }
             });
+            index++;
         }
-    }
-
-    private bindUrl(data: SafeResourceUrl) {
-        this.mainImage = data;
     }
 }

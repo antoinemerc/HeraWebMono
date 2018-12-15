@@ -1,0 +1,6 @@
+{
+    "catalog": {
+        "search": "Results for \"{{value}}\"",
+        "add" : "Add to cart"
+    }
+}
