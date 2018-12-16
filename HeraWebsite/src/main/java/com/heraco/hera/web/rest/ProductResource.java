@@ -154,19 +154,14 @@ public class ProductResource {
      * @param query    the query of the product search
      * @param pageable the pagination information
      * @return the result of the search
-     *//*
-        * @GetMapping("/_search/products")
-        * 
-        * @Timed public ResponseEntity<List<ProductDTO>> searchProducts(@RequestParam
-        * String query, Pageable pageable) {
-        * log.debug("REST request to search for a page of Products for query {}",
-        * query); Page<ProductDTO> page = productService.search(query, pageable);
-        * HttpHeaders headers =
-        * PaginationUtil.generateSearchPaginationHttpHeaders(query, page,
-        * "/api/_search/products"); return new ResponseEntity<>(page.getContent(),
-        * headers, HttpStatus.OK); }
-        */
-
+     */
+         @GetMapping("/_search/products")         
+         @Timed public ResponseEntity<List<ProductDTO>> searchProducts(@RequestParam String query, Pageable pageable) {
+            log.debug("REST request to search for a page of Products for query {}", query);
+            Page<ProductDTO> page = productService.findByNameIgnoreCaseContaining(query, pageable);
+            HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/products"); 
+            return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK); }
+        
     /**
      * SEARCH /_search/products?query=:query : search for the product corresponding
      * to the query.
@@ -181,24 +176,6 @@ public class ProductResource {
             Pageable pageable) {
         log.debug("REST request to search for a page of Products for query {}", categories);
         Page<ProductDTO> page = productService.findCategory(categories, pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/products");
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
-    }
-
-    /**
-     * SEARCH /products/search/{name} : search for the product corresponding to the
-     * name.
-     *
-     * @param query    the query of the product search
-     * @param pageable the pagination information
-     * @return the result of the search
-     */
-    @GetMapping("/products/search/{name}")
-    @Timed
-    public ResponseEntity<List<ProductDTO>> getProductsByNameIgnoreCaseContaining(@PathVariable String name,
-            Pageable pageable) {
-        log.debug("REST request to search for a page of Products for query {}", name);
-        Page<ProductDTO> page = productService.findByNameIgnoreCaseContaining(name, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/products");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }

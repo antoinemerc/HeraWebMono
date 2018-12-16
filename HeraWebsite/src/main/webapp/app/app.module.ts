@@ -33,8 +33,8 @@ import { McBreadcrumbsModule } from 'ngx-breadcrumbs';
 import { ProductPageModule } from './product-page/product-page.module';
 import { MyCartModule } from './my-cart/my-cart.module';
 import { OrderModule } from './order/order.module';
-import { OrderDetailModule } from './order-detail/order-detail.module';
 import { BreadcrumbModule } from 'app/shared/breadcrumb/breadcrumb.module';
+import { OrderPageModule } from './order-page/order-page.module';
 
 @NgModule({
     imports: [
@@ -50,8 +50,8 @@ import { BreadcrumbModule } from 'app/shared/breadcrumb/breadcrumb.module';
         ProductPageModule,
         MyCartModule,
         OrderModule,
-        OrderDetailModule,
-        BreadcrumbModule
+        BreadcrumbModule,
+        OrderPageModule
         // jhipster-needle-angular-add-module JHipster will add new module here
     ],
     declarations: [
