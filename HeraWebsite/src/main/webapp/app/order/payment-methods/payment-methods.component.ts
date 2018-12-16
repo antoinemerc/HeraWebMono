@@ -20,7 +20,7 @@ export class PaymentMethodsComponent implements OnInit, OnChanges {
     mainImage4: SafeResourceUrl = 'content/images/money.png';
     public show: boolean = false;
     public buttonName: any = 'payy';
-    private card = new Card(null, null);
+    public card = new Card(null, null);
 
     constructor(private principal: Principal, private router: Router, private location: Location) {}
 
