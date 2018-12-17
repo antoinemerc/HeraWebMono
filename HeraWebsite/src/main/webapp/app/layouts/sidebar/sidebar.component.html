@@ -1,6 +1,12 @@
 <div class="sidenav">
-    <a href="#">About</a>
-    <a href="#">Services</a>
-    <a href="#">Clients</a>
-    <a href="#">Contact</a>
-  </div>
+  <div>
+    <p class="text">Category List</p>
+    <div class="row text" *ngFor="let category of allCategories">
+      <div class="form-check col-10 offset-2">
+          <input class="form-check-input position-static" type="checkbox" [checked]="category.id == incomingCat" (change)="onCheckboxChange(category.id,$event)">
+          <label class="form-check-label" for="blankCheckbox">{{category.name}}</label>
+      </div>
+      
+    </div>
+  </ul>
+</div>

@@ -17,6 +17,7 @@ export class ProductService {
     private resourceUrl = SERVER_API_URL + 'api/products';
     private resourceUrlCategory = SERVER_API_URL + 'api/products/category';
     private resourceUrlSearchName = SERVER_API_URL + 'api/_search/products?query=';
+    private resourceUrlSearchCategory = SERVER_API_URL + 'api/_search/products?query=';
     private resourceUrlBasket = SERVER_API_URL + 'api/products/basket';
     private resourceUrlOrder = SERVER_API_URL + 'api/products/updateByOrder';
     private resourceSearchUrl = SERVER_API_URL + 'api/_search/products';
@@ -63,5 +64,9 @@ export class ProductService {
 
     queryLikeName(likeName: string): Observable<EntityArrayResponseType> {
         return this.http.get<IProduct[]>(`${this.resourceUrlSearchName}${likeName}`, { observe: 'response' });
+    }
+
+    queryMultipleCategory(categoryId: string[]): Observable<EntityArrayResponseType> {
+        return this.http.get<IProduct[]>(`${this.resourceUrlCategory}/${categoryId}`, { observe: 'response' });
     }
 }

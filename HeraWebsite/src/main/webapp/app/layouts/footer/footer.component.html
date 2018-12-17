@@ -1,5 +1,5 @@
 <div class="footer">
-    <p jhiTranslate="footer">Ecom project 2018</p>
+    <div jhiTranslate="footer">Ecom project 2018</div>
     <ul class="languageList">
         <li class="languageItem" *ngFor="let language of languages">
             <a style="padding-right: 15px;" [jhiActiveMenu]="language" href="javascript:void(0);" (click)="changeLanguage(language);">{{language | findLanguageFromKey}}</a>

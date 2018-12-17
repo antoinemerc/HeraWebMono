@@ -27,7 +27,8 @@ import {
     PageRibbonComponent,
     ActiveMenuDirective,
     ErrorComponent,
-    BreadcrumbCustomComponent
+    BreadcrumbCustomComponent,
+    SidebarComponent
 } from './layouts';
 import { McBreadcrumbsModule } from 'ngx-breadcrumbs';
 import { ProductPageModule } from './product-page/product-page.module';
@@ -61,7 +62,8 @@ import { OrderPageModule } from './order-page/order-page.module';
         BreadcrumbCustomComponent,
         PageRibbonComponent,
         ActiveMenuDirective,
-        FooterComponent
+        FooterComponent,
+        SidebarComponent
     ],
     providers: [
         {

@@ -18,7 +18,6 @@
     top: 0px;
     right: 8px;
     text-align: center;
-    line-height: 22px;
     font-weight: bold;
     cursor: pointer;
 }
@@ -51,7 +50,7 @@
     bottom: -30px;
     left: 0;
     z-index: 1;
-    background: #888888;
+    background: #d4af37;
     color: #fff;
 }
 
@@ -83,8 +82,8 @@ Navbar
 }
 
 .jh-navbar {
-    background-color: #ff3e33;
-    padding: 0em 1em;
+    background-color: rgb(39, 38, 38);
+    padding: 0em 0em;
     font-size: 1.1em;
     color: white;
     .profile-image {
@@ -102,7 +101,7 @@ Navbar
         margin-left: 0.15em;
     }
     ul.navbar-nav {
-        padding: 0.5em;
+        padding: 0em;
         .nav-item {
             margin-left: 1.5rem;
         }
