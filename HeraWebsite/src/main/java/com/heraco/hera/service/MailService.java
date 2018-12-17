@@ -22,6 +22,16 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring5.SpringTemplateEngine;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.tool.xml.XMLWorkerHelper;
+import java.io.InputStream;
+import org.springframework.core.io.InputStreamSource;
+import org.springframework.core.io.ByteArrayResource;
+import javax.mail.util.ByteArrayDataSource;
 
 /**
  * Service for sending emails.
@@ -46,7 +56,7 @@ public class MailService {
     private final SpringTemplateEngine templateEngine;
 
     private ProductService productService;
-    
+
 
     public MailService(JHipsterProperties jHipsterProperties, JavaMailSender javaMailSender,
             MessageSource messageSource, SpringTemplateEngine templateEngine, ProductService p) {
@@ -71,6 +81,53 @@ public class MailService {
             message.setFrom(jHipsterProperties.getMail().getFrom());
             message.setSubject(subject);
             message.setText(content, isHtml);
+            javaMailSender.send(mimeMessage);
+            log.debug("Sent email to User '{}'", to);
+        } catch (Exception e) {
+            if (log.isDebugEnabled()) {
+                log.warn("Email could not be sent to user '{}'", to, e);
+            } else {
+                log.warn("Email could not be sent to user '{}': {}", to, e.getMessage());
+            }
+        }
+    }
+
+    private byte[] createPDF(String content){
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        try {
+            Document document = new Document();
+            PdfWriter writer = PdfWriter.getInstance(document, baos);
+            document.open();
+            InputStream is = new ByteArrayInputStream(content.getBytes(StandardCharsets.UTF_8));
+            XMLWorkerHelper.getInstance().parseXHtml(writer, document, is, StandardCharsets.UTF_8);
+            document.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return baos.toByteArray();
+    }
+
+    @Async
+    public void sendEmailWithOrderAttachment(String to, String subject, String content, boolean isMultipart, boolean isHtml, String name, byte [] attachment) {
+        log.debug("Send email[multipart '{}' and html '{}'] to '{}' with subject '{}' and content={}",
+            isMultipart, isHtml, to, subject, content);
+
+        // Prepare message using a Spring helper
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        try {
+            MimeMessageHelper message = new MimeMessageHelper(mimeMessage, isMultipart, StandardCharsets.UTF_8.name());
+            message.setTo(to);
+            message.setFrom(jHipsterProperties.getMail().getFrom());
+            message.setSubject(subject);
+            message.setText(content, isHtml);
+
+
+            //Create and send the Pdf
+            final InputStreamSource attachmentSource = new ByteArrayResource(attachment);
+                ByteArrayDataSource dataSource = new ByteArrayDataSource(attachment, "application/pdf");
+                message.addAttachment(name, dataSource);
+
+
             javaMailSender.send(mimeMessage);
             log.debug("Sent email to User '{}'", to);
         } catch (Exception e) {
@@ -123,7 +180,8 @@ public class MailService {
         context.setVariable(BASE_URL, jHipsterProperties.getMail().getBaseUrl());
         String content = templateEngine.process(templateName, context);
         String subject = messageSource.getMessage(titleKey, null, locale);
-        sendEmail(order.getUser().getEmail(), subject, content, false, true);
+        //sendEmail(order.getUser().getEmail(), subject, content, false, true);
+        sendEmailWithOrderAttachment(order.getUser().getEmail(), subject, content, true, true,"Order_"+order.getId()+".pdf", createPDF(content));
     }
 
     public List<ProductDTO> buildProductList(OrderDTO order){

@@ -14,7 +14,6 @@ import com.heraco.hera.web.rest.errors.EmailAlreadyUsedException;
 import com.heraco.hera.web.rest.errors.LoginAlreadyUsedException;
 import com.heraco.hera.web.rest.util.HeaderUtil;
 import com.heraco.hera.web.rest.util.PaginationUtil;
-import com.sun.org.apache.bcel.internal.util.SecuritySupport;
 import com.codahale.metrics.annotation.Timed;
 import io.github.jhipster.web.util.ResponseUtil;
 
@@ -32,8 +31,6 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 /**
  * REST controller for managing users.
