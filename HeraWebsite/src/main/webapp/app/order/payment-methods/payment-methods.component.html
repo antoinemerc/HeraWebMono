@@ -1,5 +1,5 @@
 <div>
-    <h5 class="title"> Select your method of payment </h5>
+    <h5 class="title" jhiTranslate="order-trad.payment-title"> Select your method of payment </h5>
 
     <div class="radio">
         <label>
@@ -21,13 +21,6 @@
     </div>
 
     <div *ngIf="show">
-        <html>
-        <head>
-            <title>Credit Card</title>
-
-            <!-- Styles -->
-        </head>
-
         <body>
         <form class="credit-card" (ngSubmit)="onFormSubmit(signupForm)" #signupForm="ngForm">
             <div class="form-header">
@@ -113,9 +106,6 @@
                     </div>
                 </div>
         </form>
-        </body>
-        </html>
-
     </div>
 
 

@@ -12,6 +12,8 @@
         "total": "Total",
         "noStock": "La quantité désirée pour ce produit n'est pas disponible.",
         "errorQuantity":"Un ou plusieurs produits ne sont pas disponibles en quantité suffisante dans nos stocks.",
-        "initiate": "Procéder au paiement"
+        "initiate": "Procéder au paiement",
+        "modify": "Modifier quantité",
+        "update-message": "Quantité mise à jour !"
     }
 }

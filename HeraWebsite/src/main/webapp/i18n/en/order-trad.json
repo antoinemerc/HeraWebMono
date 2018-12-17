@@ -15,6 +15,43 @@
         "logMsg": "You need to be logged in order to access to your orders.",
         "connect": "Connect",
         "noOrder": "No orders to display !",
-        "seeDetail": "See details"
+        "seeDetail": "See details",
+
+        "title-payment": "Your order :",
+        "previous-step": "Previous step",
+        "next-step": "Next step",
+        "transportation-title":"Select your transportation method",
+        "address-title":"Choose the address where your order must be delivered",
+        "new-address":"Use a new address",
+        "street1":"Street 1",
+        "street2":"Street 2",
+        "zip-code":"Zip code",
+        "city":"City",
+        "country":"Country",
+        "street-required":"Street is required.",
+        "zip-code-required":"Zip code is required.",
+        "city-required":"City is required.",
+        "country-required":"Country is required.",
+        "confirmation" : "Confirmation",
+        "remember":"Do you want to remember this address for the future ?",
+        "proceed-without": "Proceed without saving",
+        "proceed-save": "Save and proceed<",
+        "cancel": "Cancel",
+        "payment-title":"Select your method of payment",
+        "pay-transporter":"Pay the transporter",
+        "credit-card": "Credit card",
+
+        "order-progress":"Order in progress",
+        "delivery-method":"Delivery method",
+        "delivery-address":"Delivery address",
+        "payment-method":"Payment method",
+        "to-be-selected":"To be selected",
+
+        "validation-title":"Recap of the order",
+        "date-c":"Date : {{value}}",
+        "send-to":"Send to : {{value}}",
+        "transportation-method": "Transportation method : {{value}}",
+        "pass-command" : "Pass command"
+
     }
 }

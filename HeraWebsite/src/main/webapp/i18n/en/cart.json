@@ -12,7 +12,9 @@
         "total": "Total",
         "noStock": "The product is no more available in our stocks, please change the quantity or delete de product to proceed.",
         "errorQuantity":"One or multiple products are not available in our stocks, please change the quantity or delete them to proceed the checkout.",
-        "initiate": "Initiate the order"
+        "initiate": "Initiate the order",
+        "modify": "Modify quantity",
+        "update-message": "Quantity updated !"
 
 
     }

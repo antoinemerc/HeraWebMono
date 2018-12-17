@@ -1,8 +1,7 @@
 <div>
-    <h5 class="title"> Select your method of transportation </h5>
+    <h5 class="title" jhiTranslate="order-trad.transportation-title"> Select your method of transportation </h5>
     <div *ngFor="let transport of transportMethods; let i = index;">
         <input type="radio" id="{{transport.name}}"  [checked]="idx === i" (change)="onTransportSelectionChange(i)" name="transport" value={{i}} >
         <label for="{{transport.name}}">{{transport.name}} (fix cost : {{transport.fixCost}})</label>
     </div>
 </div>
-

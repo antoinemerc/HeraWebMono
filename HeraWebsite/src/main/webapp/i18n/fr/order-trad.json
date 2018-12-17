@@ -15,7 +15,44 @@
         "logMsg": "Vous devez être connecté pour voir vos commandes.",
         "connect": "Connexion",
         "noOrder": "Pas de commandes à afficher !",
-        "seeDetail": "Voir details"
+        "seeDetail": "Voir details",
+
+        "title-payment": "Votre commande :",
+        "previous-step": "Etape précédente",
+        "next-step": "Etape suivante",
+        "transportation-title":"Choisissez votre méthode d'acheminement",
+        "address-title":"Choisissez l'adresse où votre commande doit être livrée",
+        "new-address":"Utiliser une nouvelle addresse",
+        "street1":"Adresse principale",
+        "street2":"Complément d'adresse",
+        "zip-code":"Code postal",
+        "city":"Ville",
+        "country":"Pays",
+        "street-required":"L'adresse principale doit être renseignée.",
+        "zip-code-required":"Le code postal doit être renseigné.",
+        "city-required":"La ville doit être renseignée.",
+        "country-required":"Le pays doit être renseigné.",
+        "confirmation" : "Confirmation",
+        "remember":"Voulez-vous ajouter cette adresse à votre liste ?",
+        "proceed-without": "Continuer sans sauvegarder",
+        "proceed-save": "Sauvegarder et continuer",
+        "cancel": "Annuler",
+        "payment-title":"Choisissez votre moyen de paiement",
+        "pay-transporter":"Payer au moment de la livraison",
+        "credit-card": "Carte de crédit",
+
+        "order-progress":"Commande en cours",
+        "delivery-method":"Méthode d'acheminement",
+        "delivery-address":"Adresse de livraison",
+        "payment-method":"Moyen de paiement",
+        "to-be-selected":"Pas encore choisi",
+
+        "validation-title":"Récapitulatif de la commande",
+        "date-c":"Date : {{value}}",
+        "send-to":"Envoyer à : {{value}}",
+        "at":"Au : {{value}}",
+        "transportation-method": "Méthode de transport : {{value}}",
+        "pass-command" : "Passer la commande"
 
     }
 }

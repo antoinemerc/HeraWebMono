@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 import { ChangeDetectorRef } from '@angular/core';
 import { IBasketItem } from '../../shared/model/basket_item.model';
 import { CartCountService } from '../../shared/service/cart-count.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'jhi-my-cart-list',
@@ -33,7 +35,9 @@ export class MyCartListComponent implements OnInit, AfterViewChecked {
         private orderSharedService: OrderSharedService,
         private userService: UserService,
         private cdRef: ChangeDetectorRef,
-        private cartCountService: CartCountService
+        private cartCountService: CartCountService,
+        private mysnack: MatSnackBar,
+        private translateService: TranslateService
     ) {}
 
     ngAfterViewChecked() {
@@ -105,7 +109,13 @@ export class MyCartListComponent implements OnInit, AfterViewChecked {
         this.modifiedItem[idx] = false;
         this.basket[idx].quantity = this.quantities[idx] - this.basket[idx].quantity;
         this.cartCountService.update(this.basket[idx].quantity);
-        this.userService.updateBasket(this.basket[idx]).subscribe();
+        this.userService.updateBasket(this.basket[idx]).subscribe(res =>
+            this.mysnack.open(this.translateService.instant('cart.update-message'), null, {
+                duration: 2500,
+                verticalPosition: 'bottom',
+                horizontalPosition: 'end'
+            })
+        );
         this.basket[idx].quantity = this.quantities[idx];
         this.verifyAllStock();
         this.getTotalCost();

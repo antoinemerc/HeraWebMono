@@ -17,6 +17,7 @@
         "comment-length":"Your comment should be longer than {{value}} characters",
         "post": "Post",
         "connect-msg":"You need to log in if you want to leave a comment for this product.",
-        "written-by":"Written by {{value}}"
+        "written-by":"Written by {{value}}",
+        "add-to-cart": " added to cart !"   
     }
 }

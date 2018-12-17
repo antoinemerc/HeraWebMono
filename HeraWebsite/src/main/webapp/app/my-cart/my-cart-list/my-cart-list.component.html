@@ -17,8 +17,8 @@
       <td>
         <div class="row">
           <input type="number" (keypress)="preventKeyboard($event)" class="form-control col-2 spacingButton" value="{{ item.quantity }}" [(ngModel)]="this.quantities[i]" (change)="updateQuantity(i)" min="1" max="{{this.cartProducts[i].quantity}}"/>
-          <button class="btn btn-primary col-4" *ngIf="this.modifiedItem[i] && !quantityModified(i)" (click)="buttonUpdate(i)">Modify quantity</button>
-          <span class="col-4 paddingFix" *ngIf="!(this.modifiedItem[i] && !quantityModified(i))">Modify quantity</span>
+          <button class="btn btn-primary col-4" *ngIf="this.modifiedItem[i] && !quantityModified(i)" (click)="buttonUpdate(i)" jhiTranslate="cart.modify">Modify quantity</button>
+          <span class="col-4 paddingFix" *ngIf="!(this.modifiedItem[i] && !quantityModified(i))" jhiTranslate="cart.modify">Modify quantity</span>
           <button class="btn btn-danger col-2" (click)="removeFromBasket(i)">X</button>
         </div>
       </td>
@@ -34,7 +34,7 @@
       <td colspan="3" jhiTranslate="cart.total">Total</td>
       <td>{{ this.totalCost }} EUR</td>
     </tr>
-    
+
     <tr>
         <td colspan="3"></td>
         <td>
@@ -45,4 +45,3 @@
 </table>
 <div class="row justify-content-end">
 </div>
-

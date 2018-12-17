@@ -17,6 +17,7 @@
         "comment-length":"Votre commentaire doit contenir au moins {{value}} caractères.",
         "post": "Poster",
         "connect-msg":"Connectez-vous pour laisser un commentaire sur le produit.",
-        "written-by":"Ecrit par {{value}}"     
+        "written-by":"Ecrit par {{value}}",
+        "add-to-cart": " ajouté au panier !"   
     }
 }

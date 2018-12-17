@@ -13,9 +13,10 @@ import { OrderSummaryComponent } from './order-summary/order-summary.component';
 import { PaymentComponent } from './payment/payment.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { PaymentMethodsComponent } from 'app/order/payment-methods/payment-methods.component';
+import { HeraShopSharedModule } from 'app/shared';
 
 @NgModule({
-    imports: [CommonModule, RouterModule.forChild(ORDER_ROUTE), FormsModule, MatProgressSpinnerModule],
+    imports: [CommonModule, RouterModule.forChild(ORDER_ROUTE), FormsModule, MatProgressSpinnerModule, HeraShopSharedModule],
     declarations: [
         OrderComponent,
         AddressPageComponent,

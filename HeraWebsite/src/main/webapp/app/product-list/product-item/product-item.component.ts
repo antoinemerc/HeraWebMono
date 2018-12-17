@@ -7,6 +7,7 @@ import { BasketItem, IBasketItem } from 'app/shared/model/basket_item.model';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { CartCountService } from '../../shared/service/cart-count.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'jhi-product-item',
@@ -28,7 +29,8 @@ export class ProductItemComponent implements OnInit {
         private userService: UserService,
         private principal: Principal,
         private cartCountService: CartCountService,
-        private mysnack: MatSnackBar
+        private mysnack: MatSnackBar,
+        private translateService: TranslateService
     ) {}
 
     ngOnInit() {
@@ -62,7 +64,7 @@ export class ProductItemComponent implements OnInit {
                 if (response.status === 200) {
                     this.cartCountService.update(1);
                     this.requestStatus = 1;
-                    this.mysnack.open(this.product.name + ' add to cart !', null, {
+                    this.mysnack.open(this.product.name + this.translateService.instant('product-page.add-to-cart'), null, {
                         duration: 2500,
                         verticalPosition: 'bottom',
                         horizontalPosition: 'end'
