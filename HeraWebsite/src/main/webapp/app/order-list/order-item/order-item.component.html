@@ -1,18 +1,18 @@
 <div class="card" style="margin-bottom : 10px ;">
-    <a [routerLink]="['/detailedOrder', order.id]" class="card-header">Order id : {{order.id}}</a>
+    <a [routerLink]="['/orders', order.id]" class="card-header">Order id : {{order.id}}</a>
     <div class="card-body">
-        <p class="card-text" jhiTranslate="order-trad.date" translateValues="{date: '{{order.date}}'}">Ordered the : {{order.date}}</p>
-        <p class="card-text" jhiTranslate="order-trad.deliver" translateValues="{value: '{{order.user.lastName}} {{order.user.firstName}} ({{order.user.login}})'}">Deliver to : {{order.user.lastName}} {{order.user.firstName}} ({{order.user.login}})</p>
-        <p class="card-text" jhiTranslate="order-trad.at" translateValues="{value: '{{order.address.street1}} {{order.address.street2}} {{order.address.city}} {{order.address.zipCode}} {{order.address.country}}'}">At : {{order.address.street1}} {{order.address.street2}} {{order.address.city}} {{order.address.zipCode}} {{order.address.country}}</p>
-        <p class="card-text" jhiTranslate="order-trad.by" translateValues="{value: '{{order.transportationMethod.name}}'}">By : {{order.transportationMethod.name}}</p>
+        <p class="card-text">Ordered the : {{order.date}}</p>
+        <p class="card-text">Deliver to : {{order.user.lastName}} {{order.user.firstName}} ({{order.user.login}})</p>
+        <p class="card-text">At : {{order.address.street1}} {{order.address.street2}} {{order.address.city}} {{order.address.zipCode}} {{order.address.country}}</p>
+        <p class="card-text">By : {{order.transportationMethod.name}}</p>
         <p class="card-text">Status : {{order.state}}</p>
         <table class="table">
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col"  jhiTranslate="order-trad.product">Product</th>
-                    <th scope="col"  jhiTranslate="order-trad.quantity">Quantity</th>
-                    <th scope="col"  jhiTranslate="order-trad.unit">Price per unit</th>
-                    <th scope="col"  jhiTranslate="order-trad.total">Total</th>
+                    <th scope="col"  >Product</th>
+                    <th scope="col" >Quantity</th>
+                    <th scope="col" >Price per unit</th>
+                    <th scope="col"  >Total</th>
                 </tr>
             <tbody>
                 <tr *ngFor="let item of order.orderLine;let i = index; ">
@@ -28,11 +28,11 @@
                     <td>{{ this.products[i].price * item.quantity }}</td>
                 </tr>
                 <tr class="separator">
-                    <td colspan="3"  jhiTranslate="order-trad.total">Total</td>
+                    <td colspan="3">Total</td>
                     <td>{{ order.totalPrice }} EUR</td>
                 </tr>
             </tbody>
         </table>
-        <a [routerLink]="['/detailedOrder', order.id]" class="btn btn-primary" style="float:right" jhiTranslate="order-trad.seeDetail">See detail</a>
+        <a [routerLink]="['/orders', order.id]" class="btn btn-primary" style="float:right" >See detail</a>
     </div>
 </div>

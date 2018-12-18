@@ -71,7 +71,6 @@ export class OrderComponent implements OnInit {
             if (this.paymentComponent.save() === false) {
                 alert('You need to validate Correct Information');
             } else {
-                alert(this.order.paymentMethod);
                 this.step++;
             }
         }

@@ -1,24 +1,24 @@
 <table class="table">
   <thead class="thead-dark">
     <tr>
-      <th scope="col" jhiTranslate="cart.product">Product</th>
-      <th scope="col" jhiTranslate="cart.quantity">Quantity</th>
-      <th scope="col" jhiTranslate="cart.unit">Price per unit</th>
-      <th scope="col" jhiTranslate="cart.total">Total</th>
+      <th scope="col" >Product</th>
+      <th scope="col" >Quantity</th>
+      <th scope="col" >Price per unit</th>
+      <th scope="col">Total</th>
     </tr>
   <tbody>
     <tr *ngFor="let item of this.basket;let i = index; ">
       <td>
         <a class="alert-link" [routerLink]="['/displayProduct', item.prod]">{{ this.getInfoProduct( item.prod ).name }}</a>
-        <div *ngIf="!this.verifyStock( item )" class="alert alert-warning" jhiTranslate="cart.noStock">
+        <div *ngIf="!this.verifyStock( item )" class="alert alert-warning" >
           The product is no more available in our stocks, please change the quantity or delete de product to proceed.
         </div>
       </td>
       <td>
         <div class="row">
           <input type="number" (keypress)="preventKeyboard($event)" class="form-control col-2 spacingButton" value="{{ item.quantity }}" [(ngModel)]="this.quantities[i]" (change)="updateQuantity(i)" min="1" max="{{this.cartProducts[i].quantity}}"/>
-          <button class="btn btn-primary col-4" *ngIf="this.modifiedItem[i] && !quantityModified(i)" (click)="buttonUpdate(i)" jhiTranslate="cart.modify">Modify quantity</button>
-          <span class="col-4 paddingFix" *ngIf="!(this.modifiedItem[i] && !quantityModified(i))" jhiTranslate="cart.modify">Modify quantity</span>
+          <button class="btn btn-primary col-4" *ngIf="this.modifiedItem[i] && !quantityModified(i)" (click)="buttonUpdate(i)" >Modify quantity</button>
+          <span class="col-4 paddingFix" *ngIf="!(this.modifiedItem[i] && !quantityModified(i))">Modify quantity</span>
           <button class="btn btn-danger col-2" (click)="removeFromBasket(i)">X</button>
         </div>
       </td>
@@ -26,19 +26,19 @@
       <td>{{ this.getInfoProduct( item.prod ).price * item.quantity }}</td>
     </tr>
     <tr *ngIf="this.stockErrors" class="alert alert-warning">
-        <td colspan="4" jhiTranslate="cart.errorQuantity">
+        <td colspan="4" >
             One or multiple products are not available in our stocks, please change the quantity or delete them to proceed the checkout.
         </td>
     </tr>
     <tr class="separator">
-      <td colspan="3" jhiTranslate="cart.total">Total</td>
+      <td colspan="3" >Total</td>
       <td>{{ this.totalCost }} EUR</td>
     </tr>
 
     <tr>
         <td colspan="3"></td>
         <td>
-          <button [disabled]="this.stockErrors" (click)="pay()" class="btn btn-primary" jhiTranslate="cart.initiate">Initiate the order</button>
+          <button [disabled]="this.stockErrors" (click)="pay()" class="btn btn-primary" >Initiate the order</button>
         </td>
     </tr>
   </tbody>

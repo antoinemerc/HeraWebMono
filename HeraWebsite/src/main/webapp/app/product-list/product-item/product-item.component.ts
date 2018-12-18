@@ -64,7 +64,7 @@ export class ProductItemComponent implements OnInit {
                 if (response.status === 200) {
                     this.cartCountService.update(1);
                     this.requestStatus = 1;
-                    this.mysnack.open(this.product.name + this.translateService.instant('product-page.add-to-cart'), null, {
+                    this.mysnack.open(this.product.name + ' added to cart !', null, {
                         duration: 2500,
                         verticalPosition: 'bottom',
                         horizontalPosition: 'end'
