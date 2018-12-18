@@ -1,31 +1,35 @@
-<h2 class="mt-5" style="margin-bottom: 10px;" jhiTranslate="product-page.comment-title">Comments</h2>
+<h2 class="mt-5" style="margin-bottom: 10px;">Comments</h2>
 <div [ngSwitch]="this.principal.isAuthenticated()">
     <div *ngSwitchCase="true">
-        <form (submit)="addComment($event)" class="mb-4">
+        <form (submit)="addComment($event)" class="mb-4 col-6">
             <div class="form-group">
-                <label for="commentTitle" jhiTranslate="product-page.add-comment-title">Write a title for your comment (This helps other users to summarize what
-                    you want to say)</label>
+                <label for="commentTitle">
+                    Write a title for your comment (This helps other users to summarize what
+                    you want to say)
+                </label>
                 <input required ngModel class="form-control" name="commentTitle" #commentTitle="ngModel" id="commentTitle"
                     type="text" [(ngModel)]="title">
-                <div class="alert alert-danger" *ngIf="commentTitle.touched && !commentTitle.valid" jhiTranslate="product-page.enter-title">
+                <div class="alert alert-danger" *ngIf="commentTitle.touched && !commentTitle.valid">
                     Enter your comment title please.
                 </div>
             </div>
             <div class="form-group">
-                <label for="commentBody" jhiTranslate="product-page.resume">Tell us more about what do you think:</label>
+                <label for="commentBody">Tell us more about what do you think:</label>
                 <textarea required minlength="25" maxlength="250" ngModel #commentBody="ngModel" class="form-control"
                     name="commentBody" id="commentBody" cols="30" rows="10" [(ngModel)]="body"></textarea>
                 <div class="alert alert-danger" *ngIf="commentBody.touched && !commentBody.valid">
-                    <div *ngIf="commentBody.errors.required" jhiTranslate="product-page.write-comment">Write a comment please.</div>
-                    <div *ngIf="commentBody.errors.minlength" jhiTranslate="product-page.comment-length" translateValues="{value: '{{commentBody.errors.minlength.requiredLength}}'}">Your comment should be longer than
-                        {{commentBody.errors.minlength.requiredLength}} characters</div>
+                    <div *ngIf="commentBody.errors.required">Write a comment please.</div>
+                    <div *ngIf="commentBody.errors.minlength">
+                        Your comment should be longer than
+                        {{commentBody.errors.minlength.requiredLength}} characters
+                    </div>
                 </div>
             </div>
-            <button class="btn btn-primary" jhiTranslate="product-page.post">Send</button>
+            <button class="btn btn-primary btn-add-comment">Send</button>
         </form>
 
     </div>
-    <div style="margin-bottom: 20px;" *ngSwitchCase="false" jhiTranslate="product-page.connect-msg">
+    <div style="margin-bottom: 20px;" *ngSwitchCase="false">
         You need to log in if you want to leave a comment for this product.
     </div>
 </div>
@@ -37,6 +41,6 @@
         <p class="card-text">{{comment.body}}</p>
     </div>
     <div class="card-footer">
-        <p style="float:right;" jhiTranslate="product-page.written-by" translateValues="{value: '{{comment.user.login}}'}">Comment by {{comment.user.login}}</p>
+        <p style="float:right;">Comment by {{comment.user.login}}</p>
     </div>
 </div>

@@ -8,7 +8,7 @@ import { ProductService } from 'app/shared/service/product.service';
 @Component({
     selector: 'jhi-comment',
     templateUrl: './all-comment.component.html',
-    styles: ['all-comment.scss']
+    styleUrls: ['all-comment.scss']
 })
 export class AllCommentComponent implements OnInit {
     allComments: IComments[];
