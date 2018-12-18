@@ -69,8 +69,7 @@ public interface ProductService {
 
     public Page<ProductDTO> findByNameIgnoreCaseContaining(String name, Pageable pageable);
 
-    public Page<ProductDTO> findByPriceBetweenAndNameAndCategories(double from, double to, String name,  List<String> categories, Pageable pageable);
+    public Page<ProductDTO> findByCategoriesInAndNameIgnoreCaseContainingAndPriceBetween(List<String> categories, String name, double from, double to, Pageable pageable);
 
-    public Page<ProductDTO> findByPriceBetweenAndNameIgnoreCaseContainingAndCategoriesIn(double from, double to, String name, List<String> categories, Pageable pageable);
 
 }

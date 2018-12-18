@@ -36,6 +36,7 @@ import { MyCartModule } from './my-cart/my-cart.module';
 import { OrderModule } from './order/order.module';
 import { BreadcrumbModule } from 'app/shared/breadcrumb/breadcrumb.module';
 import { OrderPageModule } from './order-page/order-page.module';
+import { Ng5SliderModule } from 'ng5-slider';
 
 @NgModule({
     imports: [
@@ -52,7 +53,8 @@ import { OrderPageModule } from './order-page/order-page.module';
         MyCartModule,
         OrderModule,
         BreadcrumbModule,
-        OrderPageModule
+        OrderPageModule,
+        Ng5SliderModule
         // jhipster-needle-angular-add-module JHipster will add new module here
     ],
     declarations: [

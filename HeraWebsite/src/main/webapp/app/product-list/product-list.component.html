@@ -1,13 +1,11 @@
 <jhi-breadcrumb [breads]="['Home']"></jhi-breadcrumb>
 
-<div class="row" *ngIf="category == true && currentCategory != undefined">
-    <h2 class="col-12" style="margin-bottom: 15px">Category: {{currentCategory.name}}</h2>
+<div class="row">
+    <div>
+        <h2 class="col-12" style="margin-bottom: 15px">{{pageTitle}}</h2>
+        <h4 class="col-12" *ngIf="searchComplex !== null"> {{searchComplex}}</h4>
+    </div>
 </div>
-
-<div class="row" *ngIf="category == false && productSearchName != undefined">
-    <h2 class="col-12" style="margin-bottom: 15px" jhiTranslate="catalog.search" translateValues="{value: '{{productSearchName}}'}">Search corresponding to "{{productSearchName}}"</h2>
-</div>
-
 
 <div class="row">
     <jhi-product-item    class="col-3" *ngFor="let product of allProducts" style="margin-bottom: 45px"

@@ -98,11 +98,11 @@ export class NavbarComponent implements OnInit {
     }
 
     navigateSearch() {
-        this.router.navigate(['displaySearch', this.searchField]);
+        this.router.navigate(['displayProducts', 'search=' + this.searchField]);
     }
 
     categorySelect(categoryId: string) {
         this.isNavbarCollapsed = true;
-        this.router.navigate(['displayCategory', categoryId]);
+        this.router.navigate(['displayProducts', 'category=' + categoryId]);
     }
 }

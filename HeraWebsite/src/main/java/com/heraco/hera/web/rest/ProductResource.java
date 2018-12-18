@@ -175,15 +175,16 @@ public class ProductResource {
      */
     @GetMapping("/_search/products/filter")         
     @Timed public ResponseEntity<List<ProductDTO>> searchProductsPrice(@RequestParam Map<String,String> requestParams, Pageable pageable) {
+        String query = requestParams.get("category")+requestParams.get("from")+requestParams.get("to")+requestParams.get("category");
         Double from = Double.parseDouble(requestParams.get("from"));
         Double to = Double.parseDouble(requestParams.get("to"));
         String name = requestParams.get("name");
         String categoriesStr = requestParams.get("category");
-        String[] allCategories = categoriesStr.split("|");
+        String[] allCategories = categoriesStr.split("_");
         List<String> categories = Arrays.asList(allCategories);
         //log.debug("REST request to search for a page of Products for query {}", query);
-        Page<ProductDTO> page = productService.findByPriceBetweenAndNameIgnoreCaseContainingAndCategoriesIn(from, to, name, categories, pageable);
-        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(requestParams.get("from")+requestParams.get("to")+requestParams.get("name")+requestParams.get("category"), page, "/api/_search/products"); 
+        Page<ProductDTO> page = productService.findByCategoriesInAndNameIgnoreCaseContainingAndPriceBetween(categories, name, from, to, pageable);/**/
+        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/products/filter"); 
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK); 
     }
 

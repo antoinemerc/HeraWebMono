@@ -1,12 +1,31 @@
 <div class="sidenav">
-  <div>
-    <p class="text">Category List</p>
-    <div class="row text" *ngFor="let category of allCategories">
-      <div class="form-check col-10 offset-2">
-          <input class="form-check-input position-static" type="checkbox" [checked]="category.id == incomingCat" (change)="onCheckboxChange(category.id,$event)">
-          <label class="form-check-label" for="blankCheckbox">{{category.name}}</label>
-      </div>
-      
+  <div class="row">
+    <h4 class="text col-12">Available Filters</h4>
+  </div>
+  <div class="row paddingElement"></div>
+  <div class="row">
+    <p class="text col-12">Category List</p>
+  </div>
+  <div class="row text" *ngFor="let category of allCategories">
+    <div class="form-check col-10 offset-2">
+      <input class="form-check-input position-static" type="checkbox" [checked]="incomingCat.indexOf(category.id) > -1" (change)="onCheckboxChange(category.id,$event)">
+      <label class="form-check-label" for="blankCheckbox">{{category.name}}</label>
     </div>
-  </ul>
+  </div>
+  <div class="row paddingElement"></div>
+  <div class="row">
+    <p class="text col-12">Price Range</p>
+  </div>
+  <div class="row text">
+    <div class="col-1"></div>
+      <div class="col-9">
+        <div class="row">
+          <ng5-slider class="col-12" [(value)]="min" [(highValue)]="max" [options]="options" (valueChange)="onSliderUpdate()"></ng5-slider>
+          <button class="btn btn-primary col-2" type="button">Delete Filter</button>
+          <div clas="col-8"></div>
+          <button class="btn btn-primary col-2" type="button">Apply Filter</button>
+        </div>
+      </div>
+    <div class="col-1"></div>
+  </div>
 </div>

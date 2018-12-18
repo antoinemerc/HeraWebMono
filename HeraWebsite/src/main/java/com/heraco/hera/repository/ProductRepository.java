@@ -18,10 +18,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProductRepository extends MongoRepository<Product, String> {
     Page<Product> findAllByCategories(Pageable pageable, String categories);
-    Page<Product> findByPriceBetweenAndNameAndCategories(Pageable pageable, double from, double to, String name, List<String> categories);
-    Page<Product> findByPriceBetweenAndNameIgnoreCaseContainingAndCategoriesIn(Pageable pageable, double from, double to, String name, List<String> categories);
-
     Page<Product> findAllByIdIn(Pageable pageable, List<String> id);
     Page<Product> findByNameIgnoreCaseContaining(Pageable pageable, String name);
 
+    Page<Product> findByCategoriesInAndNameIgnoreCaseContainingAndPriceBetween(Pageable pageable, List<String> categories, String name, double from, double to);
 }
