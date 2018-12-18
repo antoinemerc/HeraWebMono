@@ -20,9 +20,13 @@
     padding-bottom: 10px;
 }
 
+.paddingButton {
+    padding: 0em 0rem;
+}
+
 ::ng-deep {
     .custom-slider .ng5-slider .ng5-slider-bar {
-        background: #ffe4d1;
+        background: rgb(156, 154, 154);
         height: 2px;
     }
     .custom-slider .ng5-slider .ng5-slider-selection {
@@ -44,12 +48,12 @@
     }
 
     .custom-slider .ng5-slider .ng5-slider-bubble {
+        color: white;
         bottom: 14px;
     }
 
     .custom-slider .ng5-slider .ng5-slider-limit {
-        font-weight: bold;
-        color: rgb(255, 255, 255);
+        color: rgb(156, 154, 154) !important;
     }
 
     .custom-slider .ng5-slider .ng5-slider-tick {

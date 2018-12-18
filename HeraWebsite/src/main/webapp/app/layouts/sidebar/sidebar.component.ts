@@ -4,7 +4,7 @@ import { CategoryService, ProductService } from 'app/shared';
 import { HttpResponse } from '@angular/common/http';
 import { Category } from 'app/shared/model/category.model';
 import { Criteria } from 'app/shared/model/searchCriteria';
-import { Options } from 'ng5-slider';
+import { Options, LabelType } from 'ng5-slider';
 
 @Component({
     selector: 'jhi-sidebar',
@@ -20,7 +20,17 @@ export class SidebarComponent implements OnInit, OnDestroy {
     options: Options = {
         floor: 0,
         ceil: 10000,
-        step: 50
+        step: 50,
+        translate: (value: number, label: LabelType): string => {
+            switch (label) {
+                case LabelType.Low:
+                    return '' + value;
+                case LabelType.High:
+                    return '' + value;
+                default:
+                    return value + '€';
+            }
+        }
     };
 
     constructor(private sidebarService: SidebarService, private categoryService: CategoryService, private productService: ProductService) {}
@@ -58,9 +68,15 @@ export class SidebarComponent implements OnInit, OnDestroy {
         }
     }
 
-    private onSliderUpdate() {
-        console.log('OK');
-        console.log(this.min);
-        console.log(this.max);
+    private applyPriceRange() {
+        if (this.sidebarService.checkIfCriteriaExist('price')) {
+            this.sidebarService.updateCriteria('price', this.min + '|' + this.max);
+        } else {
+            this.sidebarService.addCriteria('price', this.min + '|' + this.max);
+        }
+    }
+
+    private removePriceRange() {
+        this.sidebarService.deleteAllCriteriaType('price');
     }
 }

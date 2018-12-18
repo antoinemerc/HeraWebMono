@@ -78,6 +78,20 @@ export class SidebarService {
         this.searchCriteria.next([]);
     }
 
+    /**
+     * Update a criteria
+     * @param name the criteria type to destroy
+     */
+    public updateCriteria(name: string, value: string | number): void {
+        const currentCriteria = this.searchCriteria.getValue();
+        for (let i = 0; i < currentCriteria.length; i++) {
+            if (currentCriteria[i].name === name) {
+                currentCriteria[i].value = value;
+            }
+        }
+        this.searchCriteria.next(currentCriteria);
+    }
+
     public getCriteria(): Observable<Criteria[]> {
         return this.searchCriteria;
     }
@@ -100,17 +114,27 @@ export class SidebarService {
 
     /**
      * Check if a criteria exist
-     * !!! NOT BOUND TO OBSERVABLE !!! only for post treatement
      * @param allCriteria the array of criteria
      * @param criteriaName the type of criteria to retrieve
      */
-    public checkIfCriteriaExist(allCriteria: Criteria[], criteriaName: string): boolean {
+    public checkIfCriteriaExist(criteriaName: string): boolean {
         let result = false;
-        for (let i = 0; i < allCriteria.length; i++) {
-            if (allCriteria[i].name === criteriaName) {
+        for (let i = 0; i < this.searchCriteria.getValue().length; i++) {
+            if (this.searchCriteria.getValue()[i].name === criteriaName) {
                 result = true;
             }
         }
         return result;
+    }
+
+    /**
+     * Check if a criteria exist
+     * @param allCriteria the array of criteria
+     * @param criteriaName the type of criteria to retrieve
+     */
+    public startNewCriteria(name: string, value: string | number): void {
+        const currentCriteria = [];
+        currentCriteria.push(new Criteria(name, value));
+        this.searchCriteria.next(currentCriteria);
     }
 }

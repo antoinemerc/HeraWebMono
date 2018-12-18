@@ -19,6 +19,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
     productSearchName: string;
     pageTitle = '';
     searchComplex = '';
+    subscribed = false;
 
     constructor(
         private productService: ProductService,
@@ -33,12 +34,17 @@ export class ProductListComponent implements OnInit, OnDestroy {
                 const criteria = params['displayCriteria'].split('=');
 
                 if (criteria[0] === 'category') {
-                    this.sidebarService.deleteAllCriteria();
-                    this.sidebarService.addCriteria('category', criteria[1]);
+                    this.sidebarService.startNewCriteria('category', criteria[1]);
                 } else if (criteria[0] === 'search') {
-                    this.sidebarService.addCriteria('search', criteria[1]);
+                    if (this.sidebarService.checkIfCriteriaExist('search')) {
+                        this.sidebarService.updateCriteria('search', criteria[1]);
+                    } else {
+                        this.sidebarService.addCriteria('search', criteria[1]);
+                    }
                 }
-                this.loadProductFromCriteria();
+                if (!this.subscribed) {
+                    this.loadProductFromCriteria();
+                }
             } else {
                 this.loadProduct();
             }
@@ -57,14 +63,15 @@ export class ProductListComponent implements OnInit, OnDestroy {
      */
     private loadProductFromCriteria() {
         this.sidebarService.getCriteria().subscribe(value => {
+            this.subscribed = true;
             this.productSearchName = '';
             this.searchComplex = '';
             if (value.length > 1) {
                 this.loadComplexSearch(value);
             } else {
-                if (this.sidebarService.checkIfCriteriaExist(value, 'category')) {
+                if (this.sidebarService.checkIfCriteriaExist('category')) {
                     this.loadCategory(value[0].value.toString());
-                } else if (this.sidebarService.checkIfCriteriaExist(value, 'search')) {
+                } else if (this.sidebarService.checkIfCriteriaExist('search')) {
                     this.loadSearch(value[0].value.toString());
                 } else if (value.length === 0) {
                     this.pageTitle = '';
@@ -115,8 +122,8 @@ export class ProductListComponent implements OnInit, OnDestroy {
                 search = cat.value.toString();
             } else if (cat.name === 'price') {
                 const priceBracket = cat.value.toString().split('|');
-                from = parseFloat(priceBracket[0]);
-                to = parseFloat(priceBracket[1]);
+                from = parseInt(priceBracket[0], 10);
+                to = parseInt(priceBracket[1], 10);
             }
         }
         this.pageTitle = 'Search corresponding to your filter: ';
