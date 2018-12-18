@@ -27,10 +27,8 @@ import {
     PageRibbonComponent,
     ActiveMenuDirective,
     ErrorComponent,
-    BreadcrumbCustomComponent,
     SidebarComponent
 } from './layouts';
-import { McBreadcrumbsModule } from 'ngx-breadcrumbs';
 import { ProductPageModule } from './product-page/product-page.module';
 import { MyCartModule } from './my-cart/my-cart.module';
 import { OrderModule } from './order/order.module';
@@ -41,7 +39,6 @@ import { Ng5SliderModule } from 'ng5-slider';
 @NgModule({
     imports: [
         BrowserModule,
-        McBreadcrumbsModule.forRoot(),
         HeraShopAppRoutingModule,
         Ng2Webstorage.forRoot({ prefix: 'jhi', separator: '-' }),
         HeraShopSharedModule,
@@ -61,7 +58,6 @@ import { Ng5SliderModule } from 'ng5-slider';
         JhiMainComponent,
         NavbarComponent,
         ErrorComponent,
-        BreadcrumbCustomComponent,
         PageRibbonComponent,
         ActiveMenuDirective,
         FooterComponent,
