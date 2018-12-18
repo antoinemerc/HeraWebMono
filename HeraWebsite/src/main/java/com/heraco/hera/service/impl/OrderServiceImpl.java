@@ -47,13 +47,9 @@ public class OrderServiceImpl implements OrderService {
         log.debug("Request to save Order : {}", orderDTO);
         Order order = orderMapper.toEntity(orderDTO);
         OrderDTO result = null;
-        if(this.checkOrderValidity(orderDTO)) {
             order = orderRepository.save(order);
             result = orderMapper.toDto(order);
             this.mailService.sendOrderConfirmationMail(result);
-        } else {
-            throw new InvalidOrderException();
-        }
         return result;
     }
 
