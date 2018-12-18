@@ -12,6 +12,14 @@
                 </div>
             </div>
             <div class="form-group">
+                <label for="commentNote">Give  a note to the product </label>
+                <input required ngModel class="form-control" name="commentNote" #commentNote="ngModel" id="commentNote"
+                       type="number"  pattern="[0-9]{1}" [(ngModel)]="note">
+                <div class="alert alert-danger" *ngIf="commentNote.touched && !commentNote.valid" >
+                    Enter a correct note please.
+                </div>
+            </div>
+            <div class="form-group">
                 <label for="commentBody" jhiTranslate="product-page.resume">Tell us more about what do you think:</label>
                 <textarea required minlength="25" maxlength="250" ngModel #commentBody="ngModel" class="form-control"
                     name="commentBody" id="commentBody" cols="30" rows="10" [(ngModel)]="body"></textarea>
@@ -32,6 +40,7 @@
 <div *ngFor="let comment of allComments" class="card" style="margin-bottom : 10px;">
     <div class="card-header">
         <strong>{{comment.title}}</strong>
+        <u style="float:right;"> Note : {{comment.note}} /10</u>
     </div>
     <div class="card-body">
         <p class="card-text">{{comment.body}}</p>

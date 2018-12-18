@@ -1,6 +1,7 @@
 <div>
     <h1 jhiTranslate="order-trad.validation-title"> Recap of the order </h1>
     <p jhiTranslate="order-trad.date-c" translateValues="{value: '{{order.date}}'}">Date : {{order.date}}</p>
+    <p>Payment Method : {{order.paymentMethod}}</p>
     <p jhiTranslate="order-trad.send-to" translateValues="{value: '{{order.user.lastName}} {{order.user.firstName}}'}">Send to : {{order.user.lastName}} {{order.user.firstName}}</p>
     <p jhiTranslate="order-trad.at" translateValues="{value: '{{order.address.street1}} {{order.address.city}} {{order.address.country}}'}" >At address : {{order.address.street1}} {{order.address.city}} {{order.address.country}}</p>
     <p jhiTranslate="order-trad.transportation-method" translateValues="{value: '{{order.transportationMethod.name}}'}">Transportation : {{order.transportationMethod.name}}</p>
