@@ -1,14 +1,24 @@
-<h2 class="mt-5" style="margin-bottom: 10px;" >Comments</h2>
+<h2 class="mt-5" style="margin-bottom: 10px;">Comments</h2>
 <div [ngSwitch]="this.principal.isAuthenticated()">
     <div *ngSwitchCase="true">
-        <form (submit)="addComment($event)" class="mb-4">
+        <form (submit)="addComment($event)" class="mb-4 col-6">
             <div class="form-group">
-                <label for="commentTitle" >Write a title for your comment (This helps other users to summarize what
-                    you want to say)</label>
+                <label for="commentTitle">
+                    Write a title for your comment (This helps other users to summarize what
+                    you want to say)
+                </label>
                 <input required ngModel class="form-control" name="commentTitle" #commentTitle="ngModel" id="commentTitle"
                     type="text" [(ngModel)]="title">
                 <div class="alert alert-danger" *ngIf="commentTitle.touched && !commentTitle.valid">
                     Enter your comment title please.
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="commentNote">Give  a note to the product </label>
+                <input required ngModel class="form-control" name="commentNote" #commentNote="ngModel" id="commentNote"
+                       type="number"  pattern="[0-9]{1}" [(ngModel)]="note">
+                <div class="alert alert-danger" *ngIf="commentNote.touched && !commentNote.valid" >
+                    Enter a correct note please.
                 </div>
             </div>
             <div class="form-group">
@@ -23,7 +33,6 @@
             </div>
             <button class="btn btn-primary" >Send</button>
         </form>
-
     </div>
     <div style="margin-bottom: 20px;" *ngSwitchCase="false" >
         You need to log in if you want to leave a comment for this product.
@@ -32,6 +41,7 @@
 <div *ngFor="let comment of allComments" class="card" style="margin-bottom : 10px;">
     <div class="card-header">
         <strong>{{comment.title}}</strong>
+        <u style="float:right;"> Note : {{comment.note}} /10</u>
     </div>
     <div class="card-body">
         <p class="card-text">{{comment.body}}</p>

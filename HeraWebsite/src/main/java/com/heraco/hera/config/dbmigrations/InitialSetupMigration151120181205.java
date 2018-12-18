@@ -306,10 +306,10 @@ public class InitialSetupMigration151120181205 {
 
         Product p6 = new Product();
         p6.setName("RADEON RX Vega 56");
-        p6.setDescription("The middle ground card");
+        p6.setDescription("Incredible graphic card, you will have the best render at anything you want to do. FPS like Call Of Duty look amazing with this card. Even if it's a middle graphic card we can render advanced images and video games. Enjoy the best quality of the market.");
         p6.setQuantity(50);
         p6.setPrice(650.00);
-        p6.setComments(new ArrayList<Comments>());
+        p6.setComments(comments2);
         images.clear();
         images.add(new ImageUrl("vega56.jpg", "A Vega 56 picture"));
         p6.setAllImageUrl(images);

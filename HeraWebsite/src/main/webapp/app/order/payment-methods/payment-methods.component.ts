@@ -18,8 +18,8 @@ export class PaymentMethodsComponent implements OnInit, OnChanges {
     mainImage2: SafeResourceUrl = 'content/images/american.png';
     mainImage3: SafeResourceUrl = 'content/images/paypal.jpg';
     mainImage4: SafeResourceUrl = 'content/images/money.png';
-    public show: boolean = false;
-    public buttonName: any = 'payy';
+    public selectedLink = 'Pay the transporter';
+    public show = false;
     public card = new Card(null, null);
 
     constructor(private principal: Principal, private router: Router, private location: Location) {}
@@ -38,15 +38,15 @@ export class PaymentMethodsComponent implements OnInit, OnChanges {
 
     ngOnChanges(changes: SimpleChanges): void {}
 
-    public selectedLink: string = '';
-
     public setradio(e: string): void {
         this.selectedLink = e;
     }
 
     public save(): boolean {
-        if (this.selectedLink == 'Credit card') {
-            if (this.card.numberCard == null || this.card.cvv == null) return false;
+        if (this.selectedLink === 'Credit card') {
+            if (this.card.numberCard == null || this.card.cvv == null) {
+                return false;
+            }
         } else {
             this.order.paymentMethod = this.selectedLink;
             return true;

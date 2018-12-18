@@ -13,7 +13,7 @@
 
     <div class="name2">
       <div class="row">
-        <div class="col-5 product-img-div">
+        <div class="col-6 product-img-div">
           <div class="w-100 product-img">
             <img class="img-fluid" [src]=mainImage alt="Grapefruit slice atop a pile of other slices" />
           </div>
@@ -24,70 +24,66 @@
             </label>
           </div>
         </div>
-        <div class="col-6 offset-md-1" style="display: flex; flex-direction: column;">
-          <div class="product-name">
+        <div class="col-6">
+          <div class="row product-name">
             <div class="text-left">
               <h2>{{product.name}}</h2>
+              <div>Sold by <b>{{product.user.login}}</b></div>
             </div>
           </div>
-          <h4>Technical details</h4>
-          <div class="p-2 product-description text-left" style="flex-grow: 1">
-            <p>
-              Sold by <b>{{product.user.login}}</b></p>
-            <div>
-              <p style="display: inline-block;">Unit price : </p>
-              <span style="display: inline-block;" class="product-prix"><b>{{product.price}}€</b></span>
+          <hr>
+          <div class="row">
+            <h4>Technical details</h4>
+            <div class="p-2 text-left w-100" style="flex-grow: 1">
+              <div class="descr-paragraph text-justify">
+                <p>{{product.description}}</p>
+                <p>{{product.description}}</p>
+              </div>
+              <hr>
+              <div>
+                <div *ngIf="product.quantity > 0">
+                  <span class="in-stock-span">In stock:</span> {{product.quantity}} items
+                </div>
+                <div *ngIf="product.quantity <= 0">
+                  Product not avaiblable in stock !
+                </div>
+                <div>
+                  <span style="display: inline-block;" class="product-prix"><b>{{product.price}}€</b></span>
+                </div>
+              </div>
             </div>
-            <p>{{product.description}}</p>
-            <p *ngIf="product.quantity > 0">In
-              stock : {{product.quantity}}</p>
-            <p *ngIf="product.quantity <= 0">Not in stock !</p>
-          </div>
-          <div class="link-to-detail">
-            <a href="#">See more product details</a>
-          </div>
-          <div class=""></div>
-        </div>
-      </div>
-    </div>
-    <div class="name3">
-      <div class="product-description mt-5 p-2">
-        <h3>Description:</h3>
-        <div class="row">
-          <div class="col-md-8">
-            {{product.description}}
-          </div>
-          <div class="col-md-2">
-            <div [ngSwitch]="isAuthenticated()">
-              <div *ngSwitchCase="true">
-                <div *ngIf="productAvailable()">
-                  <form name="addBasketForm" role="form" novalidate (ngSubmit)="click()" #editForm="ngForm">
-                    <div class="form-group">
-                      <div *ngIf="basketConfirmed == 0">
-                        <div class="btn-group">
-                          <input type="number" class="form-control" name="quantity" min="1" max={{product.quantity}} id="field_quantity"
-                            [(ngModel)]="newItem.quantity" required style="min-width: 125px;" />
-                          <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || !quantityValid()"
-                            class="btn btn-primary">
-                            Add to cart
-                          </button>
+            <div class="product-btn col-4 offset-2 cart-btn mt-4">
+              <div [ngSwitch]="isAuthenticated()">
+                <div *ngSwitchCase="true">
+                  <div *ngIf="productAvailable()">
+                    <form name="addBasketForm" role="form" novalidate (ngSubmit)="click()" #editForm="ngForm">
+                      <div>
+                        <div *ngIf="basketConfirmed == 0">
+                          <div>
+                            <p class="w-100 quantity-p-add-cart">Quantity: </p>
+                            <input type="number" class="form-control quantity-add-cart" name="quantity" min="1" max={{product.quantity}}
+                              id="field_quantity" [(ngModel)]="newItem.quantity" required style="min-width: 50px;" />
+                            <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || !quantityValid()"
+                              class="btn btn-primary add-cart-btn">
+                              Add to cart
+                            </button>
+                          </div>
+                          <div [hidden]="!(editForm.controls.quantity?.dirty && editForm.controls.quantity?.invalid) && quantityValid()">
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.quantity?.errors?.required">
+                              This field is required.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="!editForm.controls.quantity?.errors?.number">
+                              This field should be a number.
+                            </small>
+                            <small class="form-text text-danger" [hidden]="quantityValid()">
+                              This field should be between 0 and {{ product.quantity}}
+                            </small>
+                          </div>
                         </div>
-                        <div [hidden]="!(editForm.controls.quantity?.dirty && editForm.controls.quantity?.invalid) && quantityValid()">
-                          <small class="form-text text-danger" [hidden]="!editForm.controls.quantity?.errors?.required">
-                            This field is required.
-                          </small>
-                          <small class="form-text text-danger" [hidden]="!editForm.controls.quantity?.errors?.number">
-                            This field should be a number.
-                          </small>
-                          <small class="form-text text-danger" [hidden]="quantityValid()">
-                            This field should be between 0 and {{ product.quantity}}
-                          </small>
-                        </div>
-                      </div>
-                      <div *ngIf="
-                            basketConfirmed==1">
-                            <mat-progress-spinner style="margin:0 auto;" [diameter]="40" [color]="'blue'" [mode]="'indeterminate'">
-                            </mat-progress-spinner>
+                        <div *ngIf="
+                              basketConfirmed==1">
+                          <mat-progress-spinner style="margin:0 auto;" [diameter]="40" [color]="'blue'" [mode]="'indeterminate'">
+                          </mat-progress-spinner>
                         </div>
                         <div *ngIf="basketConfirmed == 2">
                           <p>Product add to basket !</p>
@@ -96,20 +92,25 @@
                           <p>Error when trying to put in basket !</p>
                         </div>
                       </div>
-                  </form>
+                    </form>
+                  </div>
                 </div>
-              </div>
-              <div *ngSwitchCase="false">
-                <button class="btn btn-primary w-100" (click)="login()">Log in</button>
-                <a (click)="login()" class="a-not-connected myButton">Log into your account if you want to add this
-                  item to your cart.</a>
+                <div *ngSwitchCase="false">
+                  <button class="btn btn-primary w-100" (click)="login()">Log in</button>
+                  <a (click)="login()" class="a-not-connected myButton">Log into your account if you want to add this
+                    item to your cart.</a>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
     </div>
-    <jhi-comment [product]=product></jhi-comment>
-    <!-- <a routerLink="/payment">payment</a> -->
   </div>
+</div>
+</div>
+<jhi-comment [product]=product></jhi-comment>
+<!-- <a routerLink="/payment">payment</a> -->
+</div>
 </div>

@@ -8,7 +8,7 @@ import { ProductService } from 'app/shared/service/product.service';
 @Component({
     selector: 'jhi-comment',
     templateUrl: './all-comment.component.html',
-    styles: ['all-comment.scss']
+    styleUrls: ['all-comment.scss']
 })
 export class AllCommentComponent implements OnInit {
     allComments: IComments[];
@@ -17,6 +17,7 @@ export class AllCommentComponent implements OnInit {
     accountConnected: Account;
     title: string;
     body: string;
+    note: number;
     newComment: Comments;
 
     constructor(private productService: ProductService, public principal: Principal, private userService: UserService) {}
@@ -31,7 +32,7 @@ export class AllCommentComponent implements OnInit {
                 this.accountConnected = account;
                 this.userService.find(this.accountConnected.login).subscribe((res: HttpResponse<IUser>) => {
                     this.currentUser = res.body;
-                    this.newComment = new Comments(this.currentUser, this.title, this.body, 5, '15-11-2018');
+                    this.newComment = new Comments(this.currentUser, this.title, this.body, this.note, '15-11-2018');
                     this.product.comments.push(this.newComment);
                     this.productService.update(this.product).subscribe();
                 });
