@@ -14,5 +14,5 @@ import org.springframework.data.domain.Pageable;
 @SuppressWarnings("unused")
 @Repository
 public interface OrderRepository extends MongoRepository<Order, String> {
-    Page<Order> findAllByUser(Pageable pageable, String user);
+    Page<Order> findAllByUserOrderByDateDesc(Pageable pageable, String user);
 }

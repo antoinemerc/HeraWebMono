@@ -53,7 +53,7 @@ public class OrderServiceImpl implements OrderService {
             this.mailService.sendOrderConfirmationMail(result);
         } else {
             throw new InvalidOrderException();
-        }     
+        }
         return result;
     }
 
@@ -114,7 +114,7 @@ public class OrderServiceImpl implements OrderService {
      */
     public Page<OrderDTO> findOrdersByUser(String user, Pageable pageable) {
         log.debug("Request to search for a page of Order for query {}", user);
-        return orderRepository.findAllByUser(pageable, user).map(orderMapper::toDto);
+        return orderRepository.findAllByUserOrderByDateDesc(pageable, user).map(orderMapper::toDto);
     }
 
     public boolean checkOrderValidity(OrderDTO order){

@@ -71,6 +71,7 @@ export class ValidationPageComponent implements OnInit, OnChanges {
                         verticalPosition: 'bottom',
                         horizontalPosition: 'end'
                     });
+                    this.router.navigate(['/order-error']);
                 }
             );
         }

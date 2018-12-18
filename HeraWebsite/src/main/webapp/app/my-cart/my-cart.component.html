@@ -1,7 +1,7 @@
 
 <div [ngSwitch]="this.principal.isAuthenticated()">
   <div *ngSwitchCase="false" >
-    <div ></div>
+    <div >You need to connect in order to access to your cart !</div>
     <button class="btn btn-secondary" (click)="logIn()" >Connect</button>
   </div>
   <div *ngSwitchCase="true">

@@ -42,6 +42,16 @@ export class OrderComponent implements OnInit {
         }
     }
 
+    addressValid() {
+        let retour = true;
+        if (this.adressComponent !== undefined) {
+            if (this.step === 2) {
+                retour = this.adressComponent.newAddressValid();
+            }
+        }
+        return retour;
+    }
+
     nextStep(): void {
         if (this.step === 1) {
             this.transportComponent.save();

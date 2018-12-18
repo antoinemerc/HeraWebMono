@@ -110,7 +110,7 @@ export class MyCartListComponent implements OnInit, AfterViewChecked {
         this.basket[idx].quantity = this.quantities[idx] - this.basket[idx].quantity;
         this.cartCountService.update(this.basket[idx].quantity);
         this.userService.updateBasket(this.basket[idx]).subscribe(res =>
-            this.mysnack.open(this.translateService.instant('cart.update-message'), null, {
+            this.mysnack.open('Quantity updated !', null, {
                 duration: 2500,
                 verticalPosition: 'bottom',
                 horizontalPosition: 'end'
