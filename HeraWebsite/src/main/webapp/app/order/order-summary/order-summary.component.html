@@ -1,11 +1,11 @@
 <div class="card fullHeight">
     <div class="card-body">
-        <h4 class="card-title" jhiTranslate="order-trad.order-progress">Order in progress</h4>
+        <h4 class="card-title" >Order in progress</h4>
         <div class="list-group list-group-flush">
             <div class="list-group-item">
-                <h5  jhiTranslate="order-trad.delivery-method">Delivery Method</h5>
+                <h5  >Delivery Method</h5>
                 <ul *ngIf="order.transportationMethod == null">
-                    <li jhiTranslate="order-trad.to-be-selected">To be selected</li>
+                    <li >To be selected</li>
                 </ul>
                 <ul *ngIf="order.transportationMethod != null">
                     <li>{{order.transportationMethod.name}}</li>
@@ -13,9 +13,9 @@
 
             </div>
             <div class="list-group-item">
-                <h5 jhiTranslate="order-trad.delivery-address">Delivery Address</h5>
+                <h5 >Delivery Address</h5>
                 <ul *ngIf="order.address == null">
-                    <li jhiTranslate="order-trad.to-be-selected">To be selected</li>
+                    <li >To be selected</li>
                 </ul>
                 <ul *ngIf="order.address != null">
                     <li>{{order.address.street1}}</li>
@@ -24,9 +24,9 @@
                 </ul>
             </div>
             <div class="list-group-item">
-                <h5 jhiTranslate="order-trad.payment-method">Payment Method</h5>
+                <h5 >Payment Method</h5>
                 <ul *ngIf="order.paymentMethod == null">
-                    <li jhiTranslate="order-trad.to-be-selected">To be selected</li>
+                    <li >To be selected</li>
                 </ul>
                 <ul *ngIf="order.paymentMethod != null">
                     <li>{{order.paymentMethod}}</li>

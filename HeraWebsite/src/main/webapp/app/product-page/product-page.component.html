@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-12 back-to-home-div">
           <img routerLink="/" src="./images/Home-512.png" style="height: 40px;width: 40px;">
-          <a routerLink="/" style="height: 40px;width: 40px;">Retouner à la page d'accueil</a>
+          <a routerLink="/" style="height: 40px;width: 40px;">Back to main menu</a>
         </div>
       </div>
     </div>
@@ -30,18 +30,18 @@
               <h2>{{product.name}}</h2>
             </div>
           </div>
-          <h4 jhiTranslate="product-page.technical">Technical details</h4>
+          <h4>Technical details</h4>
           <div class="p-2 product-description text-left" style="flex-grow: 1">
-            <p jhiTranslate="product-page.sold-by" translateValues="{value: '<b>{{product.user.login}}</b>'}">
+            <p>
               Sold by <b>{{product.user.login}}</b></p>
             <div>
-              <p style="display: inline-block;" jhiTranslate="product-page.price">Unit price : </p>
+              <p style="display: inline-block;">Unit price : </p>
               <span style="display: inline-block;" class="product-prix"><b>{{product.price}}€</b></span>
             </div>
             <p>{{product.description}}</p>
-            <p *ngIf="product.quantity > 0" jhiTranslate="product-page.in-stock" translateValues="{value: '{{product.quantity}}'}">In
+            <p *ngIf="product.quantity > 0">In
               stock : {{product.quantity}}</p>
-            <p *ngIf="product.quantity <= 0" jhiTranslate="product-page.no-stock">Not in stock !</p>
+            <p *ngIf="product.quantity <= 0">Not in stock !</p>
           </div>
           <div class="link-to-detail">
             <a href="#">See more product details</a>
@@ -68,21 +68,18 @@
                           <input type="number" class="form-control" name="quantity" min="1" max={{product.quantity}} id="field_quantity"
                             [(ngModel)]="newItem.quantity" required style="min-width: 125px;" />
                           <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || !quantityValid()"
-                            class="btn btn-primary" jhiTranslate="entity.action.save">
+                            class="btn btn-primary">
                             Add to cart
                           </button>
                         </div>
                         <div [hidden]="!(editForm.controls.quantity?.dirty && editForm.controls.quantity?.invalid) && quantityValid()">
-                          <small class="form-text text-danger" [hidden]="!editForm.controls.quantity?.errors?.required"
-                            jhiTranslate="entity.validation.required">
+                          <small class="form-text text-danger" [hidden]="!editForm.controls.quantity?.errors?.required">
                             This field is required.
                           </small>
-                          <small class="form-text text-danger" [hidden]="!editForm.controls.quantity?.errors?.number"
-                            jhiTranslate="entity.validation.number">
+                          <small class="form-text text-danger" [hidden]="!editForm.controls.quantity?.errors?.number">
                             This field should be a number.
                           </small>
-                          <small class="form-text text-danger" [hidden]="quantityValid()" jhiTranslate="product-page.error-quantity"
-                            translateValues="{value: '{{product.quantity}}'}"">
+                          <small class="form-text text-danger" [hidden]="quantityValid()">
                             This field should be between 0 and {{ product.quantity}}
                           </small>
                         </div>
@@ -93,7 +90,7 @@
                             </mat-progress-spinner>
                         </div>
                         <div *ngIf="basketConfirmed == 2">
-                          <p jhiTranslate="product-page.added">Product add to basket !</p>
+                          <p>Product add to basket !</p>
                         </div>
                         <div *ngIf="basketConfirmed == -1">
                           <p>Error when trying to put in basket !</p>

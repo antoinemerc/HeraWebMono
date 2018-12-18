@@ -1,9 +1,9 @@
-<h1 jhiTranslate="order-trad.title">Order detail</h1>
+<h1>Order detail</h1>
 <div *ngIf="loadingDone" class="card" style="margin-bottom : 10px ;">
     <div class="card-header">
-        <span jhiTranslate="order-trad.date" translateValues="{date: '{{order.date}}'}"class="d-inline-block" >Ordered the : {{order.date}} |
+        <span class="d-inline-block" >Ordered the : {{order.date}} |
         </span>
-        <span  class="d-inline-block" jhiTranslate="order-trad.id" translateValues="{id: '{{order.id}}'}">
+        <span  class="d-inline-block" >
             Order id : {{order.id}}
         </span>
         <span class="d-inline-block float-right">
@@ -11,17 +11,17 @@
         </span>
     </div>
     <div class="card-body">
-        <p class="card-text" jhiTranslate="order-trad.deliver" translateValues="{value: '{{order.user.lastName}} {{order.user.firstName}} ({{order.user.login}})'}">Deliver to : {{order.user.lastName}} {{order.user.firstName}} ({{order.user.login}})</p>
-        <p class="card-text" jhiTranslate="order-trad.at" translateValues="{value: '{{order.address.street1}} {{order.address.street2}} {{order.address.city}} {{order.address.zipCode}} {{order.address.country}}'}">At : {{order.address.street1}} {{order.address.street2}} {{order.address.city}}
+        <p class="card-text" >Deliver to : {{order.user.lastName}} {{order.user.firstName}} ({{order.user.login}})</p>
+        <p class="card-text" >At : {{order.address.street1}} {{order.address.street2}} {{order.address.city}}
             {{order.address.zipCode}} {{order.address.country}}</p>
-        <p class="card-text" jhiTranslate="order-trad.by" translateValues="{value: '{{order.transportationMethod.name}}'}">By : {{order.transportationMethod.name}}</p>
+        <p class="card-text" >By : {{order.transportationMethod.name}}</p>
         <table class="table">
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col" jhiTranslate="order-trad.product">Product</th>
-                    <th scope="col" jhiTranslate="order-trad.quantity">Quantity</th>
-                    <th scope="col" jhiTranslate="order-trad.unit">Price per unit</th>
-                    <th scope="col" jhiTranslate="order-trad.total">Total</th>
+                    <th scope="col" >Product</th>
+                    <th scope="col" >Quantity</th>
+                    <th scope="col">Price per unit</th>
+                    <th scope="col">Total</th>
                 </tr>
             <tbody>
                 <tr *ngFor="let item of order.orderLine;let i = index; ">
@@ -42,7 +42,7 @@
                 </tr>
             </tbody>
         </table>
-        <a *ngIf="!downloading" (click)="generatePDF()" class="btn btn-primary" jhiTranslate="order-trad.pdf">Download pdf</a>
+        <a *ngIf="!downloading" (click)="generatePDF()" class="btn btn-primary" >Download pdf</a>
         <mat-progress-spinner *ngIf="downloading" [diameter]="40" [color]="'blue'" [mode]="'indeterminate'">
         </mat-progress-spinner>
     </div>
