@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-12">
-        <h5 style="padding-bottom: 10px" jhiTranslate="order-trad.address-title"> Choose an address</h5>
+        <h5 style="padding-bottom: 10px" > Choose an address</h5>
         <div *ngFor="let address of user.allAddress; let i = index;" class="col-12">
             <input type="radio" id="{{i}}+1" [checked]="idxAddress === i+1" (change)="onAddressSelectionChange(i+1)" name="address"
                 value={{i+1}}>
@@ -8,37 +8,37 @@
         </div>
         <div class="col-12">
             <input type="radio" id="0" [checked]="idxAddress === 0" (change)="onAddressSelectionChange(0)" name="address" value=0>
-            <label for="0" jhiTranslate="order-trad.new-address">Use a new address</label>
+            <label for="0" >Use a new address</label>
         </div>
         <div class="col-12" *ngIf="addNewAddress">
             <h5 style="padding-bottom: 10px"> </h5>
 
             <form>
                 <div class="form-group row">
-                    <label class="form-control-label col-2" for="field_street1" jhiTranslate="order-trad.street1">Street 1</label>
+                    <label class="form-control-label col-2" for="field_street1" >Street 1</label>
                     <div class="col-10" style="padding: 5px">
                         <input class="form-control" name="street1" id="field_street1"
                             [(ngModel)]="newAddress.street1"
                             #street1="ngModel"
                             required/>
                     </div>
-                    <label class="form-control-label col-2" for="field_street2" jhiTranslate="order-trad.street2">Street 2</label>
+                    <label class="form-control-label col-2" for="field_street2" >Street 2</label>
                     <div class="col-10" style="padding: 5px">
                         <input type="text" class="form-control" name="street2" id="field_street2" [(ngModel)]="newAddress.street2" />
                     </div>
-                    <label class="form-control-label col-2" for="field_zipCode" jhiTranslate="order-trad.zip-code">Zip code</label>
+                    <label class="form-control-label col-2" for="field_zipCode" >Zip code</label>
                     <div class="col-10" style="padding: 5px">
                         <input type="text" class="form-control" name="zipCode" id="field_zipCode" [(ngModel)]="newAddress.zipCode"
                         required #zipCode="ngModel"/>
                     </div>
 
-                    <label class="form-control-label col-2" for="field_city" jhiTranslate="order-trad.city">City</label>
+                    <label class="form-control-label col-2" for="field_city" >City</label>
                     <div class="col-10" style="padding: 5px">
                         <input type="text" class="form-control" name="city" id="field_city" [(ngModel)]="newAddress.city" required
                         #city="ngModel"/>
                     </div>
 
-                    <label class="form-control-label col-2" for="field_country" jhiTranslate="order-trad.country">Country</label>
+                    <label class="form-control-label col-2" for="field_country" >Country</label>
                     <div class="col-10" style="padding: 5px">
                             <input type="text" class="form-control" name="country" id="field_country" [(ngModel)]="newAddress.country" required
                             #country="ngModel"/>
@@ -46,23 +46,23 @@
                 </div>
                 <div class="row">
                     <div *ngIf="(street1.invalid && (street1.dirty || street1.touched))" class="alert alert-danger col-7">
-                        <div *ngIf="street1.errors.required" jhiTranslate="order-trad.street-required">
+                        <div *ngIf="street1.errors.required" >
                             Street is required.
                         </div>
                     </div>
                     <div *ngIf="(zipCode.invalid && (zipCode.dirty || zipCode.touched))" class="alert alert-danger col-7">
-                        <div *ngIf="zipCode.errors.required" jhiTranslate="order-trad.zip-code-required">
+                        <div *ngIf="zipCode.errors.required">
                             ZipCode is required.
                         </div>
                     </div>
                     <div *ngIf="(city.invalid && (city.dirty || city.touched))" class="alert alert-danger col-7">
 
-                        <div *ngIf="city.errors.required" jhiTranslate="order-trad.city-required">
+                        <div *ngIf="city.errors.required" >
                             City is required.
                         </div>
                     </div>
                     <div *ngIf="(country.invalid && (country.dirty || country.touched))" class="alert alert-danger col-7">
-                        <div *ngIf="country.errors.required" jhiTranslate="order-trad.country-required">
+                        <div *ngIf="country.errors.required" >
                             Country is required.
                         </div>
                     </div>

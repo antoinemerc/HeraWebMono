@@ -7,7 +7,7 @@ import { OrderPageComponent } from './order-page.component';
 
 export const ORDER_PAGE_ROUTE: Routes = [
     {
-        path: 'orders',
+        path: 'orders/:id',
         component: OrderPageComponent,
         resolve: {
             pagingParams: JhiResolvePagingParams

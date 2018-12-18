@@ -1,19 +1,19 @@
 
 <div [ngSwitch]="this.principal.isAuthenticated()">
   <div *ngSwitchCase="false" >
-    <div jhiTranslate="cart.connectMsg"></div>
-    <button class="btn btn-secondary" (click)="logIn()" jhiTranslate="cart.connect">Connect</button>
+    <div ></div>
+    <button class="btn btn-secondary" (click)="logIn()" >Connect</button>
   </div>
   <div *ngSwitchCase="true">
-    
-    <h2 jhiTranslate="cart.yourOrder">Your order:</h2>
+
+    <h2 >Your order:</h2>
     <div [ngSwitch]="loading">
-      <div *ngSwitchCase="true" jhiTranslate="cart.loading">Loading...</div>
+      <div *ngSwitchCase="true" >Loading...</div>
       <div *ngSwitchCase="false">
         <div [ngSwitch]="isCartEmpty()">
           <div *ngSwitchCase="true">
-            <div class="alert alert-warning" jhiTranslate="cart.noProd">You haven't added any products yet</div>
-            <button routerLink="/" class="btn btn-secondary" jhiTranslate="cart.back">Go back to shopping</button>
+            <div class="alert alert-warning" >You haven't added any products yet</div>
+            <button routerLink="/" class="btn btn-secondary" >Go back to shopping</button>
           </div>
           <div *ngSwitchCase="false">
               <jhi-my-cart-list [cartProducts]="this.cartProducts" [basket]="this.basket"></jhi-my-cart-list>

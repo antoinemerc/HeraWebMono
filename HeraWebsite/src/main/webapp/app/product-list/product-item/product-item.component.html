@@ -15,7 +15,7 @@
             <h5 class="card-title"><strong>{{product.name}}</strong></h5>
         </a>
         <h6 class="indigo-text"><strong>{{product.price}} Euros</strong></h6>
-        <button *ngIf="canPressButton()" (click)="click()" type="button" class="btn btn-mg btn-primary" jhiTranslate="catalog.add">Add to Cart
+        <button *ngIf="canPressButton()" (click)="click()" type="button" class="btn btn-mg btn-primary" >Add to Cart
         </button>
         <mat-progress-spinner *ngIf="!canPressButton()" style="margin:0 auto;" [diameter]="40" [color]="'blue'" [mode]="'indeterminate'">
         </mat-progress-spinner>

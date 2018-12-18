@@ -44,7 +44,7 @@
     </p>
 
     <p th:text="#{email.order.findmore}">Full</p>
-    <a th:href="@{|${baseUrl}/#/detailedOrder/${order.id}|}" th:text="@{|${baseUrl}/#/detailedOrder/${order.id}|}">Name</a>
+    <a th:href="@{|${baseUrl}/#/orders/${order.id}|}" th:text="@{|${baseUrl}/#/detailedOrder/${order.id}|}">Name</a>
 
     <p>
         <span th:text="#{email.activation.text2}">Regards, </span>
