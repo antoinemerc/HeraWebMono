@@ -56,6 +56,7 @@ export class PaymentMethodsComponent implements OnInit, OnChanges {
             return true;
         }
     }
+
     toggle(a: boolean) {
         this.show = a;
     }

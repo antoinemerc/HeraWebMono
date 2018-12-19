@@ -4,14 +4,7 @@ import { ProductListComponent } from './product-list.component';
 
 export const ALL_PRODUCT_LIST_ROUTE: Routes = [
     {
-        path: 'displayCategory/:idCategory',
-        component: ProductListComponent,
-        data: {
-            breadcrumbs: 'Category'
-        }
-    },
-    {
-        path: 'displaySearch/:likeName',
+        path: 'displayProducts/:displayCriteria',
         component: ProductListComponent
     }
 ];

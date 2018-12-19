@@ -9,7 +9,7 @@ import { OrderSharedService } from 'app/shared/service/order-shared.service';
     styles: []
 })
 export class PagePostCommandeComponent implements OnInit {
-    //@Input() order: IOrder;
+    // @Input() order: IOrder;
     order: IOrder;
     id: string;
     today = Date.now();

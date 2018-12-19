@@ -1,0 +1,81 @@
+/* The sidebar menu */
+.sidenav {
+    background-color: rgb(39, 38, 38); /* Black */
+    overflow-x: hidden; /* Disable horizontal scroll */
+    height: 100%;
+    padding: 10px;
+}
+
+.text {
+    color: white;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+.paddingElement {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.paddingButton {
+    padding: 0em 0rem;
+}
+
+::ng-deep {
+    .custom-slider .ng5-slider .ng5-slider-bar {
+        background: rgb(156, 154, 154);
+        height: 2px;
+    }
+    .custom-slider .ng5-slider .ng5-slider-selection {
+        background: rgb(255, 255, 255);
+    }
+
+    .custom-slider .ng5-slider .ng5-slider-pointer {
+        width: 8px;
+        height: 16px;
+        top: auto; /* to remove the default positioning */
+        bottom: 0;
+        background-color: rgb(214, 214, 214);
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
+    }
+
+    .custom-slider .ng5-slider .ng5-slider-pointer:after {
+        display: none;
+    }
+
+    .custom-slider .ng5-slider .ng5-slider-bubble {
+        color: white;
+        bottom: 14px;
+    }
+
+    .custom-slider .ng5-slider .ng5-slider-limit {
+        color: rgb(156, 154, 154) !important;
+    }
+
+    .custom-slider .ng5-slider .ng5-slider-tick {
+        width: 1px;
+        height: 10px;
+        margin-left: 4px;
+        border-radius: 0;
+        background: #ffe4d1;
+        top: -1px;
+    }
+
+    .custom-slider .ng5-slider .ng5-slider-tick.ng5-slider-selected {
+        background: rgb(255, 255, 255);
+    }
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+    .sidenav {
+        padding-top: 15px;
+    }
+    .sidenav a {
+        font-size: 18px;
+    }
+}

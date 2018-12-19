@@ -125,4 +125,11 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findByNameIgnoreCaseContaining(pageable, name)
             .map(productMapper::toDto);
     }
+
+    public Page<ProductDTO> findByCategoriesInAndNameIgnoreCaseContainingAndPriceBetween(List<String> categories, String name, double from, double to, Pageable pageable){
+        return productRepository.findByCategoriesInAndNameIgnoreCaseContainingAndPriceBetween(pageable, categories, name, from, to)
+            .map(productMapper::toDto);
+    }
+
+    
 }

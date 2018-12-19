@@ -27,20 +27,19 @@ import {
     PageRibbonComponent,
     ActiveMenuDirective,
     ErrorComponent,
-    BreadcrumbCustomComponent
+    SidebarComponent
 } from './layouts';
-import { McBreadcrumbsModule } from 'ngx-breadcrumbs';
 import { ProductPageModule } from './product-page/product-page.module';
 import { MyCartModule } from './my-cart/my-cart.module';
 import { OrderModule } from './order/order.module';
 import { BreadcrumbModule } from 'app/shared/breadcrumb/breadcrumb.module';
 import { OrderPageModule } from './order-page/order-page.module';
 import { OrderErrorPageModule } from './order-error-page/order-error-page.module';
+import { Ng5SliderModule } from 'ng5-slider';
 
 @NgModule({
     imports: [
         BrowserModule,
-        McBreadcrumbsModule.forRoot(),
         HeraShopAppRoutingModule,
         Ng2Webstorage.forRoot({ prefix: 'jhi', separator: '-' }),
         HeraShopSharedModule,
@@ -53,17 +52,18 @@ import { OrderErrorPageModule } from './order-error-page/order-error-page.module
         OrderModule,
         OrderErrorPageModule,
         BreadcrumbModule,
-        OrderPageModule
+        OrderPageModule,
+        Ng5SliderModule
         // jhipster-needle-angular-add-module JHipster will add new module here
     ],
     declarations: [
         JhiMainComponent,
         NavbarComponent,
         ErrorComponent,
-        BreadcrumbCustomComponent,
         PageRibbonComponent,
         ActiveMenuDirective,
-        FooterComponent
+        FooterComponent,
+        SidebarComponent
     ],
     providers: [
         {

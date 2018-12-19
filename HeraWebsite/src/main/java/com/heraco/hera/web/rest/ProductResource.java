@@ -28,7 +28,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import java.util.List;
+import java.util.Map;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
 
@@ -155,13 +157,37 @@ public class ProductResource {
      * @param pageable the pagination information
      * @return the result of the search
      */
-         @GetMapping("/_search/products")         
-         @Timed public ResponseEntity<List<ProductDTO>> searchProducts(@RequestParam String query, Pageable pageable) {
-            log.debug("REST request to search for a page of Products for query {}", query);
-            Page<ProductDTO> page = productService.findByNameIgnoreCaseContaining(query, pageable);
-            HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/products"); 
-            return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK); }
-        
+    @GetMapping("/_search/products")         
+    @Timed public ResponseEntity<List<ProductDTO>> searchProducts(@RequestParam String query, Pageable pageable) {
+        log.debug("REST request to search for a page of Products for query {}", query);
+        Page<ProductDTO> page = productService.findByNameIgnoreCaseContaining(query, pageable);
+        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/products"); 
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK); 
+    }
+
+    /**
+     * SEARCH /_search/products?query=:query : search for the product corresponding
+     * to the query.
+     *
+     * @param query    the query of the product search
+     * @param pageable the pagination information
+     * @return the result of the search
+     */
+    @GetMapping("/_search/products/filter")         
+    @Timed public ResponseEntity<List<ProductDTO>> searchProductsPrice(@RequestParam Map<String,String> requestParams, Pageable pageable) {
+        String query = requestParams.get("category")+requestParams.get("from")+requestParams.get("to")+requestParams.get("category");
+        Double from = Double.parseDouble(requestParams.get("from"));
+        Double to = Double.parseDouble(requestParams.get("to"));
+        String name = requestParams.get("name");
+        String categoriesStr = requestParams.get("category");
+        String[] allCategories = categoriesStr.split("_");
+        List<String> categories = Arrays.asList(allCategories);
+        //log.debug("REST request to search for a page of Products for query {}", query);
+        Page<ProductDTO> page = productService.findByCategoriesInAndNameIgnoreCaseContainingAndPriceBetween(categories, name, from, to, pageable);/**/
+        HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/products/filter"); 
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK); 
+    }
+
     /**
      * SEARCH /_search/products?query=:query : search for the product corresponding
      * to the query.

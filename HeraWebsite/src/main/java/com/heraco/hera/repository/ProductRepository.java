@@ -21,4 +21,5 @@ public interface ProductRepository extends MongoRepository<Product, String> {
     Page<Product> findAllByIdIn(Pageable pageable, List<String> id);
     Page<Product> findByNameIgnoreCaseContaining(Pageable pageable, String name);
 
+    Page<Product> findByCategoriesInAndNameIgnoreCaseContainingAndPriceBetween(Pageable pageable, List<String> categories, String name, double from, double to);
 }

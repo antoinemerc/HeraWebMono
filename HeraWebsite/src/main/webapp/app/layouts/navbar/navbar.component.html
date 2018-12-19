@@ -24,8 +24,8 @@
         </a>
         <ul class="dropdown-menu dropdown-category-ul" ngbDropdownMenu>
             <li>
-                <a class="dropdown-item" *ngFor="let category of allCategories" [routerLink]="['/displayCategory', category.id]"
-                    id={{category.id}} href="#" (click)="collapseNavbar()">
+                <a class="dropdown-item" *ngFor="let category of allCategories" (click)="categorySelect(category.id)"
+                    id={{category.id}}>
                     {{category.name}}
                 </a>
             </li>

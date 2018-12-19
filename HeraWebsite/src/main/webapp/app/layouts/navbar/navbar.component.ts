@@ -11,6 +11,7 @@ import { Category } from 'app/shared/model/category.model';
 import { CategoryService } from 'app/shared';
 import { SafeResourceUrl } from '@angular/platform-browser';
 import { JhiEventManager } from 'ng-jhipster';
+import { SidebarService } from '../sidebar/sidebar.service';
 
 @Component({
     selector: 'jhi-navbar',
@@ -38,7 +39,8 @@ export class NavbarComponent implements OnInit {
         private profileService: ProfileService,
         private router: Router,
         private categoryService: CategoryService,
-        private eventManager: JhiEventManager
+        private eventManager: JhiEventManager,
+        private sidebarService: SidebarService
     ) {
         this.version = VERSION ? 'v' + VERSION : '';
         this.isNavbarCollapsed = true;
@@ -96,6 +98,11 @@ export class NavbarComponent implements OnInit {
     }
 
     navigateSearch() {
-        this.router.navigate(['displaySearch', this.searchField]);
+        this.router.navigate(['displayProducts', 'search=' + this.searchField]);
+    }
+
+    categorySelect(categoryId: string) {
+        this.isNavbarCollapsed = true;
+        this.router.navigate(['displayProducts', 'category=' + categoryId]);
     }
 }

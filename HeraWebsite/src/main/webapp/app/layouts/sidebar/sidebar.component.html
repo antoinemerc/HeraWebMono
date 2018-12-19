@@ -1,0 +1,34 @@
+<div class="sidenav">
+    <div class="row">
+        <h4 class="text col-12">Available Filters</h4>
+    </div>
+    <div class="row paddingElement"></div>
+    <div class="row">
+        <p class="text col-12">Category List</p>
+    </div>
+    <div class="row text" *ngFor="let category of allCategories">
+        <div class="form-check col-10 offset-2">
+            <input class="form-check-input position-static" type="checkbox" [checked]="incomingCat.indexOf(category.id) > -1" (change)="onCheckboxChange(category.id,$event)">
+            <label class="form-check-label" for="blankCheckbox">{{category.name}}</label>
+        </div>
+    </div>
+    <div class="row paddingElement"></div>
+    <div class="row">
+        <p class="text col-12">Price Range</p>
+    </div>
+    <div class="row text">
+        <div class="col-1"></div>
+        <div class="col-9">
+            <div class="row custom-slider">
+                <ng5-slider class="col-12" [(value)]="min" [(highValue)]="max" [options]="options"></ng5-slider>
+                <div class="col-12">
+                    <div class="row">
+                        <button class="btn btn-danger btn-sm col-3 paddingButton" type="button" (click)="removePriceRange()">X</button>
+                        <button class="offset-6 col-3 btn btn-sm paddingButton" type="button" (click)="applyPriceRange()">Apply</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-1"></div>
+    </div>
+</div>
