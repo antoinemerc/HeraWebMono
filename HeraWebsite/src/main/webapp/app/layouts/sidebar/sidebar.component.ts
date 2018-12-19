@@ -5,6 +5,7 @@ import { HttpResponse } from '@angular/common/http';
 import { Category } from 'app/shared/model/category.model';
 import { Criteria } from 'app/shared/model/searchCriteria';
 import { Options, LabelType } from 'ng5-slider';
+import { CriteriaService } from 'app/shared/service/criteria.service';
 
 @Component({
     selector: 'jhi-sidebar',
@@ -33,11 +34,15 @@ export class SidebarComponent implements OnInit, OnDestroy {
         }
     };
 
-    constructor(private sidebarService: SidebarService, private categoryService: CategoryService, private productService: ProductService) {}
+    constructor(
+        private criteriaService: CriteriaService,
+        private categoryService: CategoryService,
+        private productService: ProductService
+    ) {}
 
     ngOnInit() {
         this.categoryService.query().subscribe((res: HttpResponse<Category[]>) => this.bindBody(res.body));
-        this.sidebarService.getCriteria().subscribe(value => this.bindCategory(value));
+        this.criteriaService.getCriteria().subscribe(value => this.bindCategory(value));
     }
 
     ngOnDestroy() {}
@@ -47,7 +52,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
     }
 
     private bindCategory(value: Criteria[]) {
-        const allSelectedCat = this.sidebarService.getSpecificCriteria(value, 'category');
+        const allSelectedCat = this.criteriaService.getSpecificCriteria(value, 'category');
         if (allSelectedCat !== null) {
             this.incomingCat = allSelectedCat.map(a => a.value);
             this.allSelectedCategory = this.incomingCat;
@@ -57,26 +62,26 @@ export class SidebarComponent implements OnInit, OnDestroy {
     private onCheckboxChange(categoryIdCheckbox: string, event: any) {
         if (event.target.checked) {
             this.allSelectedCategory.push(categoryIdCheckbox);
-            this.sidebarService.addCriteria('category', categoryIdCheckbox);
+            this.criteriaService.addCriteria('category', categoryIdCheckbox);
         } else {
             for (let i = 0; i < this.allSelectedCategory.length; i++) {
                 if (this.allSelectedCategory[i] === categoryIdCheckbox) {
                     this.allSelectedCategory.splice(i, 1);
                 }
             }
-            this.sidebarService.deleteCriteria('category', categoryIdCheckbox);
+            this.criteriaService.deleteCriteria('category', categoryIdCheckbox);
         }
     }
 
     private applyPriceRange() {
-        if (this.sidebarService.checkIfCriteriaExist('price')) {
-            this.sidebarService.updateCriteria('price', this.min + '|' + this.max);
+        if (this.criteriaService.checkIfCriteriaExist('price')) {
+            this.criteriaService.updateCriteria('price', this.min + '|' + this.max);
         } else {
-            this.sidebarService.addCriteria('price', this.min + '|' + this.max);
+            this.criteriaService.addCriteria('price', this.min + '|' + this.max);
         }
     }
 
     private removePriceRange() {
-        this.sidebarService.deleteAllCriteriaType('price');
+        this.criteriaService.deleteAllCriteriaType('price');
     }
 }

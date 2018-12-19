@@ -7,6 +7,7 @@ import { ProductService } from 'app/shared/service/product.service';
 import { CategoryService } from 'app/shared';
 import { SidebarService } from 'app/layouts/sidebar/sidebar.service';
 import { Criteria } from 'app/shared/model/searchCriteria';
+import { CriteriaService } from 'app/shared/service/criteria.service';
 
 @Component({
     selector: 'jhi-product-list',
@@ -16,6 +17,7 @@ import { Criteria } from 'app/shared/model/searchCriteria';
 export class ProductListComponent implements OnInit, OnDestroy {
     allProducts: Product[] = [];
     category = false;
+    allLoadedCategory = [];
     productSearchName: string;
     pageTitle = '';
     searchComplex = '';
@@ -25,21 +27,23 @@ export class ProductListComponent implements OnInit, OnDestroy {
         private productService: ProductService,
         private route: ActivatedRoute,
         private categoryService: CategoryService,
-        private sidebarService: SidebarService
+        private sidebarService: SidebarService,
+        private criteriaService: CriteriaService
     ) {}
 
     ngOnInit() {
+        this.categoryService.query().subscribe((res: HttpResponse<Category[]>) => this.getCategory(res.body));
         this.route.params.subscribe(params => {
             if (params['displayCriteria'] !== undefined) {
                 const criteria = params['displayCriteria'].split('=');
 
                 if (criteria[0] === 'category') {
-                    this.sidebarService.startNewCriteria('category', criteria[1]);
+                    this.criteriaService.startNewCriteria('category', criteria[1]);
                 } else if (criteria[0] === 'search') {
-                    if (this.sidebarService.checkIfCriteriaExist('search')) {
-                        this.sidebarService.updateCriteria('search', criteria[1]);
+                    if (this.criteriaService.checkIfCriteriaExist('search')) {
+                        this.criteriaService.updateCriteria('search', criteria[1]);
                     } else {
-                        this.sidebarService.addCriteria('search', criteria[1]);
+                        this.criteriaService.addCriteria('search', criteria[1]);
                     }
                 }
                 if (!this.subscribed) {
@@ -54,7 +58,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
         if (this.sidebarService.getSidebarStatus()) {
             this.sidebarService.setSidebarStatus(false);
-            this.sidebarService.deleteAllCriteria();
+            this.criteriaService.deleteAllCriteria();
         }
     }
 
@@ -62,16 +66,16 @@ export class ProductListComponent implements OnInit, OnDestroy {
      * Choose a source for the data
      */
     private loadProductFromCriteria() {
-        this.sidebarService.getCriteria().subscribe(value => {
+        this.criteriaService.getCriteria().subscribe(value => {
             this.subscribed = true;
             this.productSearchName = '';
             this.searchComplex = '';
             if (value.length > 1) {
                 this.loadComplexSearch(value);
             } else {
-                if (this.sidebarService.checkIfCriteriaExist('category')) {
+                if (this.criteriaService.checkIfCriteriaExist('category')) {
                     this.loadCategory(value[0].value.toString());
-                } else if (this.sidebarService.checkIfCriteriaExist('search')) {
+                } else if (this.criteriaService.checkIfCriteriaExist('search')) {
                     this.loadSearch(value[0].value.toString());
                 } else if (value.length === 0) {
                     this.pageTitle = '';
@@ -111,13 +115,15 @@ export class ProductListComponent implements OnInit, OnDestroy {
      */
     private loadComplexSearch(criteria: Criteria[]) {
         let searchComplex = '';
-        const allCategory = [];
+        let noCat = true;
+        let allCategory = [];
         let search = '';
         let from = 0;
         let to = 100000;
         for (const cat of criteria) {
             if (cat.name === 'category') {
                 allCategory.push(cat.value);
+                noCat = false;
             } else if (cat.name === 'search') {
                 search = cat.value.toString();
             } else if (cat.name === 'price') {
@@ -126,10 +132,14 @@ export class ProductListComponent implements OnInit, OnDestroy {
                 to = parseInt(priceBracket[1], 10);
             }
         }
+        if (noCat) {
+            allCategory = this.allLoadedCategory.map(a => a.id);
+        }
         this.pageTitle = 'Search corresponding to your filter: ';
         if (search !== '') {
             searchComplex += 'Search for ' + search + ', ';
-        } else if (from !== 0 || to !== 100000) {
+        }
+        if (from !== 0 || to !== 100000) {
             searchComplex += 'In between ' + from + ' and ' + to + ', ';
         }
         this.searchComplex = searchComplex.slice(0, -2);
@@ -162,5 +172,9 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
     private deploySideBar() {
         this.sidebarService.setSidebarStatus(true);
+    }
+
+    private getCategory(value) {
+        this.allLoadedCategory = value;
     }
 }
