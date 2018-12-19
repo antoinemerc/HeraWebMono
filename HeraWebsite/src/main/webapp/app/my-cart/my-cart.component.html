@@ -5,7 +5,7 @@
     <button class="btn btn-secondary" (click)="logIn()" >Connect</button>
   </div>
   <div *ngSwitchCase="true">
-
+    <jhi-breadcrumb [breads]="['Home']" [routes]="['/']"></jhi-breadcrumb>
     <h2 >Your order:</h2>
     <div [ngSwitch]="loading">
       <div *ngSwitchCase="true" >Loading...</div>

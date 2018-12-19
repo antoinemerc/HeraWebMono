@@ -8,7 +8,7 @@
         </div>
       </div>
     </div>
-    <jhi-breadcrumb [breads]="[ 'Home', '>', this.product.name]"></jhi-breadcrumb>
+    <jhi-breadcrumb [breads]="[ 'Home', '>', this.product.name]" [routes]="[ '/', '', 'displayProduct/' + this.product.id]"></jhi-breadcrumb>
     <div class="name2">
       <div class="row">
         <div class="col-6 product-img-div">

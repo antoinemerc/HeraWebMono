@@ -1,5 +1,5 @@
 <div class="breadcrumb-div">
   <ul>
-    <li *ngFor="let b of this.breads">{{ b }}</li>
+    <li *ngFor="let b of this.breads" (click)="goTo(b)">{{ b }}</li>
   </ul>
 </div>
