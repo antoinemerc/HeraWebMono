@@ -1,7 +1,7 @@
 <h1>Order detail</h1>
 <div *ngIf="loadingDone" class="card" style="margin-bottom : 10px ;">
     <div class="card-header">
-        <span class="d-inline-block" >Ordered the : {{order.date}} |
+        <span class="d-inline-block" >Ordered on : {{order.date}} |
         </span>
         <span  class="d-inline-block" >
             Order id : {{order.id}}
@@ -26,8 +26,6 @@
             <tbody>
                 <tr *ngFor="let item of order.orderLine;let i = index; ">
                     <td>
-                        <img class="img-thumbnail" style="max-width: 150px;" src="{{ this.products[i].allImageUrl[0].url }}"
-                            alt="">
                         <a class="alert-link" [routerLink]="['/displayProduct', item.prod]">{{ this.products[i].name }}</a>
                     </td>
                     <td>

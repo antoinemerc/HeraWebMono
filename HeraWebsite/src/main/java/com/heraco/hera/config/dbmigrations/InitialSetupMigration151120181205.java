@@ -146,11 +146,11 @@ public class InitialSetupMigration151120181205 {
     public void addCategory(MongoTemplate mongoTemplate) {
 
         Category c1 = new Category();
-        c1.setName("Ordinateur Portable");
+        c1.setName("Laptop");
         mongoTemplate.save(c1);
 
         Category c2 = new Category();
-        c2.setName("Carte Graphique");
+        c2.setName("Graphic card");
         mongoTemplate.save(c2);
 
     }
@@ -161,9 +161,9 @@ public class InitialSetupMigration151120181205 {
         User adminUser = mongoTemplate.findById("user-2", User.class);
 
         Query query1 = new Query();
-        query1.addCriteria(Criteria.where("name").is("Carte Graphique"));
+        query1.addCriteria(Criteria.where("name").is("Graphic card"));
         Query query2 = new Query();
-        query2.addCriteria(Criteria.where("name").is("Ordinateur Portable"));
+        query2.addCriteria(Criteria.where("name").is("Laptop"));
 
         Category category1 = mongoTemplate.findOne(query1, Category.class);
         Category category2 = mongoTemplate.findOne(query2, Category.class);

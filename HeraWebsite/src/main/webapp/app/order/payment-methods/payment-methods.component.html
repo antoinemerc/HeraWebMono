@@ -36,10 +36,10 @@
                         <div *ngIf="numberCard.invalid && (numberCard.dirty || numberCard.touched)"
                              class="col-md-4 text-danger">
                             <div *ngIf = "numberCard.errors?.required">
-                                Credit Card Number field can't be blank
+                                Credit card number field can't be blank.
                             </div>
                             <div *ngIf = "numberCard.errors?.pattern && numberCard.touched">
-                                Credit Card Number doesn't seem right
+                                Credit card format is invalid.
                             </div>
                         </div>
                     </div>
@@ -88,13 +88,12 @@
                             <div  *ngIf="cvv.invalid && (cvv.dirty || cvv.touched)"
                                   class=".col-md-3  text-danger">
                                 <div *ngIf = "cvv.errors?.required">
-                                    CVV field can't be blank
+                                    CVV field can't be blank.
                                 </div>
                                 <div *ngIf = "cvv.errors?.pattern && cvv.touched">
-                                    CVV doesn't seem right
+                                    CVV format is invalid
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -102,7 +101,7 @@
                     <div class="radio">
                         <label>
                             <div>
-                                <strong>select the type of the Credit Card</strong>
+                                <strong>Select the type of the credit card.</strong>
                             </div>
 
                             <input  type="image"  class ="selection" name="submit"  [src]= mainImage width="50" height="50" [disabled]="!signupForm.form.valid" >
@@ -118,8 +117,4 @@
             </div>
         </form>
     </div>
-
-
-
-
 </div>

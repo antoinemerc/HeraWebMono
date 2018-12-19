@@ -1,7 +1,7 @@
 <h2 class="mt-5" style="margin-bottom: 10px;">Comments</h2>
 <div [ngSwitch]="this.principal.isAuthenticated()">
     <div *ngSwitchCase="true">
-        <form (submit)="addComment($event)" class="mb-4 col-6">
+        <form #commentForm="ngForm" (submit)="addComment($event)" class="mb-4 col-6">
             <div class="form-group">
                 <label for="commentTitle">
                     Write a title for your comment (This helps other users to summarize what
@@ -14,7 +14,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="commentNote">Give  a note to the product </label>
+                <label for="commentNote">Give a grade to the product </label>
                 <input required ngModel class="form-control" name="commentNote" #commentNote="ngModel" id="commentNote"
                        type="number"  pattern="[0-9]{1}" [(ngModel)]="note">
                 <div class="alert alert-danger" *ngIf="commentNote.touched && !commentNote.valid" >

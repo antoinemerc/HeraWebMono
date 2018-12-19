@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Principal, IUser, Account, UserService } from 'app/core';
 import { IProduct } from '../../shared/model/product.model';
 import { IComments, Comments } from '../../shared/model/comment.model';
@@ -12,13 +12,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     styleUrls: ['all-comment.scss']
 })
 export class AllCommentComponent implements OnInit {
+    @ViewChild('commentForm') formValues;
     allComments: IComments[];
     @Input() product: IProduct;
     currentUser: IUser;
     accountConnected: Account;
     title: string;
     body: string;
-    note: number;
+    note = 5;
     newComment: Comments;
 
     constructor(
@@ -40,13 +41,15 @@ export class AllCommentComponent implements OnInit {
                     this.currentUser = res.body;
                     this.newComment = new Comments(this.currentUser, this.title, this.body, this.note, '15-11-2018');
                     this.product.comments.push(this.newComment);
-                    this.productService.update(this.product).subscribe(data =>
+                    this.productService.update(this.product).subscribe(data => {
                         this.mySnackbar.open('Your comment was successfully added !', null, {
                             duration: 2500,
                             verticalPosition: 'bottom',
                             horizontalPosition: 'end'
-                        })
-                    );
+                        });
+                        this.formValues.resetForm();
+                        this.note = 5;
+                    });
                 });
             });
         }

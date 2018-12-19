@@ -17,8 +17,6 @@
             <tbody>
                 <tr *ngFor="let item of order.orderLine;let i = index; ">
                     <td>
-                        <img class="img-thumbnail" style="max-width: 150px;" src="{{ this.products[i].allImageUrl[0].url }}"
-                            alt="">
                         <a class="alert-link" [routerLink]="['/displayProduct', item.prod]">{{ this.products[i].name }}</a>
                     </td>
                     <td>
