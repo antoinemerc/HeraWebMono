@@ -64,6 +64,7 @@ export class ValidationPageComponent implements OnInit, OnChanges {
                         verticalPosition: 'bottom',
                         horizontalPosition: 'end'
                     });
+                    this.router.navigate(['/pagePostCommande', { id: this.order.id }]);
                 },
                 err => {
                     this.mySnack.open('An error occured when creating the order, one or several products are no longer available !', null, {

@@ -5,6 +5,7 @@ import { ValidationPageComponent } from './validation-page/validation-page.compo
 import { OrderComponent } from './order.component';
 import { UserRouteAccessService } from 'app/core';
 import { PaymentMethodsComponent } from 'app/order/payment-methods/payment-methods.component';
+import { PagePostCommandeComponent } from 'app/order/page-post-commande/page-post-commande.component';
 
 export const ORDER_ROUTE: Routes = [
     {
@@ -30,6 +31,11 @@ export const ORDER_ROUTE: Routes = [
     {
         path: 'validation',
         component: ValidationPageComponent,
+        canActivateChild: [UserRouteAccessService]
+    },
+    {
+        path: 'pagePostCommande',
+        component: PagePostCommandeComponent,
         canActivateChild: [UserRouteAccessService]
     }
 ];
