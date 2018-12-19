@@ -7,7 +7,7 @@ export const ALL_HOME_ROUTE: Routes = [
         component: HomeComponent,
         data: {
             authorities: [],
-            pageTitle: 'home.title',
+            pageTitle: 'page-title.home',
             breadcrumbs: 'Home'
         }
     }

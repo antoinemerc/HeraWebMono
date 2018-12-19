@@ -14,7 +14,7 @@ export const ORDER_LIST_ROUTE: Routes = [
         data: {
             authorities: ['ROLE_USER'],
             defaultSort: 'id,asc',
-            pageTitle: 'heraShopApp.order.home.title'
+            pageTitle: 'page-title.order-list'
         },
         canActivate: [UserRouteAccessService]
     }

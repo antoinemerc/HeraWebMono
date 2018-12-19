@@ -33,6 +33,10 @@ export class AllCommentComponent implements OnInit {
         this.allComments = this.product.comments;
     }
 
+    gradeChanged() {
+        console.log('CC' + this.note);
+    }
+
     addComment(event) {
         if (this.principal.isAuthenticated()) {
             this.principal.identity().then(account => {

@@ -1,0 +1,12 @@
+{
+    "page-title" : {
+        "home": "Home",
+        "product": "Product detail",
+        "cart": "My cart",
+        "order-process": "Order procedure",
+        "order-successful": "Order success",
+        "order-error": "Order error",
+        "order-list": "Your orders",
+        "order-detail": "Order detail"
+    }
+}

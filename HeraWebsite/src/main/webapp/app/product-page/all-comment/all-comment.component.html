@@ -14,9 +14,9 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="commentNote">Give a grade to the product </label>
-                <input required ngModel class="form-control" name="commentNote" #commentNote="ngModel" id="commentNote"
-                       type="number"  pattern="[0-9]{1}" [(ngModel)]="note">
+                <label for="commentNote">Give a grade to the product (between 1 and 10) </label>
+                <input class="form-control" name="commentNote" #commentNote="ngModel" id="commentNote"
+                       type="number"  pattern="^(?:[1-9]|0[1-9]|10)$" [(ngModel)]="note"  required >
                 <div class="alert alert-danger" *ngIf="commentNote.touched && !commentNote.valid" >
                     Enter a correct note please.
                 </div>
@@ -31,7 +31,7 @@
                         {{commentBody.errors.minlength.requiredLength}} characters</div>
                 </div>
             </div>
-            <button class="btn btn-primary" >Send</button>
+            <button class="btn btn-primary" [disabled]="commentForm.form.invalid" >Send</button>
         </form>
     </div>
     <div style="margin-bottom: 20px;" *ngSwitchCase="false" >

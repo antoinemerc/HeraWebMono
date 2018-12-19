@@ -11,7 +11,11 @@ export const ORDER_ROUTE: Routes = [
     {
         path: 'orderProcess',
         component: OrderComponent,
-        canActivateChild: [UserRouteAccessService]
+        canActivateChild: [UserRouteAccessService],
+        data: {
+            authorities: [],
+            pageTitle: 'page-title.order-process'
+        }
     },
     {
         path: 'addressChoice',
@@ -36,6 +40,10 @@ export const ORDER_ROUTE: Routes = [
     {
         path: 'pagePostCommande',
         component: PagePostCommandeComponent,
-        canActivateChild: [UserRouteAccessService]
+        canActivateChild: [UserRouteAccessService],
+        data: {
+            authorities: [],
+            pageTitle: 'page-title.order-successful'
+        }
     }
 ];

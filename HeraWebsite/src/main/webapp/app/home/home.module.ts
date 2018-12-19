@@ -4,6 +4,7 @@ import { HeraShopSharedModule } from 'app/shared';
 import { ALL_HOME_ROUTE, HomeComponent } from './';
 import { ProductListModule } from 'app/product-list/product-list.module';
 import { OrderListModule } from 'app/order-list/order-list.module';
+
 @NgModule({
     imports: [HeraShopSharedModule, RouterModule.forChild(ALL_HOME_ROUTE), ProductListModule, OrderListModule],
     declarations: [HomeComponent],

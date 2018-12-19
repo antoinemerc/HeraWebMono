@@ -6,6 +6,7 @@ import { Category } from 'app/shared/model/category.model';
 import { Criteria } from 'app/shared/model/searchCriteria';
 import { Options, LabelType } from 'ng5-slider';
 import { CriteriaService } from 'app/shared/service/criteria.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
     selector: 'jhi-sidebar',
@@ -37,7 +38,8 @@ export class SidebarComponent implements OnInit, OnDestroy {
     constructor(
         private criteriaService: CriteriaService,
         private categoryService: CategoryService,
-        private productService: ProductService
+        private productService: ProductService,
+        private mySnackBar: MatSnackBar
     ) {}
 
     ngOnInit() {
@@ -79,9 +81,19 @@ export class SidebarComponent implements OnInit, OnDestroy {
         } else {
             this.criteriaService.addCriteria('price', this.min + '|' + this.max);
         }
+        this.mySnackBar.open('Price criteria added for the product search !', null, {
+            duration: 2500,
+            verticalPosition: 'bottom',
+            horizontalPosition: 'end'
+        });
     }
 
     private removePriceRange() {
         this.criteriaService.deleteAllCriteriaType('price');
+        this.mySnackBar.open('Price criteria removed for the product search !', null, {
+            duration: 2500,
+            verticalPosition: 'bottom',
+            horizontalPosition: 'end'
+        });
     }
 }

@@ -17,6 +17,8 @@ import { HeraShopAppRoutingModule } from './app-routing.module';
 import { HeraShopHomeModule } from './home/home.module';
 import { HeraShopAccountModule } from './account/account.module';
 import { HeraShopEntityModule } from './entities/entity.module';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 import * as moment from 'moment';
 
 // jhipster-needle-angular-add-module-import JHipster will add new module here
@@ -53,7 +55,8 @@ import { Ng5SliderModule } from 'ng5-slider';
         OrderErrorPageModule,
         BreadcrumbModule,
         OrderPageModule,
-        Ng5SliderModule
+        Ng5SliderModule,
+        MatSnackBarModule
         // jhipster-needle-angular-add-module JHipster will add new module here
     ],
     declarations: [

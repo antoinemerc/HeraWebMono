@@ -140,7 +140,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
             searchComplex += 'Search for ' + search + ', ';
         }
         if (from !== 0 || to !== 100000) {
-            searchComplex += 'In between ' + from + ' and ' + to + ', ';
+            searchComplex += 'Price between ' + from + ' and ' + to + ', ';
         }
         this.searchComplex = searchComplex.slice(0, -2);
 
