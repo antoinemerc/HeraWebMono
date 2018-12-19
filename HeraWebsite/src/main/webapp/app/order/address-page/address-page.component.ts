@@ -48,14 +48,21 @@ export class AddressPageComponent implements OnInit, OnChanges {
         this.user = this.order.user;
     }
 
+    itemValid(element: string) {
+        return element !== undefined && element !== '';
+    }
+
     newAddressValid() {
-        return (
-            this.idxAddress === 0 &&
-            this.newAddress.street1 !== undefined &&
-            this.newAddress.zipCode !== undefined &&
-            this.newAddress.city !== undefined &&
-            this.newAddress.country !== undefined
-        );
+        let retour = true;
+        if (this.idxAddress === 0) {
+            retour =
+                this.itemValid(this.newAddress.street1) &&
+                /^[0-9]{5}/.test(this.newAddress.zipCode) &&
+                this.itemValid(this.newAddress.city) &&
+                this.itemValid(this.newAddress.country);
+        }
+
+        return retour;
     }
 
     save() {

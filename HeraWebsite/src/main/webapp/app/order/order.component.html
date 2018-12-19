@@ -14,7 +14,7 @@
         <div class="row">
             <div class="col-12">
                 <button *ngIf="step != 1" (click)="previousStep()" class="btn btn-primary" >Previous step</button>
-                <button *ngIf="step != 4" (click)="nextStep()" class="btn btn-primary float-right" >Next step</button>
+                <button *ngIf="step != 4" (click)="nextStep()" [disabled]="!addressValid()" class="btn btn-primary float-right" >Next step</button>
             </div>
         </div>
 

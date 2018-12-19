@@ -56,7 +56,6 @@ export class ValidationPageComponent implements OnInit, OnChanges {
             this.productService.queryUpdateOrder(this.order).subscribe(
                 data => {
                     this.order = data.body;
-                    console.log('Order created' + this.order.id);
                     const emptyBasket: IBasketItem[] = [];
                     this.cartCountService.reset();
                     this.mySnack.open('Your order was successfully created !', null, {
