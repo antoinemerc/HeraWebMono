@@ -59,7 +59,7 @@ export class NavbarComponent implements OnInit {
         this.categoryService.query().subscribe((res: HttpResponse<Category[]>) => this.bindBody(res.body));
 
         this.eventManager.subscribe('cartCountChange', message => {
-            this.itemInBasket = message.content;
+            this.itemInBasket = parseInt(message.content, 10);
         });
     }
 

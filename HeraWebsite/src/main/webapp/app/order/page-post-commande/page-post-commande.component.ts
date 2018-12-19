@@ -18,7 +18,6 @@ export class PagePostCommandeComponent implements OnInit {
 
     constructor(private route: ActivatedRoute, private orderSharedService: OrderSharedService, private router: Router) {
         this.route.params.subscribe(params => {
-            console.log(params);
             this.id = params['id'];
         });
     }
@@ -26,7 +25,6 @@ export class PagePostCommandeComponent implements OnInit {
     ngOnInit() {
         this.arrive_date.setDate(this.arrive_date.getDate() + 7);
         this.formattedDate = this.arrive_date.toISOString().slice(0, 10);
-        console.log(this.formattedDate);
         this.order = this.orderSharedService.retrieve();
     }
 }

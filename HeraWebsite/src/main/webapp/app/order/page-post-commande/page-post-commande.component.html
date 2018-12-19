@@ -1,11 +1,10 @@
 <div>
-    <h2>Votre commande {{id}} est reussie</h2>
-    <h3>Vous avez commandé à {{today | date}} </h3>
-    <h3>Votre colis arrivera à {{arrive_date | date}} </h3>
-    <h3>A address {{order.address.street1}} {{order.address.city}} {{order.address.country}}</h3>   
-    <h3>Avec transportation methode {{order.transportationMethod.name}}</h3>
-    <a href="#">click ici pour revenir a la page acceuil</a>
+    <h1>Congratulations ! </h1>
+    <p>Your order {{id}} was successfully created !</p>
+    <p>Your command will arrive on {{arrive_date | date}} </p>
+    <p>At {{order.address.street1}} {{order.address.city}} {{order.address.country}}</p>
+    <p>By {{order.transportationMethod.name}}</p>
+    <a [routerLink]="['/orders']" >Click here to see the detail of your order </a>
     <p></p>
-    <a [routerLink]="['/orderDetails']" >click ici pour revoir votre order details </a>
-    <div><router-outlet></router-outlet></div>
+    <a routerLink="/">Click here to go back to the main page</a>
 </div>
