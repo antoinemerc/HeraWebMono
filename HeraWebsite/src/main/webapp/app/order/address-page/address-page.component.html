@@ -28,7 +28,7 @@
                     </div>
                     <label class="form-control-label col-2" for="field_zipCode" >Zip code</label>
                     <div class="col-10" style="padding: 5px">
-                        <input type="text" class="form-control" name="zipCode" id="field_zipCode" [(ngModel)]="newAddress.zipCode"
+                        <input type="number" class="form-control" pattern="[0-9]{5}" name="zipCode" id="field_zipCode" [(ngModel)]="newAddress.zipCode"
                         required #zipCode="ngModel"/>
                     </div>
 
@@ -53,6 +53,9 @@
                     <div *ngIf="(zipCode.invalid && (zipCode.dirty || zipCode.touched))" class="alert alert-danger col-7">
                         <div *ngIf="zipCode.errors.required">
                             ZipCode is required.
+                        </div>
+                        <div *ngIf = "zipCode.errors?.pattern && zipCode.invalid">
+                            Zip code format is invalid.
                         </div>
                     </div>
                     <div *ngIf="(city.invalid && (city.dirty || city.touched))" class="alert alert-danger col-7">
