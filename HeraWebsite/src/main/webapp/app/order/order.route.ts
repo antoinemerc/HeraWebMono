@@ -45,5 +45,9 @@ export const ORDER_ROUTE: Routes = [
             authorities: [],
             pageTitle: 'page-title.order-successful'
         }
+    },
+    {
+        path: 'pagePostCommande',
+        component: PagePostCommandeComponent
     }
 ];

@@ -24,7 +24,7 @@ export class AllCommentComponent implements OnInit {
 
     constructor(
         private productService: ProductService,
-        private principal: Principal,
+        public principal: Principal,
         private userService: UserService,
         private mySnackbar: MatSnackBar
     ) {}
