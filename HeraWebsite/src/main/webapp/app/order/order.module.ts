@@ -15,6 +15,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { PaymentMethodsComponent } from 'app/order/payment-methods/payment-methods.component';
 import { HeraShopSharedModule } from 'app/shared';
 import { PagePostCommandeComponent } from './page-post-commande/page-post-commande.component';
+import { OrderErrorPageComponent } from './order-error-page/order-error-page.component';
 
 @NgModule({
     imports: [CommonModule, RouterModule.forChild(ORDER_ROUTE), FormsModule, MatProgressSpinnerModule, HeraShopSharedModule],
@@ -27,7 +28,8 @@ import { PagePostCommandeComponent } from './page-post-commande/page-post-comman
         PaymentMethodsComponent,
         OrderSummaryComponent,
         PaymentComponent,
-        PagePostCommandeComponent
+        PagePostCommandeComponent,
+        OrderErrorPageComponent
     ],
     entryComponents: [AddressModalComponent],
     providers: [UserRouteAccessService]

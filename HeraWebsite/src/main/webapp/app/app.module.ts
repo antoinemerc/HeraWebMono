@@ -36,7 +36,6 @@ import { MyCartModule } from './my-cart/my-cart.module';
 import { OrderModule } from './order/order.module';
 import { BreadcrumbModule } from 'app/shared/breadcrumb/breadcrumb.module';
 import { OrderPageModule } from './order-page/order-page.module';
-import { OrderErrorPageModule } from './order-error-page/order-error-page.module';
 import { Ng5SliderModule } from 'ng5-slider';
 
 @NgModule({
@@ -52,7 +51,6 @@ import { Ng5SliderModule } from 'ng5-slider';
         ProductPageModule,
         MyCartModule,
         OrderModule,
-        OrderErrorPageModule,
         BreadcrumbModule,
         OrderPageModule,
         Ng5SliderModule,

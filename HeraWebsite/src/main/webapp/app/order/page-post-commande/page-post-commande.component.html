@@ -4,7 +4,7 @@
     <p>Your order was successfully created !</p>
     <p>Your command will arrive on {{arrive_date | date}} </p>
     <p>You will receive an email summarizing the details of your order with the bill in attachment.</p>
-    <a  >Click here to see the detail of your order </a>
+    <a [routerLink]="['/orders', id]" >Click here to see the detail of your order </a>
     <p></p>
-    <a >Click here to go back to the main page</a>
+    <a routerLink="/">Click here to go back to the main page</a>
 </div>

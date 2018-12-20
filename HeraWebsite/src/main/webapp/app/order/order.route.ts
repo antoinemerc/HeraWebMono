@@ -6,6 +6,7 @@ import { OrderComponent } from './order.component';
 import { UserRouteAccessService } from 'app/core';
 import { PaymentMethodsComponent } from 'app/order/payment-methods/payment-methods.component';
 import { PagePostCommandeComponent } from 'app/order/page-post-commande/page-post-commande.component';
+import { OrderErrorPageComponent } from './order-error-page/order-error-page.component';
 
 export const ORDER_ROUTE: Routes = [
     {
@@ -47,7 +48,11 @@ export const ORDER_ROUTE: Routes = [
         }
     },
     {
-        path: 'pagePostCommande',
-        component: PagePostCommandeComponent
+        path: 'order-error',
+        component: OrderErrorPageComponent,
+        data: {
+            authorities: [],
+            pageTitle: 'page-title.order-error'
+        }
     }
 ];
