@@ -61,7 +61,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
         }
     }
 
-    private onCheckboxChange(categoryIdCheckbox: string, event: any) {
+    public onCheckboxChange(categoryIdCheckbox: string, event: any) {
         if (event.target.checked) {
             this.allSelectedCategory.push(categoryIdCheckbox);
             this.criteriaService.addCriteria('category', categoryIdCheckbox);
@@ -75,7 +75,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
         }
     }
 
-    private applyPriceRange() {
+    public applyPriceRange() {
         if (this.criteriaService.checkIfCriteriaExist('price')) {
             this.criteriaService.updateCriteria('price', this.min + '|' + this.max);
         } else {
@@ -88,7 +88,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
         });
     }
 
-    private removePriceRange() {
+    public removePriceRange() {
         this.criteriaService.deleteAllCriteriaType('price');
         this.mySnackBar.open('Price criteria removed for the product search !', null, {
             duration: 2500,
