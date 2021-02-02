@@ -1,6 +1,8 @@
 # HeraWeb
 
-Pour commencer cloner ce repo dans le dossier de votre choix
+E-commerce website developped as part of a six month project using jhipster (Angular + Java Spring backend) and Mongodb with Amazon bucket integration
+
+To get this project running clone this repo!
 
 # Setup
 
